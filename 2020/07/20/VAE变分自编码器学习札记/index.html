@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>变分自编码器（VAE）学习札记 | 堃堃的博客</title>
+  <meta name="description" content="变分自编码器（VAE）是一种很主流的生成模型，它可以通过分析原始数据，并提取特征，将特征映射到z空间，再取样解码生成新的数据。生成的数据和原始的数据略有不同但相似。VAE以其精妙的数学原理为人称道，被广泛应用于数据增强、图像生成等领域。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变分自编码器（VAE）学习札记">
+<meta property="og:url" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="变分自编码器（VAE）是一种很主流的生成模型，它可以通过分析原始数据，并提取特征，将特征映射到z空间，再取样解码生成新的数据。生成的数据和原始的数据略有不同但相似。VAE以其精妙的数学原理为人称道，被广泛应用于数据增强、图像生成等领域。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/1%E8%BD%AE%E8%AE%AD%E7%BB%83.png">
+<meta property="og:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/vae.png">
+<meta property="og:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/Z.png">
+<meta property="og:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/vae.png">
+<meta property="og:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/loss.png">
+<meta property="og:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/math.png">
+<meta property="article:published_time" content="2020-07-20T08:48:30.264Z">
+<meta property="article:modified_time" content="2020-07-20T11:10:27.877Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ML">
+<meta property="article:tag" content="VAE">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/1%E8%BD%AE%E8%AE%AD%E7%BB%83.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">student of EIC Hust</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> WuHan, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.2px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.6px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 14px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.2px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/PVE/" style="font-size: 13px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.4px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/keras/" style="font-size: 13.2px;">keras</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/python/" style="font-size: 13.8px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.4px;">pytorch</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.4px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.2px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Network/">Network</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/18/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" class="title">PVE+NAS等虚拟环境安装指南</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-18T01:53:45.079Z" itemprop="datePublished">2021-07-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/08/VScode%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/" class="title">VScode终端中文乱码解决</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-08T03:04:11.386Z" itemprop="datePublished">2021-05-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" class="title">JupyterLab玩耍记录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T14:20:20.000Z" itemprop="datePublished">2021-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/19/Tmux%E7%AC%94%E8%AE%B0/" class="title">Tmux</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-19T01:54:52.213Z" itemprop="datePublished">2021-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/19/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E5%AE%89%E8%A3%85MySQL/" class="title">云服务器上安装MySQL</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-19T00:29:32.527Z" itemprop="datePublished">2021-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-vae简介"><span class="toc-number">1.</span> <span class="toc-text"> 1. VAE简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-vae原理"><span class="toc-number">2.</span> <span class="toc-text"> 2. VAE原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-vae思路"><span class="toc-number">2.1.</span> <span class="toc-text"> 2.1 VAE思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-构造方式"><span class="toc-number">2.2.</span> <span class="toc-text"> 2.2 构造方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#221-问题1-2z空间如何构造x-z-的映射关系如何表示"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 2.2.1 问题1、2：Z空间如何构造？X Z 的映射关系如何表示？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#222-问题3x-样本有限有限的x如何求出无限的映射关系"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 2.2.2 问题3：x 样本有限，有限的x如何求出“无限”的映射关系？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#223-问题4-神经网络的结构如何如何训练"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 2.2.3 问题4： 神经网络的结构如何？如何训练？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-结语"><span class="toc-number">3.</span> <span class="toc-text"> 3. 结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-参考链接"><span class="toc-number">4.</span> <span class="toc-text"> 4. 参考链接</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-VAE变分自编码器学习札记" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      变分自编码器（VAE）学习札记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" class="article-date">
+	  <time datetime="2020-07-20T08:48:30.264Z" itemprop="datePublished">2020-07-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/ML/">ML</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/ML/" rel="tag">ML</a>, <a class="article-tag-link" href="/tags/VAE/" rel="tag">VAE</a>, <a class="article-tag-link" href="/tags/python/" rel="tag">python</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>变分自编码器（VAE）是一种很主流的生成模型，它可以通过分析原始数据，并提取特征，将特征映射到z空间，再取样解码生成新的数据。生成的数据和原始的数据略有不同但相似。VAE以其精妙的数学原理为人称道，被广泛应用于数据增强、图像生成等领域。</p>
+<a id="more"></a>
+<h2 id="1-vae简介"><a class="markdownIt-Anchor" href="#1-vae简介"></a> 1. VAE简介</h2>
+<p>简单来讲，一个可以和GAN相媲美的生成网络。我们可以输入 n 维空间的Z，映射到 k 维空间的真实数据。比如，生成不同样的数字，人脸，卡通头像等等。</p>
+<p><img src="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/1%E8%BD%AE%E8%AE%AD%E7%BB%83.png" alt="1轮训练"></p>
+<p>上图就具体展示了VAE的作用，左图是经过一轮训练之后的输出结果，中间的图是经过9轮训练之后的输出结果，而右图就是我们真实地数据。（这里是编码解码一体，也就是编码真实数据，然后再解码回真实数据，所以长相差不多。实际使用的时候是随机生成z，然后喂入解码器生成数据，不需要编码器）</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></p>
+</blockquote>
+<h2 id="2-vae原理"><a class="markdownIt-Anchor" href="#2-vae原理"></a> 2. VAE原理</h2>
+<p><img src="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/vae.png" alt="vae"></p>
+<p><em>此图为VAE的全部结构图，训练完毕后实际使用的只有decoder部分，也就是自定义z，然后解码生成x‘</em></p>
+<h3 id="21-vae思路"><a class="markdownIt-Anchor" href="#21-vae思路"></a> 2.1 VAE思路</h3>
+<p>为了生成新的图像，那么一个很自然的思路就是提取原图像的特征。也就是建立图像空间 X 和特征空间 Z 之间的双向映射关系。然后我们直接从 Z 空间中取样 z，再经过decoder就得到了 X 空间的图像 x’ 。只要我们的映射关系足够好，那么我们生成的图像就可以很逼真。接下来要解决的问题就是：</p>
+<ol>
+<li>Z 空间如何构造？总不可能人为指定吧</li>
+<li>X  Z 的映射关系用什么表示？</li>
+<li>x样本有限，有限的x如何求出”无限“的映射关系？</li>
+</ol>
+<p>总结一下就是：如何构建 X 到 Z 的映射？</p>
+<p><em>原论文中其实是求联合概率分布，那种思路有点太数学了，用到了很多概率论的知识。我不确定我现在理解了之后还能不能回忆起来，反正是当个工具用嘛，就提供另一种简单的理解方式，空间映射。</em></p>
+<h3 id="22-构造方式"><a class="markdownIt-Anchor" href="#22-构造方式"></a> 2.2 构造方式</h3>
+<h4 id="221-问题1-2z空间如何构造x-z-的映射关系如何表示"><a class="markdownIt-Anchor" href="#221-问题1-2z空间如何构造x-z-的映射关系如何表示"></a> 2.2.1 问题1、2：Z空间如何构造？X Z 的映射关系如何表示？</h4>
+<p>似乎有句话是这么说的：“不好拟合的东西全部用神经网络去做”。所以，神经网络毫无疑问可以用来做encoder和decoder。简单一点说，就是用神经网络去学习特征，我们只需要指出 Z 的维度，然后就用神经网络去拟合 X 到 Z 的encoder就好，同样，也用神经网络去拟合 Z 到 X 的decoder。那么，只要我们以某种方式去训练神经网络，就可以达到用两个神经网络当做映射器的目的。两个问题都迎刃而解了，用神经网络当做映射器，人为指定 Z 的维度就好，至于 Z 的维度到底代表什么含义，怎么算的，那就只有神经网络知道了。我们只关心X Z 可以以某种方式关联映射就好。那么接下来的问题就变为：</p>
+<ol start="4">
+<li>
+<p>神经网络的结构如何？如何训练？</p>
+</li>
+<li>
+<p>x 样本有限，有限的 x 如何求出“无限”的映射关系？</p>
+</li>
+</ol>
+<h4 id="222-问题3x-样本有限有限的x如何求出无限的映射关系"><a class="markdownIt-Anchor" href="#222-问题3x-样本有限有限的x如何求出无限的映射关系"></a> 2.2.2 问题3：x 样本有限，有限的x如何求出“无限”的映射关系？</h4>
+<p>在训练神经网络之前，我们要先来决定我们的映射策略。x的样本总是有限的，但 X 图像空间是无限的，包含无限的图片。而我们的目的正是通过有限的 x ，去生成更多的 x‘ ，x’ 也包含在 X 空间内。那么，该如何做到呢？如果只是简单的x-&gt;z-&gt;x的方式来训练，那么最好的结果，就是可以单一的求出所有的样本 x 在 Z 空间的单一映射，那么取特定的 z 反映射可以得到特定的 x （样本）。那么在其他的地方取 z 再映射回去得到什么，那就只有天知道了。所以，为了实现从 X 取样求出所有的映射，我们在 z 中混入高斯噪声，也就是：x-&gt;z-&gt;z’-&gt;x’，其中z-&gt;z’ 就是在 z 的附近取一个 z’ 再映射回 x’，这样的话就可以保证映射回去的 x‘ 不会完全和 x 相同。那么接下来又有问题了：</p>
+<ol start="5">
+<li>如何保证在 z 附近取得的 z’ 映射回去的 x’ 和 x相似呢？也就是说如何保证 Z 空间中相近的地方在 X 空间中也相近？</li>
+<li>如何保证 X 的特征映射到 Z 之后的相关程度就符合高斯分布？也就是说，凭什么要用<strong>高斯噪声</strong>呢？可想而知，要使 X 空间映射到 Z 之后，z’ 和 z_0 之间的相似度符合高斯分布，那么训练encoder的时候一定需要某个条件约束。（简单点理解就是横轴是z’ 和 z0 的距离，纵轴是 x和x‘ 的相似程度，绘制出来的图像符合高斯分布），那么这个约束条件是什么？</li>
+</ol>
+<p><em>这里原论文是使用的条件概率，我这里抽象成了z-&gt;z’的取样，实际上如何是用的条件概率，那么就不需要这一步，也就是说，X 到 Z 并不是一一映射，而是服从条件概率，x只是最可能映射到z，也可能映射到 z 附近，而为了保证这个条件概率是服从高斯分布的，需要进行数学证明推导出一个encoder 的约束条件，稍后会给出</em></p>
+<p><img src="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/Z.png" alt="Z"></p>
+<h4 id="223-问题4-神经网络的结构如何如何训练"><a class="markdownIt-Anchor" href="#223-问题4-神经网络的结构如何如何训练"></a> 2.2.3 问题4： 神经网络的结构如何？如何训练？</h4>
+<p>神经网络的结构如何？decoder没啥好说的，最简单的一个感知机就行。encoder稍微复杂些：根据VAE的结构图，它包含了两部分，一部分计算h中间量，一部分计算均值和方差，那么这个均值和方差是什么东西？</p>
+<p>还记得么？z -&gt; z’ 是需要进行一次变换的，我们可以认为 z 就是 x 的特征向量，那么如何取 z‘ ？ 就需要均值方差啦~均值就是 x 的特征向量， 方差其实就是高斯分布的方差咯，而这个映射实际上可以表示成 z’ = 均值 + 方差*标准高斯分布，即：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>z</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mi>ϵ</mi><mo>×</mo><mi>σ</mi><mo>+</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">z&#x27;=\epsilon \times \sigma + \mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">ϵ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span> 这样就得到 z’ 啦（这个过程也叫做重参数化，不过，whatever，不重要）</p>
+<p><img src="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/vae.png" alt="vae"></p>
+<p>如何训练神经网络？这个问题也就一并解决了问题5和问题6。如何训练神经网络，其实就是如何构造loss函数的问题，一旦loss函数构造完成了，那么只需要最小化loss即可。</p>
+<p>回顾一下我们神经网络的目的：拟合X和Z的空间映射关系，并满足相对关联性（x，x‘ 相近，z，z’也应该相近）<br>
+那么，将目的更加具体化：VAE的训练流程是：x-&gt;z-&gt;z’-&gt;x’，那么，我们要：</p>
+<ol>
+<li>让 x 和 x’ 尽量像</li>
+<li>和x长得像的所有x‘到Z的映射z’都要在z周围，假设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>z</mi><mo separator="true">,</mo><msup><mi>z</mi><mo mathvariant="normal">′</mo></msup><mo stretchy="false">)</mo><mo>=</mo><msub><mi>f</mi><mi>x</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_z(z,z&#x27;)=f_x(x,x&#x27;)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>表征 x 和 x’ 的相似度，那么 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>z</mi><mo separator="true">,</mo><msup><mi>z</mi><mo mathvariant="normal">′</mo></msup><mo stretchy="false">)</mo><mo>=</mo><msub><mi>f</mi><mi>d</mi></msub><mo stretchy="false">(</mo><mi>D</mi><mi>i</mi><mi>s</mi><mi>t</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo stretchy="false">(</mo><mi>z</mi><mo separator="true">,</mo><msup><mi>z</mi><mo mathvariant="normal">′</mo></msup><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_z(z,z&#x27;)=f_d(Distance(z,z&#x27;))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> <strong>近似</strong>服从高斯分布</li>
+</ol>
+<p>所以，loss分为两部分：</p>
+<p><img src="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/loss.png" alt="loss"></p>
+<p>$ loss = MSE + KLD$</p>
+<p>其中，MSE表征 x 和 x‘ 的差异度</p>
+<p>KLD为KL散度，就是问题6的对encoder 的约束条件。看出来了么？就是让任何一个 x 在 Z 空间的相似度函数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>z</mi><mo separator="true">,</mo><msup><mi>z</mi><mo mathvariant="normal">′</mo></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_z(z,z&#x27;)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>趋向于标准正态分布。一定注意：是趋向于标准正态，并不是达到标准正态。标准正态就像是个山峰，最终能站立在山峰上的只有一个 z 其他的只能站在附近罢了。数学证明如下给出，不做过多解释：</p>
+<p><img src="/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/math.png" alt="math"></p>
+<h2 id="3-结语"><a class="markdownIt-Anchor" href="#3-结语"></a> 3. 结语</h2>
+<p>至此，VAE的主要知识已经大致介绍完毕，注意，这里我全部运用了单一映射来理解，其实原论文使用的是概率分布。千万不要混淆了，这里只是便于理解。关于具体的数学原理，请参见其他文章。关于代码，请看文末链接。</p>
+<p>这点东西写了一个多小时，有点艰难，也说明对VAE的理解还欠火候，算了，会用就好，当个工具就好</p>
+<h2 id="4-参考链接"><a class="markdownIt-Anchor" href="#4-参考链接"></a> 4. 参考链接</h2>
+<p><a href="https://www.cnblogs.com/huangshiyu13/p/6209016.html" target="_blank" rel="noopener">VAE(Variational Autoencoder)的原理 - Shiyu_Huang - 博客园</a></p>
+<p><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">VAE全面理解（上）_钱多多的博客-CSDN博客_vae</a></p>
+<p><a href="https://www.sohu.com/a/226209674_500659" target="_blank" rel="noopener">变分自编码器VAE：原来是这么一回事 | 附开源代码</a></p>
+<p>代码：</p>
+<p><a href="https://github.com/bojone/vae" target="_blank" rel="noopener">https://github.com/bojone/vae</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="变分自编码器（VAE）学习札记" target="_blank" rel="external">http://philia897.github.io/2020/07/20/VAE%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃</span><small class="ml-1x">student of EIC Hust</small></a></h3>
+        <div>一个热爱生活和技术的人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/07/21/python%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/" title="python问题集锦"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/07/15/pytorch%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="pytorch学习札记"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

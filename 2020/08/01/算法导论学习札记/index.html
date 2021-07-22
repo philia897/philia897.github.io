@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>算法导论学习札记 | 堃堃的博客</title>
+  <meta name="description" content="开始学习算法导论了，学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论学习札记">
+<meta property="og:url" content="http://philia897.github.io/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="开始学习算法导论了，学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://philia897.github.io/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/Strassen.png">
+<meta property="article:published_time" content="2020-08-01T12:31:20.407Z">
+<meta property="article:modified_time" content="2020-08-23T14:08:14.871Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/Strassen.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">student of EIC Hust</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> WuHan, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.2px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.6px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 14px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.2px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/PVE/" style="font-size: 13px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.4px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/keras/" style="font-size: 13.2px;">keras</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/python/" style="font-size: 13.8px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.4px;">pytorch</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.4px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.2px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Network/">Network</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/18/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" class="title">PVE+NAS等虚拟环境安装指南</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-18T01:53:45.079Z" itemprop="datePublished">2021-07-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/08/VScode%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/" class="title">VScode终端中文乱码解决</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-08T03:04:11.386Z" itemprop="datePublished">2021-05-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/23/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" class="title">JupyterLab玩耍记录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-23T14:20:20.000Z" itemprop="datePublished">2021-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/19/Tmux%E7%AC%94%E8%AE%B0/" class="title">Tmux</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-19T01:54:52.213Z" itemprop="datePublished">2021-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/19/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E5%AE%89%E8%A3%85MySQL/" class="title">云服务器上安装MySQL</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-19T00:29:32.527Z" itemprop="datePublished">2021-03-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-碎碎念"><span class="toc-number">1.</span> <span class="toc-text"> 0. 碎碎念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-分治策略"><span class="toc-number">2.</span> <span class="toc-text"> 1. 分治策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-最大子数组问题"><span class="toc-number">2.1.</span> <span class="toc-text"> 1.1 最大子数组问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-strassen方法"><span class="toc-number">2.2.</span> <span class="toc-text"> 1.2 Strassen方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-排序"><span class="toc-number">3.</span> <span class="toc-text"> 2. 排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#21-堆排序"><span class="toc-number">3.1.</span> <span class="toc-text"> 2.1 堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-快速排序"><span class="toc-number">3.2.</span> <span class="toc-text"> 2.2 快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-线性时间排序"><span class="toc-number">3.3.</span> <span class="toc-text"> 2.3 线性时间排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#231-计数排序"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 2.3.1 计数排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#232-基数排序"><span class="toc-number">3.3.2.</span> <span class="toc-text"> 2.3.2 基数排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#233-桶排序"><span class="toc-number">3.3.3.</span> <span class="toc-text"> 2.3.3 桶排序</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-算法导论学习札记" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法导论学习札记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" class="article-date">
+	  <time datetime="2020-08-01T12:31:20.407Z" itemprop="datePublished">2020-08-01</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/java/" rel="tag">java</a>, <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>开始学习算法导论了，学习笔记</p>
+<a id="more"></a>
+<h1 id="0-碎碎念"><a class="markdownIt-Anchor" href="#0-碎碎念"></a> 0. 碎碎念</h1>
+<p>真的是，，华科电信真的不开算法课诶，我觉得这真的蛮重要的，尤其是一些经典算法，比如红黑树啊，KMP啊之类的算法，对之后搞软件来说应该还比较重要吧，就算不用，吸收一下这里面的精神也是好的嘛。还要我自己啃书本，太厚了，又没得个重点，只能先过一遍书，麻烦死了，不太快乐</p>
+<h1 id="1-分治策略"><a class="markdownIt-Anchor" href="#1-分治策略"></a> 1. 分治策略</h1>
+<h2 id="11-最大子数组问题"><a class="markdownIt-Anchor" href="#11-最大子数组问题"></a> 1.1 最大子数组问题</h2>
+<p><strong>背景</strong>：<br>
+炒股投资，低价买入高价卖出</p>
+<p><strong>问题描述：</strong><br>
+寻找 A=[13，-3，-25，20，-3，4，-16…] 的<strong>和最大</strong>的非空连续子数组，称这样的数组为<strong>最大子数组</strong>，如本A中为[20，-3，4]</p>
+<p><strong>算法思路：</strong><br>
+找到A的中间位置mid，则，任何连续的子数组A[i，……，j]一定是以下三种情况之一：</p>
+<ul>
+<li>在左侧，j 小于等于mid</li>
+<li>在右侧，i 大于等于mid</li>
+<li>跨过中点mid</li>
+</ul>
+<p>所以，最大子数组只有这三种情况，那么只需要考虑这三种情况即可。</p>
+<p><strong>伪码如下</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">FIND_MAXIMUM_SUBARRAY(A,low,high)&#123;</span><br><span class="line">	mid = (low + high)/<span class="number">2</span></span><br><span class="line">	left-low,left-high,left-sum = FIND_MAXIMUM_SUBARRAY(A,low,mid)</span><br><span class="line">	right-low,right-high,right-sum = FIND_MAXIMUM_SUBARRAY(A,mid,high)</span><br><span class="line">	cross-low,cross-high,cross-sum = FIND_MAX_CROSSING_SUBARRAY(A,low,mid,high)</span><br><span class="line">	max-sum = find_max(left-sum,right-sum,cross-sum)</span><br><span class="line">	<span class="keyword">return</span> max-low,max-high,max-sum</span><br><span class="line">&#125;</span><br><span class="line">FIND_MAX_CROSSING_SUBARRAY(A,low,mid,high)&#123;</span><br><span class="line">	<span class="function">find i to let <span class="title">array_sum</span><span class="params">(A,i,mid)</span> max <span class="comment">//(low&lt;=i&lt;mid)</span></span></span><br><span class="line"><span class="function">	find j to let <span class="title">array_sum</span><span class="params">(A,mid,j)</span> max <span class="comment">//(mid&lt;j&lt;=high)</span></span></span><br><span class="line"><span class="function">	return i,j,<span class="title">sum</span><span class="params">(A,i,j)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>复杂度</strong>：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Θ</mi><mo stretchy="false">(</mo><mi>n</mi><mo>×</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Theta(n\times log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Θ</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
+<h2 id="12-strassen方法"><a class="markdownIt-Anchor" href="#12-strassen方法"></a> 1.2 Strassen方法</h2>
+<p><strong>背景：</strong><br>
+矩阵乘法</p>
+<p><strong>算法思路：</strong><br>
+因为复杂度主要体现在乘法运算上，那么，思路就是减少乘法运算，将一部分乘法运算替换为加法运算，那么时间复杂度就降下来了。运用到的分治策略就是将大的矩阵划分为小的矩阵，然后进行乘法，如图：</p>
+<p><img src="/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/Strassen.png" alt></p>
+<p>更详细的步骤请参阅《算法导论》4.2</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/dc67e4a3c841" target="_blank" rel="noopener">矩阵乘法的Strassen算法详解 --（算法导论分治法求矩阵） - 简书</a></p>
+</blockquote>
+<h1 id="2-排序"><a class="markdownIt-Anchor" href="#2-排序"></a> 2. 排序</h1>
+<h2 id="21-堆排序"><a class="markdownIt-Anchor" href="#21-堆排序"></a> 2.1 堆排序</h2>
+<p><strong>算法思路：</strong></p>
+<p>将数组排列成堆数据结构（近似完全二叉树，只有最底层非满，并且最底层是从左向右填充），有：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi>C</mi><mi>h</mi><mi>i</mi><mi>l</mi><mi>d</mi><mi>I</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>x</mi><mo>=</mo><mn>2</mn><mo>×</mo><mi>P</mi><mi>a</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>I</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">LeftChildIndex = 2\times ParentIndex</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">h</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>C</mi><mi>h</mi><mi>i</mi><mi>l</mi><mi>d</mi><mi>I</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>x</mi><mo>=</mo><mn>2</mn><mo>×</mo><mi>P</mi><mi>a</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>I</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">RightChildIndex = 2 \times ParentIndex + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">h</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+</ul>
+<p>**大根堆：**父节点大于等于所有子节点</p>
+<p>堆排序的流程为：</p>
+<ol>
+<li>将输入数组A建成<strong>大根堆</strong>，通过从后往前维护堆性质实现，A的长度为 n+1</li>
+<li>替换A[0]和A[n]，n–</li>
+<li>从0维护大根堆</li>
+<li>返回2，循环，直到n=0</li>
+</ol>
+<p><strong>伪码如下</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">HEAP_SORT(A)&#123;</span><br><span class="line">	BUILD_MAX_HEAP(A)</span><br><span class="line">	<span class="keyword">for</span>(i=length(A)-<span class="number">1</span>; i&gt;<span class="number">0</span>; i--)&#123;</span><br><span class="line">		exchange(A,<span class="number">0</span>,i)</span><br><span class="line">		MAX_HEAPIFY(A,<span class="number">0</span>,i-<span class="number">1</span>) <span class="comment">// from 0 to i-1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">BUILD_MAX_HEAP(A)&#123;</span><br><span class="line">	n = length(A) -<span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span>(i=n; i&gt;<span class="number">0</span>; i--)</span><br><span class="line">		MAX_HEAPIFY(A,i,n)</span><br><span class="line">&#125;</span><br><span class="line">MAX_HEAPIFY(A,i,n)&#123;</span><br><span class="line">	li = i*<span class="number">2</span></span><br><span class="line">	ri = i*<span class="number">2</span>+<span class="number">1</span></span><br><span class="line">	largest = find_max_index(A,[i,li,ri])</span><br><span class="line">	<span class="keyword">if</span>(largest != i)&#123;</span><br><span class="line">		exchange(A,i,largest)</span><br><span class="line">		MAX_HEAPIFY(A,largest,n)</span><br><span class="line">	&#125;		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复杂度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo>×</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n\times log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
+<h2 id="22-快速排序"><a class="markdownIt-Anchor" href="#22-快速排序"></a> 2.2 快速排序</h2>
+<p><strong>算法思路：</strong></p>
+<p>利用分治策略，先把数组A分为两部分，使左边的全部小于中间值，右边的全部大于中间值，然后再对左右两边运用此策略，最后实现完全的排序</p>
+<p><strong>伪码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">QUICK_SORT(A,left,right)&#123;</span><br><span class="line">	<span class="keyword">if</span>(left &lt; right)&#123;</span><br><span class="line">		mid = PARTITION(A,left,right)</span><br><span class="line">		QUICK_SORT(A,left,mid)</span><br><span class="line">		QUICK_SORT(A,mid,right)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">PARTITION(A,left,right)&#123;</span><br><span class="line">    mid = left</span><br><span class="line">	i = right</span><br><span class="line">    <span class="keyword">while</span>(i!=mid)&#123;</span><br><span class="line">        <span class="keyword">for</span>(;A[i]&gt;A[mid] &amp;&amp; i&gt;mid;i--)</span><br><span class="line">        exchange(A,i,mid)</span><br><span class="line">        exchange(i,mid)</span><br><span class="line">        <span class="keyword">for</span>(;A[i]&lt;A[mid] &amp;&amp; i&lt;mid;i++)</span><br><span class="line">        exchange(A,i,mid)</span><br><span class="line">        exchange(i,mid)</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> mid</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="23-线性时间排序"><a class="markdownIt-Anchor" href="#23-线性时间排序"></a> 2.3 线性时间排序</h2>
+<p>空间换时间</p>
+<h3 id="231-计数排序"><a class="markdownIt-Anchor" href="#231-计数排序"></a> 2.3.1 计数排序</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COUNTING_SORT(A,B,k)&#123;</span><br><span class="line">	C[k] = &#123;<span class="number">0</span>&#125;</span><br><span class="line">	<span class="keyword">for</span> j=<span class="number">0</span> to A.length-<span class="number">1</span></span><br><span class="line">		C[A[j]]++</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span> to k</span><br><span class="line">    	C[i] = C[i-<span class="number">1</span>] + C[i]</span><br><span class="line">    <span class="keyword">for</span> j=A.length-<span class="number">1</span> downto <span class="number">0</span></span><br><span class="line">    	B[C[A[j]]] = A[j]</span><br><span class="line">    	C[A[j]]--</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="232-基数排序"><a class="markdownIt-Anchor" href="#232-基数排序"></a> 2.3.2 基数排序</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RADIX_SORT(A,d)&#123; <span class="comment">// d is the digit of A's numbers</span></span><br><span class="line">	<span class="keyword">for</span> i=<span class="number">1</span> to d</span><br><span class="line">		use a stable sort to sort array A on digit i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="233-桶排序"><a class="markdownIt-Anchor" href="#233-桶排序"></a> 2.3.3 桶排序</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BUCKET_SORT(A)&#123;</span><br><span class="line">    n = A.length</span><br><span class="line">    let B[<span class="number">0</span>..n-<span class="number">1</span>] be a <span class="keyword">new</span> array</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">0</span> to n-<span class="number">1</span></span><br><span class="line">    	make B[i] an empty list</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">0</span> to n-<span class="number">1</span></span><br><span class="line">    	insert A[i] into list B[CHOOSE_BUCKET(A[i])]</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">0</span> to n-<span class="number">1</span></span><br><span class="line">    	sort list B[i] with insertion sort</span><br><span class="line">    concatenate the list set B together in order</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/" title="算法导论学习札记" target="_blank" rel="external">http://philia897.github.io/2020/08/01/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃</span><small class="ml-1x">student of EIC Hust</small></a></h3>
+        <div>一个热爱生活和技术的人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/09/12/%E3%80%8A%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%AC%94%E8%AE%B0/" title="《联邦学习》读书笔记"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/07/24/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="MySQL安装与配置"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
