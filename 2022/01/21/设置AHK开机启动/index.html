@@ -17,16 +17,25 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>分类: C | 堃堃的博客</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://philia897.github.io/categories/C/index.html">
+  <title>设置AHK开机启动 | 堃堃的博客</title>
+  <meta name="description" content="设置开机启动AHK并赋予管理员权限确实是不太方便的一件事儿，这里记录一下，方便日后查阅参考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设置AHK开机启动">
+<meta property="og:url" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="设置开机启动AHK并赋予管理员权限确实是不太方便的一件事儿，这里记录一下，方便日后查阅参考。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121194926971.png">
+<meta property="og:image" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121200526354.png">
+<meta property="article:published_time" content="2022-01-21T18:44:52.000Z">
+<meta property="article:modified_time" content="2022-01-21T19:06:16.055Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="AutoHotKey">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121194926971.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://philia897.github.io/categories/C/index.html">
+  <link rel="canonical" href="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -322,73 +331,172 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-categories article-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">分类: C</h1>
-      <p class="hidden-xs">共 1 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/categories">All</a></li>
-          
-          <li><a href="/categories/default/">default</a></li>
-          
-          <li><a href="/categories/ML/">ML</a></li>
-          
-          <li><a href="/categories/network/">network</a></li>
-          
-          <li><a href="/categories/python/">python</a></li>
-          
-          <li><a href="/categories/Logs/">Logs</a></li>
-          
-          <li><a href="/categories/C/">C</a></li>
-          
-          <li><a href="/categories/数据库/">数据库</a></li>
-          
-          <li><a href="/categories/算法/">算法</a></li>
-          
-          <li><a href="/categories/Linux/">Linux</a></li>
-          
-          <li><a href="/categories/Network/">Network</a></li>
-          
-          <li><a href="/categories/Life/">Life</a></li>
-          
-          <li><a href="/categories/Windows/">Windows</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="panel panel-default b-no">
-    <div class="panel-heading" role="tab">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapseC" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              C
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-        </h4>
-    </div>
-    <div id="collapseC" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingC">
-        <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2020/07/03/%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%BC%96%E7%A8%8B/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-07-03T01:44:21.238Z" itemprop="datePublished">2020-07-03</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 多进程编程笔记
-</a>
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建启动脚本"><span class="toc-number">1.</span> <span class="toc-text"> 1. 创建启动脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建开机启动任务"><span class="toc-number">2.</span> <span class="toc-text"> 2. 创建开机启动任务</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-设置AHK开机启动" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设置AHK开机启动
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/" class="article-date">
+	  <time datetime="2022-01-21T18:44:52.000Z" itemprop="datePublished">2022-01-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Windows/">Windows</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a>, <a class="article-tag-link" href="/tags/Windows/" rel="tag">Windows</a>
+  </span>
 
 
-              
-            </div>
-        </div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 313(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+      </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>设置开机启动AHK并赋予管理员权限确实是不太方便的一件事儿，这里记录一下，方便日后查阅参考。</p>
+<a id="more"></a>
+<h2 id="1-创建启动脚本"><a class="markdownIt-Anchor" href="#1-创建启动脚本"></a> 1. 创建启动脚本</h2>
+<p>如果是要运行多个AHK脚本，就先创建一个bat脚本来一次启动全部，大致内容参考：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start D:\programs\AutoHotKey\chCapsLock</span><br><span class="line">start D:\programs\AutoHotKey\chPg</span><br></pre></td></tr></table></figure>
+<p>然后创建一个快捷方式<code>LocalAHKStart</code>指向这个<code>start.bat</code>:</p>
+<img src="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121194926971.png" alt="image-20220121194926971" style="zoom: 80%;">
+<p>在上图中点击<strong>高级</strong>，然后把<strong>以管理员身份运行</strong>打勾~~（这一步不知道有没有用，但反正我这样是走完是可以运行的，说不定这是多此一举😂）~~</p>
+<h2 id="2-创建开机启动任务"><a class="markdownIt-Anchor" href="#2-创建开机启动任务"></a> 2. 创建开机启动任务</h2>
+<p>这里有点离谱，踩了不少坑，我主要参考这两篇博客：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/shuzfan/article/details/78118612" target="_blank" rel="noopener">Win10 如何以管理员身份设置开机自启程序</a></p>
+<p><a href="https://social.technet.microsoft.com/Forums/ie/en-US/657f03a9-2d19-42e1-a998-6ddfaeb0a07f/task-scheduler-the-operator-or-administrator-has-refused-the-request-0x800710e0?forum=winserver8gen" target="_blank" rel="noopener">Task Scheduler The operator or administrator has refused the request</a></p>
+</blockquote>
+<p>其中，按照博客1的操作配置正常的开机启动程序，比较简单，就是使用windows10自带的<strong>任务计划程序</strong>，然后在触发任务上进行如下设置：</p>
+<img src="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121200526354.png" alt="image-20220121200526354">
+<p>其他的没啥要改的设置，可以看看，尽量不要设置限制为宜</p>
+<p>用户不需要administrator，只要是有管理员权限的就好</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/" title="设置AHK开机启动" target="_blank" rel="external">http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃</span><small class="ml-1x">student of EIC Hust</small></a></h3>
+        <div>一个热爱生活和技术的人</div>
+      </div>
+    </figure>
+  </div>
 </div>
+
+
     </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2022/01/07/WSL%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" title="WSL玩耍记录"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -442,6 +550,14 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
 
 
 
