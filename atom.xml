@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://philia897.github.io/"/>
-  <updated>2022-01-21T19:06:16.055Z</updated>
+  <updated>2022-03-04T00:14:48.133Z</updated>
   <id>http://philia897.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在OpenWRT上配置Openvpn</title>
+    <link href="http://philia897.github.io/2022/03/24/%E5%9C%A8OpenWRT%E4%B8%8A%E9%85%8D%E7%BD%AEOpenvpn/"/>
+    <id>http://philia897.github.io/2022/03/24/%E5%9C%A8OpenWRT%E4%B8%8A%E9%85%8D%E7%BD%AEOpenvpn/</id>
+    <published>2022-03-24T01:47:21.759Z</published>
+    <updated>2022-03-04T00:14:48.133Z</updated>
+    
+    <content type="html"><![CDATA[<p>​KTH BNSS 课设，基于OpenWRT搭建VPN服务的部分，WireGuard比较顺利，而OpenVPN却困难重重，不过最后还是给配好了，中间遇到的问题和经验记录如下</p><a id="more"></a><h2 id="1-安装openvpn并进行基础的配置"><a class="markdownIt-Anchor" href="#1-安装openvpn并进行基础的配置"></a> 1. 安装OpenVPN并进行基础的配置</h2><h3 id="11-环境信息"><a class="markdownIt-Anchor" href="#11-环境信息"></a> 1.1 环境信息</h3><p>OpenWRT version：19.07</p><h3 id="12-安装openvpn到openwrt"><a class="markdownIt-Anchor" href="#12-安装openvpn到openwrt"></a> 1.2 安装OpenVPN到OpenWRT</h3><p>这里主要是参考了官网的教程进行软件的安装，然后就是经典读脚本理解配置文件时间，主要参考官网的脚本和教程。但从这里开始就遇到问题了，一方面是版本的问题，另一方面就真的是官方的锅了。有很多问题解决的也是碰巧。</p><p>####### 此处描述安装流程并附上reference</p><h3 id="13-使用官方脚本创建configure文件"><a class="markdownIt-Anchor" href="#13-使用官方脚本创建configure文件"></a> 1.3 使用官方脚本创建configure文件</h3><p>########## 此处详细描述使用官方脚本的流程</p><p>########## 此处详细描述由于版本不同造成的问题，并附上debug的方法</p><p>########## 此处详细描述最后的解决方法</p><h3 id="14-尝试使用图形化管理方式并描述遇到的问题"><a class="markdownIt-Anchor" href="#14-尝试使用图形化管理方式并描述遇到的问题"></a> 1.4 尝试使用图形化管理方式并描述遇到的问题</h3><p>######### 此处描述图形化管理居然无法显示使用uci配置的instance的问题（太tmd蠢了），并描述是如何通过端口冲突发现的，并如何解决的</p><h2 id="2-进行其他的配置"><a class="markdownIt-Anchor" href="#2-进行其他的配置"></a> 2. 进行其他的配置</h2><p>除了configure，还要配置firewall</p><h3 id="21-配置firewall"><a class="markdownIt-Anchor" href="#21-配置firewall"></a> 2.1 配置firewall</h3><h2 id="3-解决无法连接外网的问题"><a class="markdownIt-Anchor" href="#3-解决无法连接外网的问题"></a> 3. 解决无法连接外网的问题</h2><p>重头戏，这块实在太扯淡了，详细描述这傻逼事情</p><h3 id="31-问题描述"><a class="markdownIt-Anchor" href="#31-问题描述"></a> 3.1 问题描述</h3><p>描述可以建立连接但是ping不通也无法上网的问题</p><h3 id="32-debug方式"><a class="markdownIt-Anchor" href="#32-debug方式"></a> 3.2 debug方式</h3><p>描述debug的尝试</p><h3 id="33-最终解决"><a class="markdownIt-Anchor" href="#33-最终解决"></a> 3.3 最终解决</h3><p>描述最终是怎么解决的，也是比较扯淡，主要是两点：</p><ol><li>不仅要重启openvpn，也要重启network （介绍怎么发现的，10.0.4.0 =&gt; 无法ping通10.0.2.1, =&gt; 修改network=&gt;重启network，居然可以连通了=&gt;但ip是10.0.1.2,=&gt;尝试变回10.0.4.2,=&gt;无法连通=&gt;复现=&gt;发现必须重启网络服务才能连通）</li><li>configure里边的server项要设置成包含在内网内的部分，同时DNS要设置成内网的网关，否则无法连通</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;​	KTH BNSS 课设，基于OpenWRT搭建VPN服务的部分，WireGuard比较顺利，而OpenVPN却困难重重，不过最后还是给配好了，中间遇到的问题和经验记录如下&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Logs" scheme="http://philia897.github.io/categories/Logs/"/>
+    
+    
+      <category term="OpenWRT" scheme="http://philia897.github.io/tags/OpenWRT/"/>
+    
+      <category term="OpenVPN" scheme="http://philia897.github.io/tags/OpenVPN/"/>
+    
+  </entry>
   
   <entry>
     <title>设置AHK开机启动</title>
@@ -511,33 +536,6 @@
       <category term="ML" scheme="http://philia897.github.io/tags/ML/"/>
     
       <category term="VAE" scheme="http://philia897.github.io/tags/VAE/"/>
-    
-      <category term="python" scheme="http://philia897.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pytorch学习札记</title>
-    <link href="http://philia897.github.io/2020/07/15/pytorch%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/"/>
-    <id>http://philia897.github.io/2020/07/15/pytorch%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/</id>
-    <published>2020-07-15T01:27:00.181Z</published>
-    <updated>2020-07-27T15:00:02.710Z</updated>
-    
-    <content type="html"><![CDATA[<p>学习pytorch的札记和总结，思考</p><a id="more"></a><h2 id="pytorch-detachnumpy"><a class="markdownIt-Anchor" href="#pytorch-detachnumpy"></a> pytorch detach().numpy()</h2><p>eg：<code>array = tensor.detach().numpy()</code></p><p>目的：detach阻断反向传播，numpy实现将tensor转换成ndarray，实际上就是从张量转化到数组，方便进行数据传递和纯计算</p><h2 id="pytorch-tensorview-11"><a class="markdownIt-Anchor" href="#pytorch-tensorview-11"></a> pytorch tensor.view(-1,1)</h2><p>相当于reshape，改变tensor维度为列tensor，[1,2,3,4,5]-&gt;[[1],[2],[3],[4],[5]]， -1代表默认</p><blockquote><p><a href="http://sofasofa.io/forum_main_post.php?postid=1003866" target="_blank" rel="noopener">http://sofasofa.io/forum_main_post.php?postid=1003866</a></p></blockquote><h2 id="tensordatatensordetach"><a class="markdownIt-Anchor" href="#tensordatatensordetach"></a> tensor.data/tensor.detach()</h2><p>都是为了反回一个新的tensor且不可求导</p><p>但detach方法更安全</p><blockquote><p><a href="https://blog.csdn.net/qq_27825451/article/details/96837905" target="_blank" rel="noopener">https://blog.csdn.net/qq_27825451/article/details/96837905</a></p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;学习pytorch的札记和总结，思考&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="http://philia897.github.io/categories/python/"/>
-    
-    
-      <category term="ML" scheme="http://philia897.github.io/tags/ML/"/>
-    
-      <category term="pytorch" scheme="http://philia897.github.io/tags/pytorch/"/>
     
       <category term="python" scheme="http://philia897.github.io/tags/python/"/>
     
