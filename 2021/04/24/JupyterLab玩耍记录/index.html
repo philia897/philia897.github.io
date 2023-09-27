@@ -17,25 +17,22 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>设置AHK开机启动 | 堃堃的博客 (Felix&#39;s Blog)</title>
-  <meta name="description" content="设置开机启动AHK并赋予管理员权限确实是不太方便的一件事儿，这里记录一下，方便日后查阅参考。">
+  <title>JupyterLab玩耍记录 | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="​    尝试了一下Jupyter lab，各种问题还是有点多的，感觉除了导出的格式比较多，其他方面不比vscode好用，这里简单记录一下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设置AHK开机启动">
-<meta property="og:url" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/index.html">
+<meta property="og:title" content="JupyterLab玩耍记录">
+<meta property="og:url" content="http://philia897.github.io/2021/04/24/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="设置开机启动AHK并赋予管理员权限确实是不太方便的一件事儿，这里记录一下，方便日后查阅参考。">
+<meta property="og:description" content="​    尝试了一下Jupyter lab，各种问题还是有点多的，感觉除了导出的格式比较多，其他方面不比vscode好用，这里简单记录一下">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121194926971.png">
-<meta property="og:image" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121200526354.png">
-<meta property="article:published_time" content="2022-01-21T18:44:52.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:06:16.055Z">
+<meta property="article:published_time" content="2021-04-23T20:20:20.000Z">
+<meta property="article:modified_time" content="2023-08-07T20:50:29.708Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Windows">
-<meta property="article:tag" content="AutoHotKey">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Jupyter">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121194926971.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/index.html">
+  <link rel="canonical" href="http://philia897.github.io/2021/04/24/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -253,10 +250,10 @@
                 <a class="category-link" href="/categories/default/">default</a>
               </p>
               <p class="item-title">
-                <a href="/2023/08/07/1.Hexo%20Template/" class="title">1.Hexo Template</a>
+                <a href="/2023/08/08/1.Hexo%20Template/" class="title">1.Hexo Template</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-08-07T20:31:15.453Z" itemprop="datePublished">2023-08-07</time>
+                <time datetime="2023-08-07T20:31:15.453Z" itemprop="datePublished">2023-08-08</time>
               </p>
             </div>
           </li>
@@ -336,21 +333,21 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">Catalogue</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建启动脚本"><span class="toc-number">1.</span> <span class="toc-text"> 1. 创建启动脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建开机启动任务"><span class="toc-number">2.</span> <span class="toc-text"> 2. 创建开机启动任务</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-安装jupyter-lab"><span class="toc-number">1.</span> <span class="toc-text"> 1. 安装Jupyter Lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-快捷打开"><span class="toc-number">2.</span> <span class="toc-text"> 2. 快捷打开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-其他一些配置"><span class="toc-number">3.</span> <span class="toc-text"> 3. 其他一些配置</span></a></li></ol>
     </nav>
   </div>
 </aside>
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-设置AHK开机启动" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-JupyterLab玩耍记录" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      设置AHK开机启动
+      JupyterLab玩耍记录
     </h1>
   
 
@@ -358,20 +355,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/" class="article-date">
-	  <time datetime="2022-01-21T18:44:52.000Z" itemprop="datePublished">2022-01-21</time>
+	<a href="/2021/04/24/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" class="article-date">
+	  <time datetime="2021-04-23T20:20:20.000Z" itemprop="datePublished">2021-04-24</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Windows/">Windows</a>
+    <a class="article-category-link" href="/categories/Logs/">Logs</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a>, <a class="article-tag-link" href="/tags/Windows/" rel="tag">Windows</a>
+	<a class="article-tag-link" href="/tags/Jupyter/" rel="tag">Jupyter</a>, <a class="article-tag-link" href="/tags/python/" rel="tag">python</a>
   </span>
 
 
@@ -384,10 +381,10 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/24/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/#comments" class="article-comment-link">Comments</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 313(words)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 507(words)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 1(minutes)</span>
@@ -397,24 +394,24 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>设置开机启动AHK并赋予管理员权限确实是不太方便的一件事儿，这里记录一下，方便日后查阅参考。</p>
+        <p>​    尝试了一下Jupyter lab，各种问题还是有点多的，感觉除了导出的格式比较多，其他方面不比vscode好用，这里简单记录一下</p>
 <a id="more"></a>
-<h2 id="1-创建启动脚本"><a class="markdownIt-Anchor" href="#1-创建启动脚本"></a> 1. 创建启动脚本</h2>
-<p>如果是要运行多个AHK脚本，就先创建一个bat脚本来一次启动全部，大致内容参考：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start D:\programs\AutoHotKey\chCapsLock</span><br><span class="line">start D:\programs\AutoHotKey\chPg</span><br></pre></td></tr></table></figure>
-<p>然后创建一个快捷方式<code>LocalAHKStart</code>指向这个<code>start.bat</code>:</p>
-<img src="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121194926971.png" alt="image-20220121194926971" style="zoom: 80%;">
-<p>在上图中点击<strong>高级</strong>，然后把<strong>以管理员身份运行</strong>打勾~~（这一步不知道有没有用，但反正我这样是走完是可以运行的，说不定这是多此一举😂）~~</p>
-<h2 id="2-创建开机启动任务"><a class="markdownIt-Anchor" href="#2-创建开机启动任务"></a> 2. 创建开机启动任务</h2>
-<p>这里有点离谱，踩了不少坑，我主要参考这两篇博客：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/shuzfan/article/details/78118612" target="_blank" rel="noopener">Win10 如何以管理员身份设置开机自启程序</a></p>
-<p><a href="https://social.technet.microsoft.com/Forums/ie/en-US/657f03a9-2d19-42e1-a998-6ddfaeb0a07f/task-scheduler-the-operator-or-administrator-has-refused-the-request-0x800710e0?forum=winserver8gen" target="_blank" rel="noopener">Task Scheduler The operator or administrator has refused the request</a></p>
-</blockquote>
-<p>其中，按照博客1的操作配置正常的开机启动程序，比较简单，就是使用windows10自带的<strong>任务计划程序</strong>，然后在触发任务上进行如下设置：</p>
-<img src="/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/image-20220121200526354.png" alt="image-20220121200526354">
-<p>其他的没啥要改的设置，可以看看，尽量不要设置限制为宜</p>
-<p>用户不需要administrator，只要是有管理员权限的就好</p>
+<h2 id="1-安装jupyter-lab"><a class="markdownIt-Anchor" href="#1-安装jupyter-lab"></a> 1. 安装Jupyter Lab</h2>
+<p>首先就是安装，因为默认只有conda的base环境中有Jupyter lab，其他环境需要自己安装，但这个也比较简单，直接命令安装就行：</p>
+<p><code>conda install jupyterlab</code></p>
+<p>然后就可以直接使用<code>jupyter lab</code>命令打开了</p>
+<h2 id="2-快捷打开"><a class="markdownIt-Anchor" href="#2-快捷打开"></a> 2. 快捷打开</h2>
+<p>要打开jupyter lab非得用conda有点太麻烦了，所以这里用一点小技巧：</p>
+<ol>
+<li>找到默认的jupyter notebook的快捷方式：复制一个到桌面上</li>
+<li>修改名称位jupyter lab，修改起始位置，用来标定最开始的起始页面</li>
+<li>修改目标为：<code>D:\softwares\anaconda3\python.exe D:\softwares\anaconda3\cwp.py D:\softwares\anaconda3\envs\python3_learn_ML D:\softwares\anaconda3\envs\python3_learn_ML\python.exe D:\softwares\anaconda3\envs\python3_learn_ML\Scripts\jupyter-lab-script.py</code> 注意这里只修改最后两项改成了我的自定义环境中的python路径和scripts路径，这样才能正常启动自定义环境中的而不是base环境中的jupyter lab，自己摸索出来的，目前没找到网上和我一样干的</li>
+<li>大功告成，双击运行一下试试吧</li>
+</ol>
+<h2 id="3-其他一些配置"><a class="markdownIt-Anchor" href="#3-其他一些配置"></a> 3. 其他一些配置</h2>
+<p>这样已经可以正常使用了，但是要让他更好用还是需要一些其他配置，但这样的各种各样的配置就很麻烦了，在网上也能找到解决方案，就懒得写到博客里了，遇到什么问题解决什么问题就行了。有空再补全吧。</p>
+<hr>
+<p>现在的问题是lsp代码自动补全插件很慢很慢，慢到影响我使用了肯定不行，然后导入依旧不支持pdf导出，不过可以导出成markdown也不错，所以现在还行，vscode日常写一些脚本，然后再到lab里导出成markdown吧，然后再typora编辑导出成pdf，有点怪，不过用习惯了应该还行/笑死</p>
 
       
     </div>
@@ -424,7 +421,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/" title="设置AHK开机启动" target="_blank" rel="external">http://philia897.github.io/2022/01/21/%E8%AE%BE%E7%BD%AEAHK%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/</a>
+      <a href="http://philia897.github.io/2021/04/24/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" title="JupyterLab玩耍记录" target="_blank" rel="external">http://philia897.github.io/2021/04/24/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -469,12 +466,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/03/24/64%E4%BD%8Dwin7%E4%BD%BF%E7%94%A8conda%E5%AE%89%E8%A3%85xgboost/" title="64位win7使用conda安装xgboost"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+      <a href="/2021/08/08/%E4%BF%84%E8%88%AA%E5%87%BA%E5%9B%BD%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="俄航出国经验总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2022/01/07/WSL%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" title="WSL玩耍记录"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/03/19/Tmux%E7%AC%94%E8%AE%B0/" title="Tmux"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
