@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>云计算知识 | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="云计算的课程笔记：云计算知识（虚拟化、容器、计算虚拟化、存储虚拟化、网络虚拟化）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云计算知识">
+<meta property="og:url" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="云计算的课程笔记：云计算知识（虚拟化、容器、计算虚拟化、存储虚拟化、网络虚拟化）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-11-57-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-22-26-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-22-46-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-24-34-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-26-00-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-28-35-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-01-03-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-03-11-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-06-23-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-12-00-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-17-25-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-20-50-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-23-52-image.png">
+<meta property="og:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-26-58-image.png">
+<meta property="article:published_time" content="2023-10-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-25T07:05:44.268Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="cloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-11-57-image.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.2px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.6px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 14px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.2px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.2px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.4px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.2px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/keras/" style="font-size: 13.2px;">keras</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/python/" style="font-size: 13.8px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.4px;">pytorch</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.4px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.2px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/default/">default</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/" class="title">云计算知识</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-10-18T16:00:00.000Z" itemprop="datePublished">2023-10-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/64%E4%BD%8Dwin7%E4%BD%BF%E7%94%A8conda%E5%AE%89%E8%A3%85xgboost/" class="title">64位win7使用conda安装xgboost</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/paper-notes/">paper notes</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/Descent-to-Delete%20Gradient-Based%20Methods%20for%20Machine%20Unlearning/" class="title">Descent-to-Delete Gradient-Based Methods for Machine Unlearning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/FL_DDos_%E6%AF%94%E8%B5%9BLog/" class="title">Federated Learning for DDos 比赛 Log</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">云计算服务类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97%E9%83%A8%E7%BD%B2%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">云计算部署形式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E4%BA%91%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">私有云：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BE%E5%8C%BA%E4%BA%91%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">社区云：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E4%BA%91%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">公有云：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%BA%91%EF%BC%9A"><span class="toc-number">2.4.</span> <span class="toc-text">混合云：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">2.5.</span> <span class="toc-text">应用：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">云计算关键技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">虚拟化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">分布式存储技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83%E8%81%94%E7%BD%91"><span class="toc-number">3.3.</span> <span class="toc-text">数据中心联网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-number">3.4.</span> <span class="toc-text">并行计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="toc-number">3.5.</span> <span class="toc-text">自动化部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96-1"><span class="toc-number">4.</span> <span class="toc-text">虚拟化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">4.1.</span> <span class="toc-text">CPU虚拟化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">4.2.</span> <span class="toc-text">内存虚拟化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-number">4.3.</span> <span class="toc-text">I&#x2F;O虚拟化</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-云计算知识" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      云计算知识
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/" class="article-date">
+	  <time datetime="2023-10-18T16:00:00.000Z" itemprop="datePublished">2023-10-19</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/default/">default</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/cloud/" rel="tag">cloud</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 358(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 1(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>云计算的课程笔记：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17k4y167Hg/?p=4&share_source=copy_web&vd_source=de352793bea78e3429980ed4bddbc638">云计算知识（虚拟化、容器、计算虚拟化、存储虚拟化、网络虚拟化）</a></p>
+<p>        <span id="more"></span></p>
+<h2 id="云计算服务类型"><a href="#云计算服务类型" class="headerlink" title="云计算服务类型"></a>云计算服务类型</h2><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-11-57-image.png"></p>
+<h2 id="云计算部署形式"><a href="#云计算部署形式" class="headerlink" title="云计算部署形式"></a>云计算部署形式</h2><h3 id="私有云："><a href="#私有云：" class="headerlink" title="私有云："></a>私有云：</h3><p>自用，</p>
+<p>优点：安全性高，灵活</p>
+<p>缺点：成本高，前期建设高</p>
+<h3 id="社区云："><a href="#社区云：" class="headerlink" title="社区云："></a>社区云：</h3><p>社区或行业共享基础设施的云，专供给有相同需求的单位</p>
+<p>优点：用户体系，方便</p>
+<p>缺点：成本高，专门维护</p>
+<h3 id="公有云："><a href="#公有云：" class="headerlink" title="公有云："></a>公有云：</h3><p>public cloud service：</p>
+<p>优点：个人用户成本低服务多</p>
+<p>缺点：安全性不高</p>
+<h3 id="混合云："><a href="#混合云：" class="headerlink" title="混合云："></a>混合云：</h3><p>两种或两种以上部署形式组成的云</p>
+<p>优点：敏捷，灵活</p>
+<p>缺点：兼容性问题</p>
+<h3 id="应用："><a href="#应用：" class="headerlink" title="应用："></a>应用：</h3><p>存储云，医疗云，教育云，金融云</p>
+<h2 id="云计算关键技术"><a href="#云计算关键技术" class="headerlink" title="云计算关键技术"></a>云计算关键技术</h2><h3 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h3><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-22-26-image.png"></p>
+<h3 id="分布式存储技术"><a href="#分布式存储技术" class="headerlink" title="分布式存储技术"></a>分布式存储技术</h3><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-22-46-image.png"></p>
+<h3 id="数据中心联网"><a href="#数据中心联网" class="headerlink" title="数据中心联网"></a>数据中心联网</h3><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-24-34-image.png"></p>
+<h3 id="并行计算"><a href="#并行计算" class="headerlink" title="并行计算"></a>并行计算</h3><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-26-00-image.png"></p>
+<h3 id="自动化部署"><a href="#自动化部署" class="headerlink" title="自动化部署"></a>自动化部署</h3><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-12-13-28-35-image.png"></p>
+<h2 id="虚拟化-1"><a href="#虚拟化-1" class="headerlink" title="虚拟化"></a>虚拟化</h2><h3 id="CPU虚拟化"><a href="#CPU虚拟化" class="headerlink" title="CPU虚拟化"></a>CPU虚拟化</h3><ol>
+<li><p>物理机中通过线程和进程模拟出CPU，虚拟CPU实际上就是一个线程或进程</p>
+</li>
+<li><p>计算公式：总资源=服务器CPU数×单个CPU的核数×线程×主频</p>
+</li>
+</ol>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-01-03-image.png"></p>
+<ol start="3">
+<li>CPU QoS：控制虚拟机使用CPU资源量</li>
+</ol>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-03-11-image.png"></p>
+<ol start="4">
+<li>NUMA:</li>
+</ol>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-06-23-image.png"></p>
+<h3 id="内存虚拟化"><a href="#内存虚拟化" class="headerlink" title="内存虚拟化"></a>内存虚拟化</h3><ol>
+<li><p>虚拟机每个进程都被赋予了一块连续的，超大的虚拟内存空间</p>
+</li>
+<li><p>内存虚拟化类型：</p>
+</li>
+</ol>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-12-00-image.png"></p>
+<ol start="3">
+<li>内存复用技术</li>
+</ol>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-17-25-image.png"></p>
+<ol start="4">
+<li><p>内存复用QoS</p>
+<ol>
+<li>内存预留，内存份额</li>
+</ol>
+</li>
+</ol>
+<h3 id="I-O虚拟化"><a href="#I-O虚拟化" class="headerlink" title="I/O虚拟化"></a>I/O虚拟化</h3><p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-20-50-image.png"></p>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-23-52-image.png"></p>
+<p>I/O环适配功能</p>
+<p><img src="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/2023-10-19-11-26-58-image.png"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/" title="云计算知识" target="_blank" rel="external">http://philia897.github.io/2023/10/19/云计算知识/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2025/02/25/Test-Pro/" title="Test Pro"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2023/08/08/64%E4%BD%8Dwin7%E4%BD%BF%E7%94%A8conda%E5%AE%89%E8%A3%85xgboost/" title="64位win7使用conda安装xgboost"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">    <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

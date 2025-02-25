@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>大创Log | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="记录大创项目实践期间的一些所学和感受，简记学到的知识和理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大创Log">
+<meta property="og:url" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记录大创项目实践期间的一些所学和感受，简记学到的知识和理解">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%8F%AF%E8%83%BD%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/QQ%E5%9B%BE%E7%89%8720200727131727.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/QQ%E5%9B%BE%E7%89%8720200727131751.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%85%AC%E5%BC%8F.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306203309045.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306203441360.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306203615184.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306203711046.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306204333277.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306204428359.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306205032850.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306205547456.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210306210100352.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309144747215.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309144816358.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309225925280.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309230000924.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210310190907802.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313170405747.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313170536462.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313174107763.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313182804093.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313193622830.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210315202719319.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210315203958696.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210319153459261.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210319161415824.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322190620417.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322190717917.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322190832528.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322191052311.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322191659056.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210325152351234.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210323141931682.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210325152030767.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210330224118797.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205124515.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205248646.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205306749.png">
+<meta property="og:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205324027.png">
+<meta property="article:published_time" content="2021-04-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-25T07:06:29.769Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="大创">
+<meta property="article:tag" content="ML">
+<meta property="article:tag" content="pytorch">
+<meta property="article:tag" content="VAE">
+<meta property="article:tag" content="keras">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%8F%AF%E8%83%BD%E6%83%85%E5%86%B5.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.2px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.6px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 14px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.2px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.2px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.4px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.2px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/keras/" style="font-size: 13.2px;">keras</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/python/" style="font-size: 13.8px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.4px;">pytorch</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.4px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.2px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/default/">default</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/" class="title">云计算知识</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-10-18T16:00:00.000Z" itemprop="datePublished">2023-10-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/64%E4%BD%8Dwin7%E4%BD%BF%E7%94%A8conda%E5%AE%89%E8%A3%85xgboost/" class="title">64位win7使用conda安装xgboost</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/paper-notes/">paper notes</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/Descent-to-Delete%20Gradient-Based%20Methods%20for%20Machine%20Unlearning/" class="title">Descent-to-Delete Gradient-Based Methods for Machine Unlearning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/FL_DDos_%E6%AF%94%E8%B5%9BLog/" class="title">Federated Learning for DDos 比赛 Log</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-9"><span class="toc-number">1.</span> <span class="toc-text">2020&#x2F;7&#x2F;9</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reference%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">reference：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-10"><span class="toc-number">2.</span> <span class="toc-text">2020&#x2F;7&#x2F;10</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A-1"><span class="toc-number">2.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-15"><span class="toc-number">3.</span> <span class="toc-text">2020&#x2F;7&#x2F;15</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A-2"><span class="toc-number">3.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-16"><span class="toc-number">4.</span> <span class="toc-text">2020&#x2F;7&#x2F;16</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A-3"><span class="toc-number">4.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-17"><span class="toc-number">5.</span> <span class="toc-text">2020&#x2F;7&#x2F;17</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A-4"><span class="toc-number">5.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-18"><span class="toc-number">6.</span> <span class="toc-text">2020&#x2F;7&#x2F;18</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A-5"><span class="toc-number">6.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-19"><span class="toc-number">7.</span> <span class="toc-text">2020&#x2F;7&#x2F;19</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-20"><span class="toc-number">8.</span> <span class="toc-text">2020&#x2F;7&#x2F;20</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-21"><span class="toc-number">9.</span> <span class="toc-text">2020&#x2F;7&#x2F;21</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%EF%BC%9A-6"><span class="toc-number">9.1.</span> <span class="toc-text">内容：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-22"><span class="toc-number">10.</span> <span class="toc-text">2020&#x2F;7&#x2F;22</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-24"><span class="toc-number">11.</span> <span class="toc-text">2020&#x2F;7&#x2F;24</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-27"><span class="toc-number">12.</span> <span class="toc-text">2020&#x2F;7&#x2F;27</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8B%E7%8E%B0%E5%9C%A8%E7%9A%84%E5%AE%9E%E9%AA%8C%E7%8E%B0%E8%B1%A1%EF%BC%9A"><span class="toc-number">12.0.1.</span> <span class="toc-text">总结下现在的实验现象：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-7-28"><span class="toc-number">13.</span> <span class="toc-text">2020&#x2F;7&#x2F;28</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-8-1"><span class="toc-number">14.</span> <span class="toc-text">2020&#x2F;8&#x2F;1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-8-7"><span class="toc-number">15.</span> <span class="toc-text">2020&#x2F;8&#x2F;7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-8-16"><span class="toc-number">16.</span> <span class="toc-text">2020&#x2F;8&#x2F;16</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-1-30"><span class="toc-number">17.</span> <span class="toc-text">2021&#x2F;1&#x2F;30</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-3"><span class="toc-number">18.</span> <span class="toc-text">2021&#x2F;3&#x2F;3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-4"><span class="toc-number">19.</span> <span class="toc-text">2021&#x2F;3&#x2F;4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-6"><span class="toc-number">20.</span> <span class="toc-text">2021&#x2F;3&#x2F;6</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ACTIVETHIEF-Model-Extraction-Using-Active-Learning-and-Unannotated-Public-Data"><span class="toc-number">20.1.</span> <span class="toc-text">ACTIVETHIEF: Model Extraction Using Active Learning and Unannotated Public Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#active-learning"><span class="toc-number">20.2.</span> <span class="toc-text">active learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GeoDA-a-geometric-framework-for-black-box-adversarial-attacks"><span class="toc-number">20.3.</span> <span class="toc-text">GeoDA: a geometric framework for black-box adversarial attacks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Label-Leaks-Membership-Inference-Attack-with-Label"><span class="toc-number">20.4.</span> <span class="toc-text">Label-Leaks: Membership Inference Attack with Label</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Label-Only-Membership-Inference-Attacks"><span class="toc-number">20.5.</span> <span class="toc-text">Label-Only Membership Inference Attacks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%8B%E5%90%8E%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">20.6.</span> <span class="toc-text">之后的思路：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-8"><span class="toc-number">21.</span> <span class="toc-text">2021&#x2F;3&#x2F;8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-9"><span class="toc-number">22.</span> <span class="toc-text">2021&#x2F;3&#x2F;9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-13"><span class="toc-number">23.</span> <span class="toc-text">2021&#x2F;3&#x2F;13</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-15"><span class="toc-number">24.</span> <span class="toc-text">2021&#x2F;3&#x2F;15</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-19"><span class="toc-number">25.</span> <span class="toc-text">2021&#x2F;3&#x2F;19</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-22"><span class="toc-number">26.</span> <span class="toc-text">2021&#x2F;3&#x2F;22</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-23"><span class="toc-number">27.</span> <span class="toc-text">2021&#x2F;3&#x2F;23</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-25"><span class="toc-number">28.</span> <span class="toc-text">2021&#x2F;3&#x2F;25</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-3-30"><span class="toc-number">29.</span> <span class="toc-text">2021&#x2F;3&#x2F;30</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021-4-11"><span class="toc-number">30.</span> <span class="toc-text">2021&#x2F;4&#x2F;11</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-大创项目log" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      大创Log
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/" class="article-date">
+	  <time datetime="2021-04-10T16:00:00.000Z" itemprop="datePublished">2021-04-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Logs/">Logs</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/ML/" rel="tag">ML</a>, <a class="article-tag-link-link" href="/tags/VAE/" rel="tag">VAE</a>, <a class="article-tag-link-link" href="/tags/keras/" rel="tag">keras</a>, <a class="article-tag-link-link" href="/tags/pytorch/" rel="tag">pytorch</a>, <a class="article-tag-link-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 9.3k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 35(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>记录大创项目实践期间的一些所学和感受，简记学到的知识和理解</p>
+<span id="more"></span>
+
+<h2 id="2020-7-9"><a href="#2020-7-9" class="headerlink" title="2020/7/9"></a>2020/7/9</h2><h4 id="内容："><a href="#内容：" class="headerlink" title="内容："></a>内容：</h4><ul>
+<li><p>在阿里云服务器安装anaconda，一切顺利</p>
+</li>
+<li><p>测试代码<code>d:/collection/codes/git_progects/vae/vae_keras.py</code>，并尝试修改z的维度，发现维度升高之后vae的编解码效果更好更准确，但泛化性能可能更差一些（需验证）</p>
+</li>
+<li><p>anaconda下载速度慢的问题，已解决</p>
+<ul>
+<li><p>在~/目录下新建.condarc文件，然后添加以下代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/</span><br><span class="line">  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询channel命令：conda config –show</p>
+</li>
+<li><p>添加channel，在~/.condarc中添加</p>
+</li>
+</ul>
+</li>
+<li><p>阅读学长写的论文到VAE部分，了解了第一步数据生成器的作用</p>
+</li>
+<li><p>学习pycharm远程连接服务器运行代码的教程，还未测试</p>
+</li>
+</ul>
+<h3 id="reference："><a href="#reference：" class="headerlink" title="reference："></a>reference：</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wind-chaser/p/11325733.html">Anaconda常用命令 - Wind·Chaser - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/20b68a88aa5557796cec62c9.html">VIM 常用快捷键-百度经验</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yeler082/article/details/83818771">pycharm远程连接服务器运行代码加调试_yeler082的博客-CSDN博客_pycharm远程连接服务器</a></p>
+</blockquote>
+<h2 id="2020-7-10"><a href="#2020-7-10" class="headerlink" title="2020/7/10"></a>2020/7/10</h2><h3 id="内容：-1"><a href="#内容：-1" class="headerlink" title="内容："></a>内容：</h3><ul>
+<li>阿里云服务器配置好了环境</li>
+<li>VAE再回炉主要看了一下损失函数</li>
+<li>阅读学长写的论文完毕</li>
+<li>初步调试学长写的程序<br>遇到了问题了，学长的VAE的loss基本上没有下降/笑哭，调试中</li>
+</ul>
+<h2 id="2020-7-15"><a href="#2020-7-15" class="headerlink" title="2020/7/15"></a>2020/7/15</h2><h3 id="内容：-2"><a href="#内容：-2" class="headerlink" title="内容："></a>内容：</h3><ul>
+<li>学习了GAN原理，复习了一下论文的GAN部分，发现我们用的GAN和标准GAN还不一样。标准的GAN是输入噪声然后生成数据，再混入真实数据进行判别。但这里我们用的是输入的是x，生成的是判断结果，然后真实数据是实际模型对x的判断结果，最后判断哪些是实际模型的判断。实际上相当于是输入的所有x相当于一张图，然后生成器生成一个向量表征每个x的判断结果，再一个向量是真实模型预测的结果。判别器就是判断两个向量哪个是真实的哪个是生成器生成的就好。最后两个向量没区别了，就代表generator基本上能代替victim model 了。</li>
+<li>看代码（全部），理清代码逻辑</li>
+<li>测试代码，发现sythetic部分无问题，最后生成的augmentation data从victim model的检查结果来看也是“好数据”，但用augmentation data训练出来的模型和真实模型的相似度很低，目前来看，要么是模型的问题，要么是dataset的问题，还有待排查。</li>
+<li>用augmentation data 作为输入和用synthetic data 和用 real data 作为输入三者最后得到的模型相似度，augmentation data 的远低于另外两个，需要注意。</li>
+</ul>
+<h2 id="2020-7-16"><a href="#2020-7-16" class="headerlink" title="2020/7/16"></a>2020/7/16</h2><h3 id="内容：-3"><a href="#内容：-3" class="headerlink" title="内容："></a>内容：</h3><ul>
+<li>测试GAN，50%左右相似度，很差，原因不明，augmentation data都是好的数据，但是不知道为什么训练出来的GAN很差，而且，观察上有一半，都是刚好判断相反，这说明了什么？</li>
+<li>修改VAE的z到20，最后60多的相似度，好一些，但不知道为什么这么差。可能的原因：<ul>
+<li>数据和原始数据更接近，但都是输入模型判别率在95%以上啊，数据到底好在哪里？</li>
+<li>数据更少一些了，如果z是3的话，有40000多数据，但是z是20的时候只有35000多，为什么会这样？VAE的拟合效果好了反而数据不够准？</li>
+</ul>
+</li>
+<li>另外还有一点，就算是原始训练数据，输入到原始模型里面，也并非都是95%以上的判别率，很多都是90,80几。所以，可能还真是数据的问题。<ul>
+<li>这可能回答了上一个问题，因为更像原始数据了，所以反而不太容易上95%，所以数据量少了</li>
+<li>但总之我觉得判别模型的误差大和数据的关系不大，主要是GAN的问题我觉得</li>
+</ul>
+</li>
+<li>测试发现，并非数据集越大越好，分别取epoch=25,50,75,100，发现75的时候最高，为70%多，50和100为60%多，25是50%多，注意，大概率是GAN模型也有问题，每次实验都要比较每个模型的大小</li>
+<li>还有一点，训练GAN的batchsize=500，最后生成的是个2*500的矩阵，是不是太大了点？这样的话如果光看图片的话，很有可能有些点出错也瞧不出来，尝试减少batchsize试试看，batchsize太大我觉得很容易淹没误差信息<ul>
+<li>测试结果: batchsize=50： 20/40/60/80都很低，100的时候是70%多，120/140都很低，160为80%多！不够稳定，所以有点懵逼，可能是优化器的问题，换用SGD试试看。但至少结果上看好像并没有比batchsize=500的时候好很多，是在epoch=160的时候才出现好转，也有可能是epoch比较少的问题</li>
+<li>使用优化器效果不好，用SGD确实要稳定一些，但一直都是50%-60%，很差很差很差，没有adam好</li>
+<li>batchsize=25，adam，epoch=400： 很差，20,100多的时候上过70，但都没到过80, 其他的都在40-60波动，基本上排除是因为epoch不足带来的损失，猜测可能数据上太好了点，都是非零即一的判别，没有教会模型“模糊判别”的重要性，去除掉VAE之后的过滤环节，尝试训练模型。另一方面可能是数据集太小的问题，下次搞个大一些的数据集</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-17"><a href="#2020-7-17" class="headerlink" title="2020/7/17"></a>2020/7/17</h2><h3 id="内容：-4"><a href="#内容：-4" class="headerlink" title="内容："></a>内容：</h3><ul>
+<li>测试GAN:<ul>
+<li>batchsize=100, epoch=20 :  数据感人，也没有突破80%，最多到78%，epoch=20的时候，但有个现象值得注意：原始模型判别率在95%以上的，基本上模拟模型也都能判别出来，但原始模型在80%以下的，误差就比较大，所以，很有可能是样本太过于单一不具本普适性，使得模型的泛化性能比较差，尤其是零和思维比较严重</li>
+</ul>
+</li>
+<li>修改数据生成模块：vae保持不变，生成数据增大一倍，同时去掉之后的95%门槛，使得数据更加多样化。然后GAN的batchsize控制在100比较合适了，epoch=40即可。<ul>
+<li>augmentation data=100000，batchsize=100，epoch=40，adam：<ul>
+<li>出现错误：Nan、inf or larger than dtype（float64），重新生成一遍augmentation data，目前来看没有出现问题，可能只是一次偶然的mistake</li>
+<li>结果：波动幅度小，泛化性能提高，最高可以到85%左右的准确度，一般也是75%-80%左右。总体来说效果还算不错，比起之前的效果确实要好上不少。我觉得多半是augmentation data的问题。</li>
+<li>另外，现在的模型没有之前那么绝对，但感觉又有点太疑神疑鬼，不敢拿决定，并且，刚好判断反的情况依旧比较普遍。感觉像是数据集不够大的原因。尝试将数据集再调大一些试试看效果</li>
+</ul>
+</li>
+<li>augmentation data=200000，batchsize=50，epoch=20：<ul>
+<li>相当差，差到不可思议，augmentation data大一些了之后直接爆炸，GAN直接无法收敛，错误率达到80%左右居高不下。神特么，，，</li>
+<li>最后的效果，准确率根本没超过50%</li>
+<li>不知道为何无法收敛，需要再检查一下，理论上应该可以收敛才对啊，，至少不应该如此大的误差啊</li>
+<li>生成的augmentation data里面有很多高达0.99的数据，但应该也影响不大才对啊</li>
+<li>找着原因了：augmentation data生成失败，生成的数据有问题，可能是因为一次的number太大了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>想法：<ul>
+<li>可不可以在GAN训练的基础上接着训练呢？用不同的训练集，增加训练量</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-18"><a href="#2020-7-18" class="headerlink" title="2020/7/18"></a>2020/7/18</h2><h3 id="内容：-5"><a href="#内容：-5" class="headerlink" title="内容："></a>内容：</h3><ul>
+<li>测试GAN：<ul>
+<li>augmentation=100000 ；no filter；batchsize=500；epoch=200：MSE0.0几的水平，similarity基本上都在80%左右，最好的可以到87%左右。现象如下：augmentation data里面的similarity可以到95%左右，但在test data里面只能到80%，说明augmentaion data还是不够好，和实际的data并不是很一致。需要再进行一些改进，让augmentation data可以更加接近真实数据</li>
+<li>batchsize=1000，其他同：直接爆炸，80%错误率，不能看</li>
+</ul>
+</li>
+<li>之前的训练都是基于svm的，现在开始尝试 rf 的实验：<ul>
+<li>vae：<ul>
+<li>batchsize从50-500基本上对loss（11左右）和MSE（7.几）影响不大</li>
+<li>z从5-25，15-25的MSE可以稍微降到6-7之间，loss没太大区别</li>
+<li>将MSE在loss中的权值乘上1.5，MSE可以降到4左右，尝试一下这样会不会更好</li>
+</ul>
+</li>
+<li>gan：augmentation=90000多；0.7 filter；batchsize=500；epoch=100，vae loss不改：<ul>
+<li>基本上都是60%多一点，有点差诶，但在augmentation上面的误差也在0.3-0.25左右，也就是说这个成绩是能接受的，因为在训练集上做的都不好。</li>
+<li>也说明augmentation data还行，但gan训练的效果不好</li>
+</ul>
+</li>
+<li>gan：augmentation=100000多；no filter；batchsize=200；epoch=100，vae loss不改：<ul>
+<li>基本上都是75%-80%的准确度，效果很不错很稳定。在augmentation data的similarity是0.13-0.2左右，在test data上是75-80%。</li>
+<li>效果不错，但test data和augmentation data的预测度有偏差，还是说明增强数据集不是特别“合理”，但已经属实不错了。</li>
+<li>另外，gan的batchsize会影响训练程度，需要进一步的实验测试比较合适的batchsize</li>
+<li>augmentation data的数量也可以适当再增加一些？</li>
+<li>vae的loss可以进行一些修改，比如在MSE加一个大于1的权值，这样可能会有更好的拟合效果。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-19"><a href="#2020-7-19" class="headerlink" title="2020/7/19"></a>2020/7/19</h2><ul>
+<li>rf：<ul>
+<li>gan：augmentation=100000多；no filter；batchsize=100；epoch=100，vae loss不改：<ul>
+<li>效果更好了，test data上测试epoch很多都是79%-82%的similarity，效果很稳定，在augmentation data的similarity在0.1-0.2中间波动，波动幅度比较大。</li>
+<li>说明batchsize确实是有一定影响的</li>
+<li>下一步可以尝试增加augmentation data的数量，看看效果会不会好些，以及改进vae让它生成的数据更好更合理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>有点困惑：会不会synthetic data也会影响augmentation data的全面性和真实性？但synthetic data是在真实范围中随机采样，应该不会出现太离奇的数据才对。</li>
+<li>另一方面，在augmentation data上跑rf 的训练的时候，预测度都无法达到90%以上，说明了什么？是模型的问题还是数据的问题？可能需要更好的模型吧</li>
+<li>rf：<ul>
+<li>gan：augmentation=150000；no filter；batchsize=100；epoch=100，vae loss不改：<ul>
+<li>效果一般，最后没有跑完，只跑了87个epoch，test测试集上稍微好一些，最好的是83%，但和100000的差不多</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-20"><a href="#2020-7-20" class="headerlink" title="2020/7/20"></a>2020/7/20</h2><ul>
+<li>rf：<ul>
+<li>vae：loss = 1.5MSE+KLD<br>gan：augmentation=10w；no filter；batchsize=100；epoch=100：<ul>
+<li>效果不好，对augmentation data的模拟效果都不太好，errorrate在0.1-0.3之间反复变化，在test data上的效果也欠佳，最好也是79%，有很多50%60%的测试数据。</li>
+<li>不稳定，各个similarity都有，gan学习困难</li>
+<li>有点迷惑，只能说明修改了vae之后的数据对gan来说学习的难度更大了。不知道该如何改进。需要再探索一下</li>
+<li>稍微查看了一下victim model 和 gan 对test data的判断结果，判断可能是因为augmentation数据的不均衡（[1,0]的情况远多于[0,1]）导致 gan 对 [0,1] 缺乏敏感性。</li>
+</ul>
+</li>
+<li>vae：loss = 1.5MSE+KLD<br>gan：修改augmentation=12w，其中5w左右是【0,1】，5w是【1,0】batchsize=200： <ul>
+<li>test data similarity 大概是 70%多一点，判断很多都是刚好判断反，【0.1,0.9】判断成【0.9,0.1】那种。不会是augmentation太多了而网络复杂度不够吧，，</li>
+<li>aug data 的表现也不太好，基本上0.15-0.25左右的errorrate，和之前的没改过，那么只能考虑可能是aug data 过多了，那么需要减小数据集，姑且先减少到8w左右吧。</li>
+</ul>
+</li>
+<li>vae：loss = 1.5MSE+KLD<br>gan：修改augmentation=8w，limit=0.6，其中4w左右是【0,1】，4w是【1,0】；batchsize=100： <ul>
+<li>aug data：error rate：最低0.15，但有很多特别差的数据，30%40%50%60%都有，相当不稳定。</li>
+<li>test data：最高80%，多数75%-79%，也不算好，有30%40%的很差的数据</li>
+<li>与上一个实验对比，说明aug data的数量也不能太多，大概这个数字就够了</li>
+<li>synthetic data：75%-80% 和 test data 差不多</li>
+<li>判断失误的现象依旧，但这次感觉双向失误更多了，之前一直是01错判成10的多一些，现在两者差不多多了，可以判断是aug data 策略修改的功劳</li>
+<li>接下来就判断一下vae到底有多大影响吧</li>
+</ul>
+</li>
+<li>vae：loss = MSE + KLD<br>gan：aug data = 8w，limit = 0.6，均分, batchsize = 100：<ul>
+<li>aug data：error rate：差不多也就是之前实验一样的水准</li>
+<li>test data：最高79%，还有20%几的？？大部分都在77%左右吧，就是中间有一段很差很差的epoch10-44</li>
+<li>synthetic data：和test data上的基本没区别，test 上的 similarity甚至略高于synthetic，，不懂，，</li>
+<li>每次aug data的error rate基本上都没啥变化，说明并不是gan训练得不充分</li>
+<li>修改了vae之后好像test data上的similarity略有变差，可以想见加个MSE的权值还是有用的，这个权值可以加到2左右？</li>
+<li>synthetic 和 test差不多，说明synthetic的数据已经十分接近 test 了，那么就是 aug data 还不够好</li>
+<li>还有就是aug data上的gan的error rate基本上都是一个数字，这是victim model决定的，和aug data没有关系，说明 gan 这个模型的极限可能也就是80%多，而 aug data并不能完全拟合test data，所以similarity略低于理论值</li>
+<li>那么，如果是这样的话，用在svm上是不是就可以上90%了？</li>
+</ul>
+</li>
+<li>vae：loss = 1.5 MSE + KLD<br>gan：aug = 8w，limit=0.6，均分，batchsize=150：<ul>
+<li>aug data： error rate：0.15-0.2占了很多，但有特别差的</li>
+<li>test data：最高79%，大部分在75%左右</li>
+<li>synthetic data：略低于test data，有些奇怪，居然比test 低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-21"><a href="#2020-7-21" class="headerlink" title="2020/7/21"></a>2020/7/21</h2><h3 id="内容：-6"><a href="#内容：-6" class="headerlink" title="内容："></a>内容：</h3><p>code从原始 code 切换至code_v1.1</p>
+<ul>
+<li>rf：<ul>
+<li>vae：batchsize=50，epoch=10，loss=MSE+KLD，z=14，层数加深</li>
+<li>wae_gan: batchsize=50，epoch=10</li>
+<li>aug：8w，均分，limit=0.6</li>
+<li>wgangp： batchsize=150，epoch=100</li>
+</ul>
+</li>
+<li>wgangp：batchsize=150，epoch=100，aug=8w：<ul>
+<li>aug：0误差</li>
+<li>test/synthetic：70%左右，77%最高</li>
+<li>说明vae不行，加深了层数反而不行了？有点奇妙，改回原来的试试看吧</li>
+</ul>
+</li>
+<li>wgangp：batchsize=150，epoch=100，aug=8w，limit=0.7<br>vae：改回原来的层数，z=14不变<br>wae_gan：不变，做对照：<ul>
+<li>史上最离奇实验出现啦！</li>
+<li>简直离谱，，</li>
+<li>aug：95%左右的错误率</li>
+<li>test/synthetic：83%左右的错误率</li>
+<li>我正确率都没这么高过！</li>
+<li>完全离奇，不知道什么原因，可能是wgan脑子抽掉了吧，，</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-22"><a href="#2020-7-22" class="headerlink" title="2020/7/22"></a>2020/7/22</h2><ul>
+<li>wgangp:batchsize=100，epoch=60，aug=8w，limit=0.7<ul>
+<li>效果不错诶，aug：0.05-0.1的error rate</li>
+<li>test/synthetic：82%左右，其中test非常稳定，基本上都是82%-83%</li>
+<li>奇了怪了，batchsize=100的时候完全没有任何问题，甚至训练50epoch左右就可以收敛</li>
+</ul>
+</li>
+<li>wgandiv：同：<ul>
+<li>效果不错，aug：0.05-0.1的errorrate</li>
+<li>test/synthetic：83%/81%，不错</li>
+</ul>
+</li>
+</ul>
+<p>一点想法：</p>
+<ul>
+<li>老师给的数据集不是很好，判断10比判断01的数据多很多，导致synthetic采样的数据也是如此，但aug data我又取的是每种情况的数量差不多，所以导致生成的01数据没有10数据泛化性能好，拟真程度高。也就是数据不够像真实数据。所以错误率会比10的高一些。所以可以在synthetic采样上做文章？</li>
+<li>aug data上的error rate 比 test/synthetic 的低0.1左右，也就是说aug data还不够像真实数据。但实际上synthetic数据已经比较接近test dataset了。我已经无能为力了，我觉得vae已经做的够好了，那么只能在别的方向上找出路：<ul>
+<li>将synthetic数据融入aug data做训练</li>
+<li>aug data训练完成后再用synthetic data做一些训练</li>
+<li>用synthetic data中判断错误的数据再生成再训练</li>
+</ul>
+</li>
+</ul>
+<p>验证实验：</p>
+<p>rf：</p>
+<ul>
+<li>参数：<ul>
+<li>vae：batchsize=100，epoch=10，loss=MSE+KLD，z=14，层数不加深</li>
+<li>aug：8w，均分，limit=0.7</li>
+<li>wgandiv： batchsize=100，epoch=100</li>
+</ul>
+</li>
+<li>结果：<ul>
+<li>test数据集上77-78的similarity，效果一般，看来之前的82%有运气成分在</li>
+<li>errorr0远少于error1，说明数据并不是很好，error0 大概 15%，error1高达50%，完全碰运气了就是</li>
+<li>在synthetic data 上也是如此，error0和test相差无几，主要是error1到了30%多</li>
+<li>结论：需要改进方案，synthetic data需要改进，然后在训练完gan之后需要加一步微调，最好通过synthetic</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-7-24"><a href="#2020-7-24" class="headerlink" title="2020/7/24"></a>2020/7/24</h2><p>有个奇怪的现象：synthetic采样的时候居然是01情况略多？两者差不多，01略多。这是我没想到的，那为什么aug data生成的时候10情况远多于01，那就只能说明synthetic 采样的时候虽然 10 的多，但峰值都很小，每次采样的数据量不大，所以才导致如此。而aug data 的时候因为是按照概率limit采样，所以10的更多。</p>
+<p>不管结果如何，改进了synthetic采样，让两种情况的采样数量差不多。然后再进行实验，看看效果如何，估计效果一般/笑</p>
+<p>新一步实验：目标：在原实验基础上，添加步骤来提高最终的similarity</p>
+<p>aug ： limit=0.6 data：8w</p>
+<p>vae：batchsize=100，epoch=10，loss=MSE+KLD，z=14，层数不加深</p>
+<ul>
+<li>wgan：batchsize = 100， epoch=100</li>
+<li>不行，不行，不行，虽然有80%左右的similarity，但error0只有0.1，但error1高达0.5？？基本上就是瞎猜了</li>
+<li>猜测难道是limit 的问题？但0.6已经不高了啊。</li>
+<li>推测：在R范围内，10占的空间更大，01占的范围小，而实际判断的01占的位置更小，有部分本来是01的被判断为10（一半），如图：</li>
+</ul>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%8F%AF%E8%83%BD%E6%83%85%E5%86%B5.png"></p>
+<ul>
+<li>所以，应该还是取样的问题，就是取样的都是不在边界附近的数据，所以导致边界不明确。而因为取样是如此，实际上生成的数据中在边界附近的数据也不多，这就造成了边界界定模糊的问题。而因为数据分布10的数据多，虽然边界界定不清，依旧占比较少，而01数据因为本身比较少，判定不明所以最后error1很大。如图所示。</li>
+<li>我觉得重点在于想法子将边界界定得更加明确一些，也就是说，要生成一些矫正数据来修改“判定01”的圈子位置。而这，应该就落到了aug data的任务上咯。生成判定范围在0.8以内的数据，然后接着训练gan。这些数据要多一些，才能矫正。</li>
+</ul>
+<h2 id="2020-7-27"><a href="#2020-7-27" class="headerlink" title="2020/7/27"></a>2020/7/27</h2><p>经过组会的总结，有了一些启发， 下面调整方向：aug data的五五开策略确实不太好，实际上今天实验的时候，不增加这个策略，发现基本上aug data的概率分布就和train数据差不多。原始大概3:1，aug data的比例大概是85:15，更加具有偏向性一些，但似乎也不是不合理。但最后实验训练出来的效果是对01的情况辨识度很差，所以我觉得运用focal loss可能确实是有用的，可以试试看！但边界模糊的问题依旧不好解决，用focal loss和gan并不能很好的结合，需要设计一下</p>
+<p>另外出现了新问题：为什么synthetic产生的也是不平衡的数据？而实际上生成的时候输出的number0和number1是平衡的啊？为什么两中输出不一样？可以肯定的是number0和number1是有问题的，但问题还不知道在哪儿</p>
+<h4 id="总结下现在的实验现象："><a href="#总结下现在的实验现象：" class="headerlink" title="总结下现在的实验现象："></a>总结下现在的实验现象：</h4><p>synthetic程序运行的过程中统计两种预测结果的采样数量：大概1:1<br>程序运行结束后将synthetic data喂入victim model，得到的prediction中两种的比例大约4:1<br>同时，程序的采样策略是第一个峰值截断，每次的峰值都在0.8以上，所以，应该不会出现预测probability在0.8以下的数据，但实际预测结果是有大量数据的预测probability在0.8以下，甚至有0.501…这种神奇的概率<br>每次turn采样的数据喂入victim model之后的预测概率和之前的不同，见下图：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/QQ%E5%9B%BE%E7%89%8720200727131727.png" alt="QQ图片20200727131727"></p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/QQ%E5%9B%BE%E7%89%8720200727131751.png" alt="QQ图片20200727131751"></p>
+<blockquote>
+<p>已解决，感谢wbr大佬，问题出在了预处理上，因为synthetic dataset进行的预处理，也就是归一化，和采样的时候用的不是一个归一化，就造成了这种奇妙的现象。也就是synthetic dataset里的那些数据，在采样的时候进行的预处理加均值除方差 和 之后训练vae的时候进行的预处理加的均值除的方差不同（因为数据集不同，均值方差不同），造成了domain shift</p>
+</blockquote>
+<p><strong>实验</strong>：</p>
+<ul>
+<li><p>取消五五开策略（因为没什么太大用处），再次实验：</p>
+</li>
+<li><p>wgandiv：epoch=100，aug data=8w，limit=0.5，batchsize=100：</p>
+</li>
+<li><p>80%左右的正确率，但依旧存在01情况错误率高的问题，同时在test/synthetic集上的全部误差都比在aug data上大10%-20%</p>
+</li>
+<li><p>知识蒸馏在synthetic只有70%左右正确率，吊打状态，但wbr说可以蒸出80%以上？可能不是很稳定吧？</p>
+</li>
+</ul>
+<p>加入 focal loss 策略：</p>
+<p>在fake prediction判别为10和01的情况下对loss加不同增益，[0.25,0.75]，但效果不大，估计是focal loss不好</p>
+<p>主要也可能是和netD的输出有关系，本来在（0,1）区间挺好的，但是wgan取消了这条，有可能大，也有可能为负，导致增益不好加，，烦人！当然也可能本身focal loss没啥卵用，但我觉得多少应该有点用吧，至少应该能降低  01的错误率吧？</p>
+<p><strong>思考</strong>：</p>
+<p>现在是训练五次netD，一次netG，但我们实际用的是netG啊，那这不实际上用在训练netG的数据只有20000？是不是有点少？可以试试调小n_critic参数看看效果</p>
+<blockquote>
+<p>已解决，dataloader里面有随机选项，我憨憨了</p>
+</blockquote>
+<h2 id="2020-7-28"><a href="#2020-7-28" class="headerlink" title="2020/7/28"></a>2020/7/28</h2><p><strong>实验</strong>：</p>
+<p>wgandiv：</p>
+<ul>
+<li>epoch=100，batchsize=100，n_critic=2，aug data=8w，limit=0.5，不平衡生成，一般loss<ul>
+<li>爆炸，只有68%的similarity，而且MSE也居高不下（20左右），test和synthetic都不行。看样子是不太行的</li>
+</ul>
+</li>
+<li>那看来n_critic是不能改咯</li>
+</ul>
+<p>又想到一个点子：</p>
+<ul>
+<li>既然如此，那只要把 i % n_critic == 0 改成 （i+epoch）%n_critic == 0 不就也可以利用全部数据了么，这样每次epoch都不一样，也可以有效果吧？再不济也有80%左右的正确率嘛，试试看：</li>
+<li>epoch=30，batchsize=100, n_critic=5，aug data=8w，limit=0.5，proportion=[0.8,0.2], 一般loss<ul>
+<li>80%的similarity，MSE在0.7，和KD差不多，KD略好（82%，0.6），但还行吧，我觉得有希望！</li>
+<li>主要是01的情况还是错误率有点点高，我觉得还是需要搞搞</li>
+</ul>
+</li>
+<li>epoch=30，batchsize=100, n_critic=5，aug data=8w，limit=0.5，proportion=[0.8,0.2]<ul>
+<li>focal loss: [0.2,0.8]: netG，netD都应用：</li>
+<li>wonderful！居然可以similarity到85%！新纪录！不过是在原本的基础上练出来的，可能缺乏公正性，还需要再验证一下。</li>
+<li>再次验证，成立！可以，效果不错</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>简直是神来之笔，focal loss赛高！其实不是正宗的focal loss啦，叫伪focal loss或者类focal loss比较好，毕竟我只用到了alpha项，也就是加不同的增益</p>
+<p>原版如下：膜一下大佬：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28527749">Focal Loss 的Pytorch 实现以及实验 - 知乎</a></p>
+</blockquote>
+<p>然后对svm：</p>
+<ul>
+<li>wgandiv：epoch=100，batchsize=100，aug data=8w，limit=0.5，proportion=[0.75,0.25]，一般loss<ul>
+<li>focal loss：[0.2,0.8]：netG，netD应用</li>
+<li>93%的similarity，没话说</li>
+</ul>
+</li>
+</ul>
+<p>然后对xgboost：</p>
+<ul>
+<li>wgandiv：同<ul>
+<li>focal loss：同</li>
+<li>86% similarity， 0.7 MSE</li>
+</ul>
+</li>
+</ul>
+<h2 id="2020-8-1"><a href="#2020-8-1" class="headerlink" title="2020/8/1"></a>2020/8/1</h2><ul>
+<li>今天做实验，发现个小细节： 震荡现象还是比较普遍的，所以完全可以使用可变学习率的方式，或者干脆调小学习率来减小震荡现象的产生嘛。</li>
+</ul>
+<blockquote>
+<p>已经通过可变学习率解决，见 2020/8/16 的 log</p>
+</blockquote>
+<ul>
+<li>需要学学adam，然后看看能不能再调调参数？啊好烦，又要调参数，我不想调参数啊！！</li>
+<li>focal loss也可以改进改进，比如强调一下概率不那么悬殊的，比如0.6/0.4 这种，这样会不会有更好的MSE？</li>
+<li>实际测试也发现，使用可变学习率可以显著加快收敛速度，甚至可以做到比KD还快，指标可以是每次算得的MSE。0.001-&gt;0.0001-&gt;0.00001-&gt;0.000005</li>
+</ul>
+<h2 id="2020-8-7"><a href="#2020-8-7" class="headerlink" title="2020/8/7"></a>2020/8/7</h2><p>今天简单测试了一下实验，发现数据量在2w的时候对xgboost的模拟效果完全没有影响，各项指标都和9w的一样，说明数据量不是一个很关键的因素！</p>
+<p>那么现在看来比较有效的改进：一个是gan的batchsize，一个是aug data的取消筛选策略，一个是focal loss策略的应用</p>
+<p>直接使用synthetic data训练gan：</p>
+<ul>
+<li>xgboost：similarity：86%左右，MSE：0.65左右</li>
+<li>svm：similarity：91%，MSE:0.3</li>
+<li>rf：similarity：83%，MSE:0.65左右</li>
+</ul>
+<h2 id="2020-8-16"><a href="#2020-8-16" class="headerlink" title="2020/8/16"></a>2020/8/16</h2><p>思路汇总：</p>
+<ol>
+<li>首先要用可变学习率来使得最后训练的结果一定要收敛，模型的存储可以使用MSE递减策略</li>
+<li>为了让每个数据都是“有用的”，也就是尽量每个数据都包含着新的信息量，那么就需要让每个数据都尽量“独特”。所以使用wae_gan来训练模型，用很少量的数据来训练，然后进行aug data，然后再进行wae_gan训练，依次往复。aug data的策略是用wae_gan里面的netD选择小于0.5的，也就是判断为假的数据，这样这些数据就是较为“独特”的数据。但是，一次aug data也不能太多，因为aug data生成的数据会出现重复的情况</li>
+</ol>
+<p>代码改进：</p>
+<ul>
+<li>加入可变学习率，效果拔群，训练效果十分稳定，且效果还是很棒棒的。similarity在86%左右xgboost</li>
+<li>改进模型存储使用MSE递减策略，效果也相当不错，比较满意</li>
+</ul>
+<p>synthetic调整：</p>
+<ul>
+<li>加入synthetic_simple，也就是随机采样不进行筛选，应用最新的策略，最后训练出来的xgboost也在86%左右，还算不错吧？KD是78%，也是吊打状态</li>
+<li>rf的效果不行，86%左右，但是和筛选的synthetic策略相比也没有变。观察发现主要是少的那部分数据。<ul>
+<li>另一方面，KD的表现相当差，68%的similarity，全面吊打KD/笑哭</li>
+</ul>
+</li>
+<li>svm的效果：<ul>
+<li>89%的gan，还算不错吧</li>
+</ul>
+</li>
+</ul>
+<h2 id="2021-1-30"><a href="#2021-1-30" class="headerlink" title="2021/1/30"></a>2021/1/30</h2><ol>
+<li>安装xgboost</li>
+<li>花了一些时间回顾之前的工作，上手</li>
+<li>使用原始训练数据进行窃取训练，但效果并没有变得更好啊/笑</li>
+</ol>
+<h2 id="2021-3-3"><a href="#2021-3-3" class="headerlink" title="2021/3/3"></a>2021/3/3</h2><p>总结一下目前的工作：</p>
+<ol>
+<li>focal loss加入了err偏置项，可以一定程度上实现自适应，比alpha手动调整稍微高明一点。以及对抗数据分布不均匀现象</li>
+</ol>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/%E5%85%AC%E5%BC%8F.png" alt="公式"></p>
+<p>发现的问题：</p>
+<ol>
+<li>使用preprocessing之后数据的分布实际上是发生了改变，不知道training data的distribution的情况下进行预处理实际上是会产生比较大的误差的，假设已知数据分布进行预处理（已知training data的均值方差）的结果和直接归一化（算均值方差），得到的数据喂入模型得到的输出结果的差异还是相当大的，前者大概两种分类1:1，后者可能能偏到10%：90%，这个问题可以通过focal loss得到一定程度的解决，但真的要解决的话还得再想想<ol>
+<li>一种思路：可不可以直接假设预处理也是victim model 的一部分进行模拟， 这样相当于就多了一层映射，应该也是可以的吧？我觉得是值得一试的</li>
+</ol>
+</li>
+<li>数据采样还是有问题的，我觉得还需要再做一些尝试，使得数据更好</li>
+</ol>
+<p>之后的工作：</p>
+<ol>
+<li>改进采样策略：<ol>
+<li>使用熵排序算法采样，更进一步使用论文中的deepfool方法</li>
+<li>使用k-mean聚类算法</li>
+<li>加强版结合1和2的思路，先熵后聚类去重，减小访问量，这个思路还是挺精巧的我觉得</li>
+</ol>
+</li>
+<li>解决一下预处理的问题，看这个思路是否真的可行</li>
+</ol>
+<h2 id="2021-3-4"><a href="#2021-3-4" class="headerlink" title="2021/3/4"></a>2021/3/4</h2><p>今天尝试了使用绝对的preprocessing的方法，虽然效果没有变好，依旧在82%左右acc，但是问题更加明显了，在synthetic数据集上进行测试的时候在class1上的正确率比较高，有60-70%，但是在测试集上就表现得比较差了，只有20%，导致了测试集上的正确率要低于synthetic数据集上的数据。</p>
+<h2 id="2021-3-6"><a href="#2021-3-6" class="headerlink" title="2021/3/6"></a>2021/3/6</h2><p>看了几篇论文，接触了一些概念：比如active learning、adversarial attack等等，还有之前提到过的membership inference attack等</p>
+<p>每一篇的思想姑且罗列如下：</p>
+<h3 id="ACTIVETHIEF-Model-Extraction-Using-Active-Learning-and-Unannotated-Public-Data"><a href="#ACTIVETHIEF-Model-Extraction-Using-Active-Learning-and-Unannotated-Public-Data" class="headerlink" title="ACTIVETHIEF: Model Extraction Using Active Learning and Unannotated Public Data"></a>ACTIVETHIEF: Model Extraction Using Active Learning and Unannotated Public Data</h3><p>这篇是AAAI的文章，其中对我们最具有参考价值的应该是里面提到的很多selection strategies：</p>
+<p><img src="大创项目log/image-20210306203309045.png" alt="image-20210306203309045" style="zoom: 50%;">    <img src="大创项目log/image-20210306203441360.png" alt="image-20210306203441360" style="zoom:50%;"></p>
+<p>同时这篇文章所述的模型结构也很有参考意义（某种意义上我觉得比我们的模型更好/笑哭）：</p>
+<img src="大创项目log/image-20210306203615184.png" alt="image-20210306203615184">   
+
+ <img src="大创项目log/image-20210306203711046.png" alt="image-20210306203711046" style="zoom:50%;">
+
+<h3 id="active-learning"><a href="#active-learning" class="headerlink" title="active learning"></a>active learning</h3><p>另外关于active learning我觉得也适合了解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_15111861/article/details/85264109">active learning csdn blog</a></p>
+<p>我们selection的目的不就是为了通过在未知标签的基础上从完全随机的数据中选出有价值的数据，喂入victim model进行打标的么？这就是标准的active learning啊！专家就是我们要学习的victim model</p>
+<p>activethief文章里提到的关于deepfool的文章，在wbr的建议（命令）下看了以下三篇：</p>
+<h3 id="GeoDA-a-geometric-framework-for-black-box-adversarial-attacks"><a href="#GeoDA-a-geometric-framework-for-black-box-adversarial-attacks" class="headerlink" title="GeoDA: a geometric framework for black-box adversarial attacks"></a>GeoDA: a geometric framework for black-box adversarial attacks</h3><p>提出了一种快速计算adversarial example的方法，说白了就是计算某点 x 到 decision boundary 的最短距离：</p>
+ <img src="大创项目log/image-20210306204333277.png" alt="image-20210306204333277" style="zoom:50%;">
+
+<p>算法如下：</p>
+ <img src="大创项目log/image-20210306204428359.png" alt="image-20210306204428359" style="zoom:50%;">
+
+<p>有点复杂，大概意思就是先找到一个决策边界上的点 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="2.282ex" height="1.375ex" role="img" focusable="false" viewBox="0 -442 1008.6 607.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g></g></g></svg></mjx-container> ，然后求这点上的法向量，通过法向量找待求点 x 在法向量方向上的边界上的点<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.339ex;" xmlns="http://www.w3.org/2000/svg" width="2.282ex" height="1.339ex" role="img" focusable="false" viewBox="0 -442 1008.6 592"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g></svg></mjx-container>，再重复这个过程T次，求法向量的算法个人认为也比较憨憨：</p>
+ <img src="大创项目log/image-20210306205032850.png" alt="image-20210306205032850" style="zoom:50%;">
+
+<h3 id="Label-Leaks-Membership-Inference-Attack-with-Label"><a href="#Label-Leaks-Membership-Inference-Attack-with-Label" class="headerlink" title="Label-Leaks: Membership Inference Attack with Label"></a>Label-Leaks: Membership Inference Attack with Label</h3><p>这篇文章主要介绍了两种攻击方式，没讲什么采样有关的知识：</p>
+<blockquote>
+<p><strong>The transfer-based attack</strong> follows the intuitio that if a locally established shadow model is similar enough to the target model, then the adversary can leverage the shadow model’s information to predict a target sample’s membership.<br><strong>The perturbation-based attack</strong> relies on adversarial perturbation techniques to modify the target sample to a different class, and uses the magnitude of the perturbation to judge whether it is a member or not.</p>
+</blockquote>
+<p>不过它给指了条路：</p>
+ <img src="大创项目log/image-20210306205547456.png" alt="image-20210306205547456" style="zoom:50%;">
+
+<p>W. Brendel, J. Rauber, and M. Bethge, “Decision-Based Adversarial Attacks: Reliable Attacks Against Black-Box Machine Learning Models,” in International Conference on Learning Representations (ICLR), 2018.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/bethgelab/foolbox">https://github.com/bethgelab/foolbox</a>. </p>
+<h3 id="Label-Only-Membership-Inference-Attacks"><a href="#Label-Only-Membership-Inference-Attacks" class="headerlink" title="Label-Only Membership Inference Attacks"></a>Label-Only Membership Inference Attacks</h3><p>这一篇也是提供了一些攻击方式，和上一篇差不多感觉，提供了三种成员推断攻击攻击方式。鉴于实在和我们项目关系不大，就不展开说了，有兴趣可以查阅</p>
+ <img src="大创项目log/image-20210306210100352.png" alt="image-20210306210100352" style="zoom:50%;">
+
+<p>这个想法不错，可以参考（虽然并没有什么卵用）</p>
+<h3 id="之后的思路："><a href="#之后的思路：" class="headerlink" title="之后的思路："></a>之后的思路：</h3><ol>
+<li>使用熵值排序法进行采样</li>
+<li>参考ActiveThief的思想，使用循环训练、重复对synthetic data中判断错误的数据进行简单的增量训练，微调</li>
+<li>使用k-mean聚类的方法进行采样（最复杂，最晚试）</li>
+<li>KD也选最好的模型</li>
+<li>代码优化（readme、注释、不需要的代码消掉出一个精简版的代码）</li>
+</ol>
+<h2 id="2021-3-8"><a href="#2021-3-8" class="headerlink" title="2021/3/8"></a>2021/3/8</h2><p>读activeThief代码：<a target="_blank" rel="noopener" href="https://bitbucket.org/iiscseal/activethief/src/master/">https://bitbucket.org/iiscseal/activethief/src/master/</a></p>
+<h2 id="2021-3-9"><a href="#2021-3-9" class="headerlink" title="2021/3/9"></a>2021/3/9</h2><p>出现啦，无法解决的问题：欠拟合问题，肯定是训练方式的问题，因为模型曾经表现得很好。</p>
+<p>在synthetic数据集上训练的结果还不错：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309144747215.png" alt="image-20210309144747215"></p>
+<p>最终结果：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309144816358.png" alt="image-20210309144816358"></p>
+<p>在uncertainty取样数据集上的表现一般，有大概79%最好</p>
+<hr>
+<p>kmean：经典在wgandiv上把fake_preprocess改成最初始的减均值除方差temp_preprocess就能收敛到最优点，最后的效果也是不错的，和synthetic 的差不多，原因不明。在model_test的时候依旧使用fake_preprocess，这是最让人迷惑的。</p>
+<p>seed=6545的时候：</p>
+<p>修改了一下预处理函数：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309225925280.png" alt="image-20210309225925280"></p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210309230000924.png" alt="image-20210309230000924"></p>
+<p>结果：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210310190907802.png" alt="image-20210310190907802"></p>
+<h2 id="2021-3-13"><a href="#2021-3-13" class="headerlink" title="2021/3/13"></a>2021/3/13</h2><p>今天又重新使用了一下1.3的代码，就是年前的稳定版代码，稳定版确实要好用很多，准备在这个基础上进行改进，使用adult xgboost的，加上峰值采样、vae、一般归一化，效果还是相当不错的，seed=3297</p>
+<img src="大创项目log/image-20210313170405747.png" alt="image-20210313170405747" style="zoom:50%;">
+
+<img src="大创项目log/image-20210313170536462.png" alt="image-20210313170536462" style="zoom:50%;">
+
+<p>去掉峰值采样，单纯随机采样也依旧有很好的效果：采样5000，vae数据增强到9000，然后进行训练，种子固定，最终效果相当不错诶！</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313174107763.png" alt="image-20210313174107763"></p>
+<p>在这个基础上进行改进的思路：</p>
+<ol>
+<li>换用不同的采样策略</li>
+<li>加入可变学习率</li>
+<li>focal loss 改进</li>
+<li>测试不同的预处理方式</li>
+</ol>
+<p>先kmean，然后再数据增强，效果有点点提升：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313182804093.png" alt="image-20210313182804093"></p>
+<p>focal loss 改进之后效果依旧不错：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210313193622830.png" alt="image-20210313193622830"></p>
+<p>不同预处理影响未知，不过现在应该是比较稳定的版本了。</p>
+<hr>
+<p>后续工作：</p>
+<ol>
+<li>focal loss里的alpha参数也可以加入到参数优化里边用优化器一起优化</li>
+<li>Label加噪声</li>
+<li>本地标签</li>
+<li>做各种各样的实验</li>
+</ol>
+<h2 id="2021-3-15"><a href="#2021-3-15" class="headerlink" title="2021/3/15"></a>2021/3/15</h2><p>将原本的采样策略替换为峰值采样，效果不尽如人意啊，不过只做了一次实验，不排除是偶然因素的误差导致的，需再训练一次拿主意：</p>
+<p><strong>第一次：</strong></p>
+<p>seed=3297</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210315202719319.png" alt="image-20210315202719319"></p>
+<p><strong>第二次：</strong></p>
+<p>seed=5339</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210315203958696.png" alt="image-20210315203958696"></p>
+<p>效果也还行吧，没有下降</p>
+<p>这样的话实验的大体框架就搭建到这里了，之后就直接跑各种实验再说吧</p>
+<h2 id="2021-3-19"><a href="#2021-3-19" class="headerlink" title="2021/3/19"></a>2021/3/19</h2><p>配好了服务器，搭好了环境，开始正式实验啦~</p>
+<p>首先编写了batch_preprocess脚本可以一次性挂着把所有的synthetic数据给生成完，因为峰值采样实在是太太太慢了/笑哭，然后就是测试了，在xgboost上边使用的参数完全没改，进行rf和svm的测试，测试了很多次，因为测试的结果十分取决于种子是不是好</p>
+<p>结果如图：</p>
+<p>rf：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210319153459261.png" alt="image-20210319153459261"></p>
+<p>svm： seed=6150</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210319161415824.png" alt="image-20210319161415824"></p>
+<h2 id="2021-3-22"><a href="#2021-3-22" class="headerlink" title="2021/3/22"></a>2021/3/22</h2><p>今天稍微修改了一点代码，方便之后所有的模型可以一次性跑完，目前来看应该是都可以跑了，就是参数上设置有点麻烦，先全部清一色的参数试试看吧，目前的脚本是一次性所有的9种情况练完：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322190620417.png" alt="image-20210322190620417"></p>
+<p>然后参数设置是这样的：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322190717917.png" alt="image-20210322190717917"></p>
+<p>解释下：图省事儿就没开启focal loss的alpha选项，只使用err自适应控制，效果还不错，同时训练wgandiv的时候稍微修改了一下：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322190832528.png" alt="image-20210322190832528"></p>
+<p>这样就是一次训练不好自动重新训练，最多训练三次。阈值设置的是error rate&lt;0.1就停止。根据经验上来看，只要模型的错误率小于0.1，基本上模型也就收敛得比较好了，这是个经验值</p>
+<blockquote>
+<p>此训练是使用的批量训练脚本晚上跑的：<img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322191052311.png" alt="image-20210322191052311"></p>
+<p>其中<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.564ex;" xmlns="http://www.w3.org/2000/svg" width="9.183ex" height="2.26ex" role="img" focusable="false" viewBox="0 -749.5 4059 999"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(529,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(1049,0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1621,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mi" transform="translate(1919,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mtext" transform="translate(2280,0)"><path data-c="A0" d=""></path></g><g data-mml-node="mo" transform="translate(2530,0) translate(0 -0.5)"><path data-c="7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path></g><g data-mml-node="mtext" transform="translate(2808,0)"><path data-c="A0" d=""></path></g><g data-mml-node="mi" transform="translate(3058,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(3509,0)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></svg></mjx-container>三次也没有达到很好的效果，所以就又重新训练了一次，得到了比较好的效果</p>
+</blockquote>
+<hr>
+<p>为了实现脚本批量一次性练完看结果，对代码进行了一些修改：</p>
+<ol>
+<li>所有的参数全部使用argparse重写，以此来达到支持传参的目标，单独训练可以修改argparse的default值</li>
+<li>wgandiv加入了重复训练设置，将argparse放到了main函数外边</li>
+<li>model_test支持把test data的测试结果输出到一个csv文件中，可以通过argment：–info 来为文件添加提示信息，这些信息会用于文件命名中。但输出到csv文件中只是增量的，可能存在重复，需要手动删除旧的（因为懒/笑哭）</li>
+</ol>
+<hr>
+<p>修改之前的一个错误：感谢zhc的提醒：<img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210322191659056.png" alt="image-20210322191659056"></p>
+<p>预处理是直接归一化，并不需要使用<code>temp_preprocess（kmean_data）</code>来归一化，这样效果会好很多</p>
+<h2 id="2021-3-23"><a href="#2021-3-23" class="headerlink" title="2021/3/23"></a>2021/3/23</h2><p>今天测试了所有情况下直接喂入<code>X_{data_type}_train_1</code>的结果，结果如图：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210325152351234.png" alt="image-20210325152351234"></p>
+<p>再和之前的进行对比：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210323141931682.png" alt="image-20210323141931682"></p>
+<p>效果相差无几</p>
+<h2 id="2021-3-25"><a href="#2021-3-25" class="headerlink" title="2021/3/25"></a>2021/3/25</h2><p>今天和昨天测试了不加focal loss 的实验情况，结果如图：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210325152030767.png" alt="image-20210325152030767"></p>
+<p>效果确实要比加了focal loss 的效果差很多，而且可以看到数据存在无脑全部分为一类数据的情况</p>
+<h2 id="2021-3-30"><a href="#2021-3-30" class="headerlink" title="2021/3/30"></a>2021/3/30</h2><p>不加kmean，直接synthetic+vae+augmentation，之后依旧是取8000训练75niter：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210330224118797.png" alt="image-20210330224118797"></p>
+<p>效果明显不稳定，需要训练更多轮才能有还能看的结果</p>
+<h2 id="2021-4-11"><a href="#2021-4-11" class="headerlink" title="2021/4/11"></a>2021/4/11</h2><p>加入macro F1 score的评测</p>
+<p>F1 score 分为macro、micro、weighted三类，二分类任务中micro-F1=acc，这里使用macro-F1来进行评测：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205124515.png" alt="image-20210411205124515"></p>
+<p>最终结果大概如图：</p>
+<p>全部策略：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205248646.png" alt="image-20210411205248646"></p>
+<p>去掉kmean：</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205306749.png" alt="image-20210411205306749"></p>
+<p>去掉focal loss</p>
+<p><img src="/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/image-20210411205324027.png" alt="image-20210411205324027"></p>
+<p>有空就是完全分为一类的数据，应该取0</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2021/04/11/%E5%A4%A7%E5%88%9B%E9%A1%B9%E7%9B%AElog/" title="大创Log" target="_blank" rel="external">http://philia897.github.io/2021/04/11/大创项目log/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/23/JupyterLab%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" title="JupyterLab玩耍记录"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/19/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="MySQL安装与配置"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">    <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

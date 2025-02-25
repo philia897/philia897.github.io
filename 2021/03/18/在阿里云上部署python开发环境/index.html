@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>在阿里云上部署python开发环境 | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="​	新买了阿里云的服务器，在上边部署上python的开发环境，遇到了很多问题，记录一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在阿里云上部署python开发环境">
+<meta property="og:url" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	新买了阿里云的服务器，在上边部署上python的开发环境，遇到了很多问题，记录一下">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140125722.png">
+<meta property="og:image" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140227477.png">
+<meta property="og:image" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140358221.png">
+<meta property="og:image" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/b90b57b851b91d0604a4694819816dab.png">
+<meta property="og:image" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318145534306.png">
+<meta property="article:published_time" content="2021-03-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-25T07:06:13.178Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="大创">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="阿里云">
+<meta property="article:tag" content="conda">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140125722.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.2px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.6px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 14px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.2px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.2px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.4px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.2px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/keras/" style="font-size: 13.2px;">keras</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/python/" style="font-size: 13.8px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.4px;">pytorch</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.4px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.2px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/default/">default</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/" class="title">云计算知识</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-10-18T16:00:00.000Z" itemprop="datePublished">2023-10-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/64%E4%BD%8Dwin7%E4%BD%BF%E7%94%A8conda%E5%AE%89%E8%A3%85xgboost/" class="title">64位win7使用conda安装xgboost</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/paper-notes/">paper notes</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/Descent-to-Delete%20Gradient-Based%20Methods%20for%20Machine%20Unlearning/" class="title">Descent-to-Delete Gradient-Based Methods for Machine Unlearning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/FL_DDos_%E6%AF%94%E8%B5%9BLog/" class="title">Federated Learning for DDos 比赛 Log</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%B4%AD%E4%B9%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B9%B6%E4%BD%BF%E7%94%A8SSH%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">1. 购买服务器并使用SSH连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">2. 配置服务器开发环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AE%89%E8%A3%85anaconda"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 安装anaconda</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-anaconda%E6%8D%A2%E6%BA%90"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 anaconda换源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%85%8D%E7%BD%AEpython%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text">2.2 配置python环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.4.</span> <span class="toc-text">2.3 配置vscode远程连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.5.</span> <span class="toc-text">2.4 配置免密连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E9%85%8D%E7%BD%AEVScode%E7%9B%B8%E5%BA%94%E6%8F%92%E4%BB%B6"><span class="toc-number">2.6.</span> <span class="toc-text">2.5 配置VScode相应插件</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-在阿里云上部署python开发环境" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在阿里云上部署python开发环境
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="article-date">
+	  <time datetime="2021-03-17T16:00:00.000Z" itemprop="datePublished">2021-03-18</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Logs/">Logs</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link-link" href="/tags/conda/" rel="tag">conda</a>, <a class="article-tag-link-link" href="/tags/python/" rel="tag">python</a>, <a class="article-tag-link-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a>, <a class="article-tag-link-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 1k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 3(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>​	新买了阿里云的服务器，在上边部署上python的开发环境，遇到了很多问题，记录一下</p>
+<span id="more"></span>
+
+<h2 id="1-购买服务器并使用SSH连接"><a href="#1-购买服务器并使用SSH连接" class="headerlink" title="1. 购买服务器并使用SSH连接"></a>1. 购买服务器并使用SSH连接</h2><p>购买的是t6突发性能型的服务器，重置密码，创建个新用户</p>
+<p>默认开启的是80端口（HTTP），3306端口（MySQL），5000端口和22（SSH）端口，都不需要管</p>
+<p>理论上啥都不需要管，然后直接用本地的mobaXterm连接就好，端口选择22，然后输入密码就连上了，很简单。</p>
+<p>使用手机Ternux模拟器连接：<code>ssh root@ip</code> 输入密码也可以连上</p>
+<h2 id="2-配置服务器开发环境"><a href="#2-配置服务器开发环境" class="headerlink" title="2. 配置服务器开发环境"></a>2. 配置服务器开发环境</h2><h3 id="2-1-安装anaconda"><a href="#2-1-安装anaconda" class="headerlink" title="2.1 安装anaconda"></a>2.1 安装anaconda</h3><p>直接按照教程走，到anaconda官网](<a target="_blank" rel="noopener" href="https://www.anaconda.com/download/)%E5%8E%BB%E4%B8%8B%E8%BD%BD%E7%9B%B8%E5%BA%94%E7%9A%84%E7%89%88%E6%9C%AC%E7%9A%84%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC">https://www.anaconda.com/download/)去下载相应的版本的安装脚本</a></p>
+<p>把下载下来的.sh文件通过mobaXterm拖拽上传到服务器中（IDM下载到本机再上传快，wget到服务器太慢了）</p>
+<p>然后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install bzip2  <span class="comment">#安装bzip2包，否则之后报错</span></span><br><span class="line">bash xxxx.sh  <span class="comment"># 运行安装脚本</span></span><br></pre></td></tr></table></figure>
+
+<p><em>注意bash安装的时候是可以自定义安装目录的，可以改改</em></p>
+<p>最后切回到root根目录，运行<code>source ~/.bashrc</code>使全局变量生效</p>
+<p>这样anaconda就安装好啦！</p>
+<h3 id="2-2-anaconda换源"><a href="#2-2-anaconda换源" class="headerlink" title="2.2 anaconda换源"></a>2.2 anaconda换源</h3><p>先使用<code>conda config</code> 创建.condarc文件</p>
+<p>然后<code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</code></p>
+<p>然后<code>vim ~/.condarc</code> 在里边添加新的源就好，文件大致长这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/</span><br><span class="line">  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就完成了换源，如果还是不行，把defaults删掉试试看</p>
+<h3 id="2-2-配置python环境"><a href="#2-2-配置python环境" class="headerlink" title="2.2 配置python环境"></a>2.2 配置python环境</h3><p>安装好anaconda之后，之后就可以开始愉快地配Python啦~</p>
+<p>先创建新环境<code>conda create -n xxx python=3.8</code> 不加python的话不会给你装python（很傻）</p>
+<p>然后直接无脑conda install 就行了，注意，windows的环境不能强行打包传过来，肯定用不了的，里边有exe文件，这样跨操作系统只能再装了。或者用yml说不定也行？我没试</p>
+<h3 id="2-3-配置vscode远程连接"><a href="#2-3-配置vscode远程连接" class="headerlink" title="2.3 配置vscode远程连接"></a>2.3 配置vscode远程连接</h3><ol>
+<li>首先确定自己电脑上安装了ssh连接工具，我是用everything直接查找<code>ssh.exe</code>，发现在<code>Git/Git/usr/bin/ssh.exe</code>中找到</li>
+<li>在VScode上安装插件 Remote Development</li>
+<li>输入Ctrl+Shift+P，调出VScode查找框，输入Remote-SSH，选择open configure file，选择<strong>对应用户下的.ssh\config</strong>，然后相应地修改就好，如下：</li>
+</ol>
+<p><img src="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140125722.png" alt="image-20210318140125722"><img src="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140227477.png" alt="image-20210318140227477"></p>
+<ol start="4">
+<li>如果此时报错说没有ssh巴拉巴拉的，那就是没找到ssh工具，可以自定义path：<img src="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318140358221.png" alt="image-20210318140358221"></li>
+</ol>
+<p>此时应该是可以输入密码连接上服务器了</p>
+<h3 id="2-4-配置免密连接"><a href="#2-4-配置免密连接" class="headerlink" title="2.4 配置免密连接"></a>2.4 配置免密连接</h3><ol>
+<li><p>在ssh.exe所在的目录打开cmd或者git bash，然后直接ssh-keygen生成私钥、公钥，如果已经有了，就不用再生成了</p>
+</li>
+<li><p>将公钥文件的内容拷贝到远程linux服务器需要免密登录的用户家目录内的.ssh目录内，重命名为authorized_keys。 注：如果有多台机器登录到linux中的该用户，或者authorized_keys文件已存在，则另起一行，写入公钥内容。~&#x2F;.ssh目录结构如下所示：<img src="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/b90b57b851b91d0604a4694819816dab.png" alt="b90b57b851b91d0604a4694819816dab.png"></p>
+</li>
+</ol>
+<h3 id="2-5-配置VScode相应插件"><a href="#2-5-配置VScode相应插件" class="headerlink" title="2.5 配置VScode相应插件"></a>2.5 配置VScode相应插件</h3><p>先安装插件到服务器端，直接在本地VScode就可以操作：install in SSH，如果点了没反应就退出再进再点，反正最后安上就行</p>
+<p>然后还是ctrl+Shift+P，调出窗口，输入python：select interpreter，选择适合的解释器即可</p>
+<hr>
+<p>到此为止就可以在本地调制服务器的代码啦<del>，至于怎么run code， 反正是用命令行是可以的，其他的就之后有空再写吧</del></p>
+<p>使用VScode的好处是本地不需要保存代码，都是在服务器端进行的，所以更加方便，不会出现同步出错的问题。</p>
+<blockquote>
+<p>jupyter指南：</p>
+<p>可以先在命令输入<code>jupyter notebook</code> 启动，然后再把地址填入server<img src="/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/image-20210318145534306.png" alt="image-20210318145534306"></p>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2021/03/18/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E9%83%A8%E7%BD%B2python%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="在阿里云上部署python开发环境" target="_blank" rel="external">http://philia897.github.io/2021/03/18/在阿里云上部署python开发环境/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/19/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E5%AE%89%E8%A3%85MySQL/" title="云服务器上安装MySQL"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/09/12/%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%A4%BA/" title="做笔记时候的一些符号表示"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">    <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>PVE+NAS等虚拟环境安装指南 | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="​    第二次安装PVE加上面的一些群晖、Windows等系统，新买了一张固态。第一次安装没写博客记录，第二次安装记录一下安装过程以及踩的坑。 ​    教程参考视频：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Br4y1N7VK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PVE+NAS等虚拟环境安装指南">
+<meta property="og:url" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​    第二次安装PVE加上面的一些群晖、Windows等系统，新买了一张固态。第一次安装没写博客记录，第二次安装记录一下安装过程以及踩的坑。 ​    教程参考视频：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Br4y1N7VK">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718100428825.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718103159425.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718103540298.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718110147374.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722110019373.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722110511716.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722110947156.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722111231010.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722113334140.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722113627692.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722114208168.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722114429382.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722114557519.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722125420124.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722125135353.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722131052719.png">
+<meta property="og:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722132103423.png">
+<meta property="article:published_time" content="2023-08-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-25T07:04:38.148Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="PVE">
+<meta property="article:tag" content="NAS">
+<meta property="article:tag" content="Network">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718100428825.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.2px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.6px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 14px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.2px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.2px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.4px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.2px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/keras/" style="font-size: 13.2px;">keras</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/python/" style="font-size: 13.8px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.4px;">pytorch</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.4px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.2px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/default/">default</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/10/19/%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9F%A5%E8%AF%86/" class="title">云计算知识</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-10-18T16:00:00.000Z" itemprop="datePublished">2023-10-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/64%E4%BD%8Dwin7%E4%BD%BF%E7%94%A8conda%E5%AE%89%E8%A3%85xgboost/" class="title">64位win7使用conda安装xgboost</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/paper-notes/">paper notes</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/Descent-to-Delete%20Gradient-Based%20Methods%20for%20Machine%20Unlearning/" class="title">Descent-to-Delete Gradient-Based Methods for Machine Unlearning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Logs/">Logs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/08/FL_DDos_%E6%AF%94%E8%B5%9BLog/" class="title">Federated Learning for DDos 比赛 Log</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+  <aside class="sidebar sidebar-toc collapse   in  " id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%E5%92%8C%E6%8E%A5%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text">1  准备工作和接线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%9C%A8%E8%BF%9B%E8%A1%8C%E6%AD%A3%E5%BC%8F%E5%AE%89%E8%A3%85%E4%B9%8B%E5%89%8D%EF%BC%8C%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 在进行正式安装之前，需要准备：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AE%89%E8%A3%85%E4%B8%BB%E6%9C%BA%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 安装主机：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E9%85%8D%E7%BD%AE%E4%B8%8A%E7%BD%91%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 配置上网：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-PVE%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">2 PVE的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%B6%E4%BD%9C%E5%90%AF%E5%8A%A8%E7%9B%98"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 制作启动盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%89%E8%A3%85PVE%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 安装PVE系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%BF%9B%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 进行简单的配置：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E7%BE%A4%E6%99%96NAS%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">3 安装群晖NAS系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 创建虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%85%8D%E7%BD%AE%E9%BB%91%E7%BE%A4%E6%99%96%E5%90%AF%E5%8A%A8"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 配置黑群晖启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E8%BF%9E%E6%8E%A5%E5%88%B0%E7%BE%A4%E6%99%96"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 连接到群晖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE%E9%BB%91%E7%BE%A4%E6%99%96"><span class="toc-number">3.4.</span> <span class="toc-text">3.3 配置黑群晖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8"><span class="toc-number">3.5.</span> <span class="toc-text">3.4 添加存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98%E5%88%B0PVE"><span class="toc-number">3.6.</span> <span class="toc-text">3.5 添加硬盘到PVE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85windows-10%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.</span> <span class="toc-text">4 安装windows 10系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%87%86%E5%A4%87%E9%95%9C%E5%83%8F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 准备镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 创建虚拟器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-win10%E5%AE%89%E8%A3%85%E6%B5%81%E7%A8%8B"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 win10安装流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 配置驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 配置远程桌面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">5 内网穿透配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-PVE%E4%BD%BF%E7%94%A8%E4%BC%98%E5%8C%96"><span class="toc-number">6.</span> <span class="toc-text">6 PVE使用优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%A2%9E%E5%8A%A0CPU%E6%B8%A9%E5%BA%A6%E6%98%BE%E7%A4%BA"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 增加CPU温度显示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1-%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="toc-number">6.1.1.</span> <span class="toc-text">6.1.1 安装软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.1.2.</span> <span class="toc-text">6.1.2 配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E6%8D%A2%E7%94%A8%E9%AB%98%E9%80%9F%E6%BA%90%E5%AE%89%E8%A3%85%E5%8D%87%E7%BA%A7%E4%B8%80%E4%BA%9Blinux%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 换用高速源安装升级一些linux必要工具</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-PVE+NAS等虚拟环境安装记录" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PVE+NAS等虚拟环境安装指南
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" class="article-date">
+	  <time datetime="2023-08-07T16:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Network/">Network</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/NAS/" rel="tag">NAS</a>, <a class="article-tag-link-link" href="/tags/Network/" rel="tag">Network</a>, <a class="article-tag-link-link" href="/tags/PVE/" rel="tag">PVE</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 3.7k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 14(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>​    第二次安装PVE加上面的一些群晖、Windows等系统，新买了一张固态。第一次安装没写博客记录，第二次安装记录一下安装过程以及踩的坑。</p>
+<p>​    教程参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Br4y1N7VK">https://www.bilibili.com/video/BV1Br4y1N7VK</a></p>
+<span id="more"></span>
+
+<p>本期PVE所有安装资料网盘打包：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1crbYS5-EMAcJIOm6sQyFNA">https://pan.baidu.com/s/1crbYS5-EMAcJIOm6sQyFNA</a>  密码: 4qf0</p>
+<p>涉及的链接：<br><a href="pve.proxmox.com">PVE官网</a><br><a target="_blank" rel="noopener" href="https://cn.ultraiso.net/">UltraISO写盘工具</a><br><a target="_blank" rel="noopener" href="https://www.diskgenius.cn/">DG分区助手</a><br><a target="_blank" rel="noopener" href="https://msdn.itellyou.cn/">MSDN我告诉你</a></p>
+<h2 id="1-准备工作和接线"><a href="#1-准备工作和接线" class="headerlink" title="1  准备工作和接线"></a>1  准备工作和接线</h2><h3 id="1-1-在进行正式安装之前，需要准备："><a href="#1-1-在进行正式安装之前，需要准备：" class="headerlink" title="1.1 在进行正式安装之前，需要准备："></a>1.1 在进行正式安装之前，需要准备：</h3><ol>
+<li>一台组装好的主机</li>
+<li>显示器一个</li>
+<li>键盘一个</li>
+<li>路由器一个（也可以使用网线和电脑直连，不过最后横竖是需要连路由器的，不如从最开始就连好<del>好吧实际上是笔记本没网口也没有转接头，没办法和主机直连，只能通过路由器来了，，，</del>）</li>
+<li>网线两根（如果直连就只需要一根）</li>
+<li>可上网笔记本一台</li>
+<li>U盘一个</li>
+</ol>
+<h3 id="1-2-安装主机："><a href="#1-2-安装主机：" class="headerlink" title="1.2 安装主机："></a>1.2 安装主机：</h3><ol>
+<li>路由器上电，WAN口接拨号线，LAN1口和主机相连</li>
+<li>将固态插入主机，显示器、键盘和主机相连，主机上电</li>
+</ol>
+<h3 id="1-3-配置上网："><a href="#1-3-配置上网：" class="headerlink" title="1.3 配置上网："></a>1.3 配置上网：</h3><p>就配置下密码啊之类的，最后使用笔记本连接路由器，能连上并成功上网就行。然后在主机上<code>ipconfig</code>一下，看看网络信息如下：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718100428825.png" alt="image-20210718100428825"></p>
+<h2 id="2-PVE的安装"><a href="#2-PVE的安装" class="headerlink" title="2 PVE的安装"></a>2 PVE的安装</h2><h3 id="2-1-制作启动盘"><a href="#2-1-制作启动盘" class="headerlink" title="2.1 制作启动盘"></a>2.1 制作启动盘</h3><p>先在<a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads">PVE官网</a>下载对应的iso镜像，然后用UltraISO写进去就行了：</p>
+<ol>
+<li>插入U盘，格式化</li>
+<li>打开UltraISO，文件-&gt;打开-&gt;找到PVE的ISO镜像</li>
+<li>启动-&gt;写入硬盘映像，默认写入就行了</li>
+</ol>
+<blockquote>
+<p>这里遇到的问题1：U盘写有保护，就很烦。WIndows无法格式化，UltraISO也无法写入。最后的解决方案是：</p>
+<p>使用DiskGenius软件清除U盘的全部分布，保存修改，注意不要再新建分区了，就让U盘保持空闲状态，然后重新写入。</p>
+</blockquote>
+<h3 id="2-2-安装PVE系统"><a href="#2-2-安装PVE系统" class="headerlink" title="2.2 安装PVE系统"></a>2.2 安装PVE系统</h3><p>插入启动盘到主机，然后就自动进入了Proxmox VE的安装界面，就一步步走就可以了，其中网络这块，上边我们看到路由器的默认网关是192.168.31.1，所以我们设置我们PVE的ip为固定ip：192.168.31.31，这样之后我们就用连接在路由器上的笔记本，访问<a target="_blank" rel="noopener" href="https://192.168.31.31:8006/%E5%B0%B1%E5%8F%AF%E4%BB%A5%E8%BF%9B%E5%85%A5%E5%88%B0PVE%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%86%E3%80%82%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%A6%82%E5%9B%BE%EF%BC%9A">https://192.168.31.31:8006/就可以进入到PVE的控制台了。控制台如图：</a></p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718103159425.png" alt="image-20210718103159425"></p>
+<h3 id="2-3-进行简单的配置："><a href="#2-3-进行简单的配置：" class="headerlink" title="2.3 进行简单的配置："></a>2.3 进行简单的配置：</h3><p>网络桥接因为我们的主机只有一个网口，所以默认已经配置好了，如果有多个网口，可以点击创建，并新建类似的桥接配置，大致如图：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718103540298.png" alt="image-20210718103540298"></p>
+<h2 id="3-安装群晖NAS系统"><a href="#3-安装群晖NAS系统" class="headerlink" title="3 安装群晖NAS系统"></a>3 安装群晖NAS系统</h2><h3 id="3-1-创建虚拟环境"><a href="#3-1-创建虚拟环境" class="headerlink" title="3.1 创建虚拟环境"></a>3.1 创建虚拟环境</h3><p>由于我们的主机的配置是：cpu4核8线程，16GB内存，512G固态，安装完PVE之后还有三百来G固态空闲。所以可以奢侈一点配置</p>
+<p>如图进行相应的配置（不需要太谨慎，之后还可以在这个hardware和option里边更改配置）：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210718110147374.png" alt="image-20210718110147374"></p>
+<h3 id="3-2-配置黑群晖启动"><a href="#3-2-配置黑群晖启动" class="headerlink" title="3.2 配置黑群晖启动"></a>3.2 配置黑群晖启动</h3><p>之后要进行黑群晖的引导安装：</p>
+<ol>
+<li><p>先将最开始创建的硬盘Hard Disk删除，detach，然后remove，（上图是配置好的，不要看Hard disk部分）</p>
+</li>
+<li><p>随便使用什么SSH连接工具（mobaXterm等）连接到PVE，然后上传资料包中的<code>img2kvm</code>，<code>NAS引导+固件/3617xs/synoboot.img</code>两个文件到PVE</p>
+</li>
+<li><p>输入指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x img2kvm</span><br><span class="line">./img2kvm synoboot.img 100 vm-100-disk-1  # 这里的100就是创建的虚拟机的id，在pve的下拉列表中可以看到</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入的PVE浏览器后台，可以看到一个<strong>未使用的磁盘</strong>，选中，添加，然后<strong>将总线设备更改为SATA</strong>，其他默认</p>
+</li>
+<li><p>返回，找到选项 options，将引导顺序（boot order）双击进入，将我们新添加的这块调整到第一启动项并设置启用。</p>
+</li>
+<li><p>之后我们再给NAS添加一块硬盘：</p>
+<ol>
+<li>再返回到Hardware，选择add-&gt;Hard disk，选择Storage并设置大小就好</li>
+</ol>
+</li>
+<li><p>返回控制台，启动</p>
+</li>
+</ol>
+<h3 id="3-3-连接到群晖"><a href="#3-3-连接到群晖" class="headerlink" title="3.3 连接到群晖"></a>3.3 连接到群晖</h3><p>连接这里其实不太好连接，有几种方法：</p>
+<ol>
+<li>如果NAS可以上网的话，可以使用在线方法查询（但反正我没成功过）：<img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722110019373.png" alt="image-20210722110019373"></li>
+<li>下载群晖助手，安装好之后启动就会默认检测当前局域网内的群晖设备（我猜是检测局域网内的），一般来说就只能检测到一个设备，也就是我们刚装好的设备</li>
+<li>如果可以登录到路由器后台的话，可以通过查看ip地址，看看哪个是刚刚加进去的，就是我们的群晖的ip</li>
+</ol>
+<p>总之就是为了得到群晖设备的ip地址，得到ip之后在浏览器上输入ip 端口5000（其实不输入端口好像也行），就可以进入群晖的后台了。<em>如果使用群晖助手，双击也可以。</em></p>
+<h3 id="3-3-配置黑群晖"><a href="#3-3-配置黑群晖" class="headerlink" title="3.3 配置黑群晖"></a>3.3 配置黑群晖</h3><p>进入控制台之后，应该是一个如图的配置界面：<img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722110511716.png" alt="image-20210722110511716"></p>
+<p>然后选择设置，选择手动安装，选择浏览，找到<code>NAS引导+固件/3617xs/DSM....pat</code>，之后启动安装</p>
+<p>安装完成之后进行管理员配置即可：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722110947156.png" alt="image-20210722110947156"></p>
+<p>之后简单配置一下，群晖账号那里跳过就行了，之后就进入到主界面中：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722111231010.png" alt="image-20210722111231010"></p>
+<p>可以打开Package Center，如果NAS能上网的话，各种套件已经可以访问到了。</p>
+<h3 id="3-4-添加存储"><a href="#3-4-添加存储" class="headerlink" title="3.4 添加存储"></a>3.4 添加存储</h3><ol>
+<li><p>找到菜单中的Storage Manager，进入</p>
+</li>
+<li><p>在Storage Pool中create，配置默认就行，Raid那里可以设置成Basic，之后完成</p>
+</li>
+<li><p>在Volume（存储空间）中create，选择刚新建的存储池，然后默认配置就好，最后完成</p>
+</li>
+<li><p>之后回到NAS主界面，找到控制面板，找到共享文件夹，新增，然后自己配置一下就行了，最后别忘了设置读写权限。</p>
+</li>
+<li><p>最后我们就可以用我们本机windows访问共享文件夹了，在文件浏览框中输入<code>\\192.168.31.xxx/</code>，输入用户名和密码就可以访问了共享文件夹了！</p>
+</li>
+</ol>
+<h3 id="3-5-添加硬盘到PVE"><a href="#3-5-添加硬盘到PVE" class="headerlink" title="3.5 添加硬盘到PVE"></a>3.5 添加硬盘到PVE</h3><blockquote>
+<p>参考博客：<a target="_blank" rel="noopener" href="https://wangxingcs.com/2020/0910/1442/">https://wangxingcs.com/2020/0910/1442/</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaobo060/article/details/105928108/">https://blog.csdn.net/xiaobo060/article/details/105928108/</a></p>
+</blockquote>
+<p>懒得写这个了。。。。。网上教程比较多，随便来就行，，，思路就是先把硬盘挂载到PVE，说白了还是Linux上，然后写<code>/etc/fstab</code>文件实现自动挂载。然后再到PVE的浏览器控制台data center-&gt; storage -&gt; add 就行了</p>
+<p><em>要注意的一点是，对于大容量硬盘来说，fdisk命令不能分超过2T空间的区，所以这时候需要使用parted工具来进行分区，然后格式化的时候要注意一下inode的数量不要过多，不然很浪费空间，具体可以看博客</em></p>
+<blockquote>
+<p>大容量硬盘分区和格式化参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Richardlygo/article/details/87867042">https://blog.csdn.net/Richardlygo/article/details/87867042</a></p>
+</blockquote>
+<h2 id="4-安装windows-10系统"><a href="#4-安装windows-10系统" class="headerlink" title="4 安装windows 10系统"></a>4 安装windows 10系统</h2><blockquote>
+<p> 参考： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wh411k7g5?from=search&seid=16913643997894754399">https://www.bilibili.com/video/BV1Wh411k7g5?from=search&amp;seid=16913643997894754399</a></p>
+</blockquote>
+<p>这篇配置的windows系统使用了半直通配置，稍微复杂一点，但性能更好一些。</p>
+<h3 id="4-1-准备镜像"><a href="#4-1-准备镜像" class="headerlink" title="4.1 准备镜像"></a>4.1 准备镜像</h3><p>准备windows 10 的ISO镜像文件（msdn，官网，或者随便哪里都行，只要能下到windows10的镜像文件）</p>
+<p>还需要下载<a target="_blank" rel="noopener" href="https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md">virtIO驱动</a></p>
+<p>之后到PVE的浏览器控制台，pve节点下的local(pve)这里，上传ISO Images，上传到PVE中：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722113334140.png" alt="image-20210722113334140"></p>
+<h3 id="4-2-创建虚拟器"><a href="#4-2-创建虚拟器" class="headerlink" title="4.2 创建虚拟器"></a>4.2 创建虚拟器</h3><p>还是一样的配置，create VM，然后配置，这里有几个地方需要改动：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722113627692.png" alt="image-20210722113627692"></p>
+<p>OS这里选择使用镜像安装，系统选择windows 版本选10。</p>
+<p>然后在system里边勾选上Qemu Agent（用于远程桌面的）</p>
+<p>硬盘那里推荐用SCSI</p>
+<p>网络那里的模型选用VirtIO半连通</p>
+<p>这样就创建完成了</p>
+<hr>
+<p>之后新增一个光驱，IDE就好，然后添加virtIO驱动的镜像，检查一下boot order是否勾选上了win10的镜像，然后启动虚拟机</p>
+<h3 id="4-3-win10安装流程"><a href="#4-3-win10安装流程" class="headerlink" title="4.3 win10安装流程"></a>4.3 win10安装流程</h3><p>一路进去，自定义安装，然后到了你想将windows安装在哪里，这里没有检测出任何一个磁盘：<img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722114208168.png" alt="image-20210722114208168"></p>
+<p>点击<code>加载驱动程序</code></p>
+<p>然后浏览，选择virtIO的CD driver，进入找<code>vioscsi/win10/amd64</code>，确定，下一步，应该就可以成功识别出驱动器了。然后新建分区，大概长这样：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722114429382.png" alt="image-20210722114429382"></p>
+<p>之后按步骤一步一步安装就行了，最后启动windows进入到桌面。</p>
+<h3 id="4-4-配置驱动"><a href="#4-4-配置驱动" class="headerlink" title="4.4 配置驱动"></a>4.4 配置驱动</h3><p>打开设备管理器，可以看到：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722114557519.png" alt="image-20210722114557519"></p>
+<p>然后选择打感叹号的那三个，先配网：更新驱动程序-&gt;浏览电脑查找驱动-&gt;选择virtIO driver进入，找到<code>NetKVM/w10/amd64</code>，安装驱动就好。</p>
+<p>之后两个PCI设备也是一样，在浏览查找驱动的时候可以直接选择virtIO driver，也就是D: 这个目录，然后直接安装，它就会查找当前目录下可用的驱动程序。（适用于不知道驱动是哪个的情况）</p>
+<h3 id="4-5-配置远程桌面"><a href="#4-5-配置远程桌面" class="headerlink" title="4.5 配置远程桌面"></a>4.5 配置远程桌面</h3><p>进入文件管理器，到virtIO driver中，找到guest-agent，安装x86-64版<img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722125420124.png" alt="image-20210722125420124"></p>
+<p>之后关机重启，就可以在PVE管理后台中win10节点的summary里边看到IP地址了</p>
+<p>然后可以在虚拟机中开启远程桌面服务，设置可访问的用户及权限，就可以使用其他windows系统进行远程桌面访问了。</p>
+<h2 id="5-内网穿透配置"><a href="#5-内网穿透配置" class="headerlink" title="5 内网穿透配置"></a>5 内网穿透配置</h2><blockquote>
+<p> 参考： <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33393017/article/details/112882580">https://blog.csdn.net/weixin_33393017/article/details/112882580</a></p>
+</blockquote>
+<p><em>实际测试效果：ZeroTier的速度太缓慢了，用来做SSH连接传一些命令还可以，但移动桌面什么的还是想都别想了</em></p>
+<p>内网穿透使用的是ZeroTier平台，原理大概就是借用这个平台搭建虚拟局域网。ZeroTier的使用就从略了，直接注册，创建网络，然后再使用客户端连接就好。windows客户端很简单，下载安装，然后join Network就行了。</p>
+<p><em>需要注意的是： 每新添加一个设备到局域网，都需要访问ZeroTier的控制台将此设备enable，这样才能正常连接，算是一个保险措施吧。</em></p>
+<p>安装ZeroTier之后，使用ipconfig 或者 ifconfig 等，可以查看到有个虚拟网卡，并配置有ip：</p>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722125135353.png" alt="image-20210722125135353"></p>
+<p>这样就算是加入到局域网中了，在同一个局域网中的设备是互相可见的。</p>
+<p>主要是在NAS中配置出现的问题比较多：</p>
+<ol>
+<li><p>Docker端的Zerotier好像无法正常使用，按照网上的教程没有成功</p>
+</li>
+<li><p>使用<a target="_blank" rel="noopener" href="https://www.zerotier.com/download/">ZeroTier官网</a>给的下载链接下载的时候要下载对应的版本的，需要先在群晖中开通SSH连接，然后使用SSH连接到群晖，用命令<code>uname -ar</code>，可以查看到最后的版本信息：<img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722131052719.png" alt="image-20210722131052719"></p>
+<p>这就代表此DSM是Bromolow版本的，就需要下载对于版本的套件（有NAS版块，Synology就是）</p>
+<p><em>经过测试，只有1.4.0版本的套件可以用，1.4.1版本的套件会遇到缺少文件的bug</em></p>
+</li>
+<li><p>下载完毕后，进入群辉“套件中心”，点击手动安装，然后选择我们刚才下载的*.spk文件完成安装。</p>
+</li>
+</ol>
+<hr>
+<p>安装完成之后可以open，但一般会遇到没有内容，join点了没反应的问题。解决方案：</p>
+<ol>
+<li>使用SSH连接到群晖的Shell</li>
+<li><code>sudo  zerotier-cli join ID</code>，ID就是申请到的网络的id号，正常返回结果是<code>200 join OK</code></li>
+<li>此时再打开群晖的套件，就显示正常了。</li>
+<li>返回到Zerotier的官网的管理界面，授予新加入的设备权限即可：</li>
+</ol>
+<p><img src="/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/image-20210722132103423.png" alt="image-20210722132103423"></p>
+<p><em>也可以使用sudo -i 进行提权</em></p>
+<blockquote>
+<p>注意，如果中途有报错说tun找不到的话（我就遇到了。。。），需要手动安装tun模块，这个模块在内核代码中有，所以只需要对应的操作就好了，详细百度。</p>
+</blockquote>
+<h2 id="6-PVE使用优化"><a href="#6-PVE使用优化" class="headerlink" title="6 PVE使用优化"></a>6 PVE使用优化</h2><h3 id="6-1-增加CPU温度显示"><a href="#6-1-增加CPU温度显示" class="headerlink" title="6.1 增加CPU温度显示"></a>6.1 增加CPU温度显示</h3><h4 id="6-1-1-安装软件"><a href="#6-1-1-安装软件" class="headerlink" title="6.1.1 安装软件"></a>6.1.1 安装软件</h4><ol>
+<li><p>使用SSH连接到PVE的命令行（也可以在PVE的后台的shell中操作），下载插件sensors：<code>apt install lm-sensors</code></p>
+</li>
+<li><p>安装完成之后使用<code>sensors-detect</code>进行相应的配置操作，一路yes应该就可以了。</p>
+</li>
+<li><p>之后输入命令<code>sensors</code>，就可以看到硬件的温度信息</p>
+</li>
+</ol>
+<h4 id="6-1-2-配置文件"><a href="#6-1-2-配置文件" class="headerlink" title="6.1.2 配置文件"></a>6.1.2 配置文件</h4><p>首先先备份之后要更改的两个文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/perl5/PVE/API2/Nodes.pm /usr/share/perl5/PVE/API2/Nodes.pm.bak</span><br><span class="line">cp /usr/share/pve-manager/js/pvemanagerlib.js /usr/share/pve-manager/js/pvemanagerlib.js.bak</span><br></pre></td></tr></table></figure>
+
+<p>编辑第一个文件：</p>
+<p><code>vi /usr/share/perl5/PVE/API2/Nodes.pm</code></p>
+<p>增加一行代码：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$res</span>-&gt;&#123;ksm&#125; = &#123;    <span class="comment"># 可以使用这句话定位到此位置   vi: /res-&gt;&#123;ksm&#125;</span></span><br><span class="line">    <span class="string">shared =&gt;</span> <span class="variable">$meminfo</span>-&gt;&#123;memshared&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$res</span>-&gt;&#123;swap&#125; = &#123;</span><br><span class="line">    <span class="string">free =&gt;</span> <span class="variable">$meminfo</span>-&gt;&#123;swapfree&#125;,</span><br><span class="line">    <span class="string">total =&gt;</span> <span class="variable">$meminfo</span>-&gt;&#123;swaptotal&#125;,</span><br><span class="line">    <span class="string">used =&gt;</span> <span class="variable">$meminfo</span>-&gt;&#123;swapused&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$res</span>-&gt;&#123;pveversion&#125; = PVE::pvecfg::<span class="keyword">package</span>() . <span class="string">&quot;/&quot;</span> .</span><br><span class="line">    PVE::pvecfg::version_text();</span><br><span class="line"></span><br><span class="line"><span class="variable">$res</span>-&gt;&#123;temperature&#125; = <span class="string">`sensors`</span>; <span class="comment"># 此处增加这行代码，获取 CPU 和 主板 的温度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> <span class="variable">$dinfo</span> = df(<span class="string">&#x27;/&#x27;</span>, <span class="number">1</span>);     <span class="comment"># output is bytes</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$res</span>-&gt;&#123;rootfs&#125; = &#123;</span><br><span class="line">    <span class="string">total =&gt;</span> <span class="variable">$dinfo</span>-&gt;&#123;blocks&#125;,</span><br><span class="line">    <span class="string">avail =&gt;</span> <span class="variable">$dinfo</span>-&gt;&#123;bavail&#125;,</span><br><span class="line">    <span class="string">used =&gt;</span> <span class="variable">$dinfo</span>-&gt;&#123;used&#125;,</span><br><span class="line">    <span class="string">free =&gt;</span> <span class="variable">$dinfo</span>-&gt;&#123;blocks&#125; - <span class="variable">$dinfo</span>-&gt;&#123;used&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="variable">$res</span>;</span><br></pre></td></tr></table></figure>
+
+<p>编辑第二个文件：</p>
+<p><code>vi /usr/share/pve-manager/js/pvemanagerlib.js</code></p>
+<p>增加一段代码：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">            itemId: <span class="string">&#x27;version&#x27;</span>,</span><br><span class="line">            colspan: <span class="number">2</span>,</span><br><span class="line">            printBar: <span class="literal">false</span>,</span><br><span class="line">            title: gettext(<span class="string">&#x27;PVE Manager Version&#x27;</span>),  <span class="comment"># 可以此段代码搜索到指定位置</span></span><br><span class="line">            textField: <span class="string">&#x27;pveversion&#x27;</span>,</span><br><span class="line">            value: <span class="string">&#x27;&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            itemId: <span class="string">&#x27;temperature&#x27;</span>,</span><br><span class="line">            colspan: <span class="number">2</span>,</span><br><span class="line">            printBar: <span class="literal">false</span>,</span><br><span class="line">            title: gettext(<span class="string">&#x27;CPU Temperature&#x27;</span>),</span><br><span class="line">            textField: <span class="string">&#x27;temperature&#x27;</span>,</span><br><span class="line">            renderer: <span class="keyword">function</span>(value)&#123;</span><br><span class="line">                <span class="keyword">const</span> c0 = value.match(<span class="regexp">/Core 0.*?\+([\d\.]+)?/</span>)[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">const</span> c1 = value.match(<span class="regexp">/Core 1.*?\+([\d\.]+)?/</span>)[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">const</span> c2 = value.match(<span class="regexp">/Core 2.*?\+([\d\.]+)?/</span>)[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">const</span> c3 = value.match(<span class="regexp">/Core 3.*?\+([\d\.]+)?/</span>)[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> `Core0: $&#123;c0&#125;℃ | Core1: $&#123;c1&#125;℃ | Core2: $&#123;c2&#125;℃ | Core3: $&#123;c3&#125;℃`</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    updateTitle: <span class="keyword">function</span>() &#123;</span><br><span class="line">        <span class="keyword">var</span> me = this;</span><br><span class="line">        <span class="keyword">var</span> uptime = Proxmox.Utils.render_uptime(me.getRecordValue(<span class="string">&#x27;uptime&#x27;</span>));</span><br><span class="line">        me.setTitle(me.pveSelNode.data.node + <span class="string">&#x27; (&#x27;</span> + gettext(<span class="string">&#x27;Uptime&#x27;</span>) + <span class="string">&#x27;: &#x27;</span> + uptime + <span class="string">&#x27;)&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>之后进行重启控制台即可<code>systemctl restart pveproxy</code></p>
+<blockquote>
+<p>如果没有刷新，则清除缓存之后重试，或者ctrl+F5强制刷新</p>
+</blockquote>
+<h3 id="6-2-换用高速源安装升级一些linux必要工具"><a href="#6-2-换用高速源安装升级一些linux必要工具" class="headerlink" title="6.2 换用高速源安装升级一些linux必要工具"></a>6.2 换用高速源安装升级一些linux必要工具</h3><p>先备份原本的配置文件：<code>mv /etc/apt/sources.list /etc/apt/sources.list.bak</code></p>
+<p>之后创建一份新的配置文件：<code>vi /etc/apt/sources.list</code></p>
+<p>添加如下内容：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">deb https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian/</span> buster main non-free contrib</span><br><span class="line">deb https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian/</span> buster-updates main non-free contrib</span><br><span class="line">deb https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian/</span> buster-backports main non-free contrib</span><br><span class="line">deb-src https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian/</span> buster main non-free contrib</span><br><span class="line">deb-src https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian/</span> buster-updates main non-free contrib</span><br><span class="line">deb-src https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian/</span> buster-backports main non-free contrib</span><br><span class="line">deb https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian-security/</span> buster/updates main non-free contrib</span><br><span class="line">deb-src https:<span class="regexp">//mi</span>rrors.aliyun.com<span class="regexp">/debian-security/</span> buster/updates main non-free contrib</span><br></pre></td></tr></table></figure>
+
+<p>之后执行<code>apt update</code>更新</p>
+<hr>
+<p>PVE默认安装的nano，反正我是不太会用，但安装的vim版本太低，所以我们安装一些包：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt <span class="keyword">install</span> vim  <span class="comment"># 安装vim</span></span><br><span class="line">apt <span class="keyword">install</span> net-tools  <span class="comment"># 使用ifconfig</span></span><br><span class="line">apt <span class="keyword">install</span> iputils-ping  <span class="comment"># 使用ping</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/surplus/p/14391801.html">https://www.cnblogs.com/surplus/p/14391801.html</a></p>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2023/08/08/PVE+NAS%E7%AD%89%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" title="PVE+NAS等虚拟环境安装指南" target="_blank" rel="external">http://philia897.github.io/2023/08/08/PVE+NAS等虚拟环境安装记录/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2023/08/08/Ternux%E7%8E%A9%E8%80%8D%E8%AE%B0%E5%BD%95/" title="Ternux玩耍记录"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2023/08/08/VScode%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3/" title="VScode终端中文乱码解决"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn " data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">    <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
