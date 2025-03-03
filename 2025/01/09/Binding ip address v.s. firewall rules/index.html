@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Binding ip address v.s. firewall rules | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="Just note the learning history with chatgpt regarding firewall and basic networking knowledge.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Binding ip address v.s. firewall rules">
+<meta property="og:url" content="http://philia897.github.io/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Just note the learning history with chatgpt regarding firewall and basic networking knowledge.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-08T22:33:15.000Z">
+<meta property="article:modified_time" content="2025-01-08T22:33:31.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="chatgpt history">
+<meta property="article:tag" content="networking">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux/">Arch Linux</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crhyptography/">Crhyptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cryptography/">Cryptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/developing/">developing</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hacking/">hacking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/applications/" rel="tag">applications</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archinstall/" rel="tag">archinstall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aur/" rel="tag">aur</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backup/" rel="tag">backup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bios/" rel="tag">bios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/" rel="tag">blockchain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-storage/" rel="tag">cloud storage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/comfyUI/" rel="tag">comfyUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptography/" rel="tag">cryptography</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debug/" rel="tag">debug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desktop-entry/" rel="tag">desktop entry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encryption/" rel="tag">encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flatpak/" rel="tag">flatpak</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grub/" rel="tag">grub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homomorphic-encryption/" rel="tag">homomorphic encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptables/" rel="tag">iptables</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kde/" rel="tag">kde</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kernel/" rel="tag">kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiparty-computation/" rel="tag">multiparty computation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/networking/" rel="tag">networking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ntfs/" rel="tag">ntfs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource-project/" rel="tag">opensource project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pacman/" rel="tag">pacman</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paru/" rel="tag">paru</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/" rel="tag">programming</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qemu/" rel="tag">qemu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rclone/" rel="tag">rclone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scheduled-task/" rel="tag">scheduled task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/secret-sharing/" rel="tag">secret sharing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software/" rel="tag">software</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system-monitor/" rel="tag">system monitor</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tauri/" rel="tag">tauri</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threshold-cryptography/" rel="tag">threshold cryptography</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/timeshift/" rel="tag">timeshift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ufw/" rel="tag">ufw</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vaultwarden/" rel="tag">vaultwarden</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/virtualization/" rel="tag">virtualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3m/" rel="tag">w3m</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wayland/" rel="tag">wayland</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wireguard/" rel="tag">wireguard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/x11/" rel="tag">x11</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ydotool/" rel="tag">ydotool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.14px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.43px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 13.86px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.14px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.14px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.29px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.14px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/android/" style="font-size: 13.14px;">android</a> <a href="/tags/applications/" style="font-size: 13px;">applications</a> <a href="/tags/arch/" style="font-size: 13px;">arch</a> <a href="/tags/archinstall/" style="font-size: 13px;">archinstall</a> <a href="/tags/aur/" style="font-size: 13.29px;">aur</a> <a href="/tags/backup/" style="font-size: 13.14px;">backup</a> <a href="/tags/bios/" style="font-size: 13px;">bios</a> <a href="/tags/blockchain/" style="font-size: 13px;">blockchain</a> <a href="/tags/browser/" style="font-size: 13px;">browser</a> <a href="/tags/chatgpt-history/" style="font-size: 14px;">chatgpt history</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/cloud-storage/" style="font-size: 13px;">cloud storage</a> <a href="/tags/comfyUI/" style="font-size: 13px;">comfyUI</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/crontab/" style="font-size: 13.14px;">crontab</a> <a href="/tags/cryptography/" style="font-size: 13.14px;">cryptography</a> <a href="/tags/debug/" style="font-size: 13px;">debug</a> <a href="/tags/debugging/" style="font-size: 13.14px;">debugging</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/desktop-entry/" style="font-size: 13px;">desktop entry</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/electron/" style="font-size: 13.29px;">electron</a> <a href="/tags/encryption/" style="font-size: 13px;">encryption</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/flatpak/" style="font-size: 13.14px;">flatpak</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/grub/" style="font-size: 13px;">grub</a> <a href="/tags/homomorphic-encryption/" style="font-size: 13px;">homomorphic encryption</a> <a href="/tags/iptables/" style="font-size: 13px;">iptables</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/javascript/" style="font-size: 13.14px;">javascript</a> <a href="/tags/kde/" style="font-size: 13.14px;">kde</a> <a href="/tags/keras/" style="font-size: 13.14px;">keras</a> <a href="/tags/kernel/" style="font-size: 13px;">kernel</a> <a href="/tags/kvm/" style="font-size: 13.14px;">kvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/multiparty-computation/" style="font-size: 13px;">multiparty computation</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/networking/" style="font-size: 13px;">networking</a> <a href="/tags/npm/" style="font-size: 13px;">npm</a> <a href="/tags/ntfs/" style="font-size: 13px;">ntfs</a> <a href="/tags/opensource-project/" style="font-size: 13px;">opensource project</a> <a href="/tags/pacman/" style="font-size: 13.43px;">pacman</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/paru/" style="font-size: 13px;">paru</a> <a href="/tags/programming/" style="font-size: 13.57px;">programming</a> <a href="/tags/python/" style="font-size: 13.71px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.29px;">pytorch</a> <a href="/tags/qemu/" style="font-size: 13.14px;">qemu</a> <a href="/tags/rclone/" style="font-size: 13.14px;">rclone</a> <a href="/tags/rust/" style="font-size: 13px;">rust</a> <a href="/tags/scheduled-task/" style="font-size: 13px;">scheduled task</a> <a href="/tags/secret-sharing/" style="font-size: 13px;">secret sharing</a> <a href="/tags/software/" style="font-size: 13px;">software</a> <a href="/tags/system/" style="font-size: 13.29px;">system</a> <a href="/tags/system-monitor/" style="font-size: 13.29px;">system monitor</a> <a href="/tags/tauri/" style="font-size: 13px;">tauri</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/threshold-cryptography/" style="font-size: 13px;">threshold cryptography</a> <a href="/tags/timeshift/" style="font-size: 13px;">timeshift</a> <a href="/tags/ufw/" style="font-size: 13px;">ufw</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/vaultwarden/" style="font-size: 13px;">vaultwarden</a> <a href="/tags/virtualization/" style="font-size: 13px;">virtualization</a> <a href="/tags/w3m/" style="font-size: 13px;">w3m</a> <a href="/tags/wayland/" style="font-size: 13.43px;">wayland</a> <a href="/tags/wireguard/" style="font-size: 13px;">wireguard</a> <a href="/tags/x11/" style="font-size: 13.14px;">x11</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/ydotool/" style="font-size: 13px;">ydotool</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.29px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.14px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/26/Frontend%20scrollbar%20errors/" class="title">Frontend scrollbar errors</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-26T06:41:14.000Z" itemprop="datePublished">2025-02-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cryptography/">Cryptography</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Cryptography%20Learning/" class="title">Cryptography Learning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T02:11:07.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" class="title">npm vs Yarn vs Deno vs Bun</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-15T19:12:54.000Z" itemprop="datePublished">2025-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" class="title">Binding ip address v.s. firewall rules</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-01-08T22:33:15.000Z" itemprop="datePublished">2025-01-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Binding ip address v.s. firewall rules" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Binding ip address v.s. firewall rules
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" class="article-date">
+	  <time datetime="2025-01-08T22:33:15.000Z" itemprop="datePublished">2025-01-09</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a>, <a class="article-tag-link-link" href="/tags/networking/" rel="tag">networking</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 1.1k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 6(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>Just note the learning history with chatgpt regarding firewall and basic networking knowledge.</p>
+<span id="more"></span>
+
+<p>Exactly! You’ve got it right. Let’s break this down:</p>
+<h3 id="Binding-to-an-IP-Address-—-Per-Service-Level"><a href="#Binding-to-an-IP-Address-—-Per-Service-Level" class="headerlink" title="Binding to an IP Address — Per-Service Level"></a>Binding to an IP Address — <strong>Per-Service</strong> Level</h3><p>Binding an IP address (e.g., <code>127.0.0.1</code>, <code>0.0.0.0</code>, or a specific network interface) is a <strong>service-level</strong> configuration. This defines <strong>where a service is “listening”</strong> for incoming connections. It’s up to each service to specify which IP addresses and ports it should accept requests from.</p>
+<h4 id="Key-Points"><a href="#Key-Points" class="headerlink" title="Key Points:"></a>Key Points:</h4><ul>
+<li><p><strong>Binding to a Specific IP Address</strong>:</p>
+<ul>
+<li>When a service binds to <code>127.0.0.1</code> (localhost), it is <strong>only accessible from the local machine</strong> (i.e., processes running on the same machine). External services, including Docker containers or other machines on the network, <strong>cannot</strong> access it.</li>
+<li>When a service binds to <code>0.0.0.0</code>, it listens on <strong>all network interfaces</strong> of the host machine, making it accessible both from the local machine (via <code>127.0.0.1</code>) and from external sources, such as Docker containers or machines on the network.</li>
+</ul>
+</li>
+<li><p><strong>Per-Service Configuration</strong>: </p>
+<ul>
+<li>Every service (like a web server, database, etc.) typically has its own configuration file or startup argument where it defines the address (IP) and port it should listen on. For example, a web server (such as Apache or Nginx) might be configured to listen on port <code>80</code>, but whether it’s listening on <code>127.0.0.1</code> or <code>0.0.0.0</code> is determined by the service’s binding configuration.</li>
+</ul>
+</li>
+<li><p><strong>Service Accessibility</strong>: If a service is bound to <code>127.0.0.1</code>, <strong>only local applications</strong> can reach it, while external systems (like Docker containers) are blocked. For a service to be accessible from a container, it must bind to <code>0.0.0.0</code> or be reachable via the host’s network interface (e.g., <code>host.docker.internal</code>).</p>
+</li>
+</ul>
+<h3 id="Firewalls-—-Port-and-Address-Filtering-—-Network-Level"><a href="#Firewalls-—-Port-and-Address-Filtering-—-Network-Level" class="headerlink" title="Firewalls — Port and Address Filtering — Network Level"></a>Firewalls — <strong>Port and Address Filtering</strong> — <strong>Network Level</strong></h3><p>A firewall operates at a <strong>lower network level</strong> and focuses on <strong>controlling traffic based on network rules</strong> (IP addresses, ports, protocols, etc.). A firewall can filter traffic based on both the <strong>source&#x2F;destination IP</strong> and the <strong>port number</strong>, and it works independently of the services running on the system. Its job is to control access to the network by <strong>allowing or blocking traffic</strong> based on predefined rules.</p>
+<h4 id="Key-Points-1"><a href="#Key-Points-1" class="headerlink" title="Key Points:"></a>Key Points:</h4><ul>
+<li><p><strong>Port and Address Filtering</strong>: </p>
+<ul>
+<li>Firewalls typically allow or block connections based on <strong>ports</strong> (e.g., HTTP on port 80, SSH on port 22) and <strong>source&#x2F;destination IP addresses</strong>. For instance, a firewall rule could block access to port <code>11434</code> from external sources, or it could block all inbound traffic to the host except for certain ports (e.g., port <code>80</code> or <code>443</code> for web traffic).</li>
+</ul>
+</li>
+<li><p><strong>Types of Firewalls</strong>:</p>
+<ul>
+<li><strong>Host-based firewalls</strong>: These firewalls are installed directly on the machine and manage inbound and outbound traffic for that specific system. For example, <code>iptables</code> or <code>firewalld</code> on Linux.</li>
+<li><strong>Network-based firewalls</strong>: These firewalls are often deployed between networks and control traffic coming into or leaving a network.</li>
+</ul>
+</li>
+<li><p><strong>Impact on Service Accessibility</strong>: </p>
+<ul>
+<li>Even if a service is bound to <code>0.0.0.0</code> and listening on all network interfaces, if the firewall blocks access to the port (e.g., port <code>11434</code>), the service will not be reachable from external sources, including Docker containers. </li>
+<li>For example, the firewall could block all inbound connections on port <code>11434</code>, or it could allow only certain trusted IP addresses to access that port.</li>
+</ul>
+</li>
+</ul>
+<h3 id="How-They-Work-Together"><a href="#How-They-Work-Together" class="headerlink" title="How They Work Together:"></a>How They Work Together:</h3><ul>
+<li><p><strong>Binding IP (Service-Level)</strong>:</p>
+<ul>
+<li>Determines <strong>where</strong> a service is accessible (e.g., only locally or from all network interfaces).</li>
+<li>Controls <strong>which networks</strong> or <strong>devices</strong> can connect to the service.</li>
+</ul>
+</li>
+<li><p><strong>Firewall Rules (Network-Level)</strong>:</p>
+<ul>
+<li>Determines <strong>whether</strong> a connection is allowed once a service has been bound to a specific IP and port.</li>
+<li>Controls <strong>which traffic</strong> can reach the service, based on the source&#x2F;destination IP address and port.</li>
+</ul>
+</li>
+</ul>
+<p>These two components <strong>work on different levels</strong> but are complementary:</p>
+<ul>
+<li>The <strong>service binding</strong> specifies <strong>where</strong> the service is available (which IP and port).</li>
+<li>The <strong>firewall</strong> governs <strong>who can connect</strong> to that service, based on IP and port filtering rules.</li>
+</ul>
+<h3 id="Example-to-Illustrate"><a href="#Example-to-Illustrate" class="headerlink" title="Example to Illustrate:"></a>Example to Illustrate:</h3><p>Let’s say you have a web server (e.g., Ollama) running on your machine:</p>
+<ol>
+<li><p><strong>Service Binding</strong>:</p>
+<ul>
+<li>The web server is configured to <strong>bind to <code>127.0.0.1:11434</code></strong>, meaning it will only accept connections from the <strong>local machine</strong> (localhost).</li>
+<li>If you try to access it from a Docker container or another machine, the connection will be refused, because it’s bound only to the localhost address (<code>127.0.0.1</code>), which is inaccessible from external systems.</li>
+</ul>
+</li>
+<li><p><strong>Firewall</strong>:</p>
+<ul>
+<li>The firewall might have rules that allow incoming connections to <strong>port <code>11434</code></strong> from local connections (127.0.0.1) but <strong>block external connections</strong> to that port.</li>
+<li>If the firewall is set to block connections to port <code>11434</code> from external networks (e.g., your Docker container), even if the service is bound to <code>0.0.0.0</code>, the firewall would still prevent the connection.</li>
+</ul>
+</li>
+<li><p><strong>Combined Scenario</strong>:</p>
+<ul>
+<li>If the service is bound to <code>127.0.0.1</code> but the firewall allows access from Docker’s internal network (such as <code>host.docker.internal</code>), the container <strong>won’t be able to connect</strong> to it because the service is not listening on <code>0.0.0.0</code> — it’s listening only on <code>127.0.0.1</code> for local traffic.</li>
+<li>If the service is bound to <code>0.0.0.0</code> but the firewall blocks port <code>11434</code>, even though the service is listening on all interfaces, the firewall <strong>won’t allow the connection</strong>.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary:"></a>Summary:</h3><ul>
+<li><p><strong>Binding to IP (Service-Level)</strong>: Determines <strong>where</strong> the service listens and whether it’s accessible from external machines or just the local host.</p>
+<ul>
+<li><strong><code>127.0.0.1</code></strong>: Only local access (not accessible from containers, other machines, or external networks).</li>
+<li><strong><code>0.0.0.0</code></strong>: Accessible from any interface (local machine, containers, and external machines, if permitted by firewall).</li>
+</ul>
+</li>
+<li><p><strong>Firewall Rules (Network-Level)</strong>: Determines <strong>whether</strong> traffic can reach the service at all. It filters traffic based on <strong>IP address</strong> and <strong>port</strong>. Firewalls are independent of the service’s binding and could block access even if the service is bound to <code>0.0.0.0</code>.</p>
+</li>
+</ul>
+<p>To fix your issue, you need to make sure:</p>
+<ol>
+<li><strong>The Ollama service binds to <code>0.0.0.0</code></strong>, allowing external access.</li>
+<li><strong>The firewall permits connections to port <code>11434</code></strong> from the Docker container’s network or other external networks.</li>
+</ol>
+<p>By correctly configuring both service binding and firewall rules, you can ensure the service is accessible from both the host and Docker containers.</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" title="Binding ip address v.s. firewall rules" target="_blank" rel="external">http://philia897.github.io/2025/01/09/Binding ip address v.s. firewall rules/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" title="npm vs Yarn vs Deno vs Bun"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/12/30/Compare%20Flatpak%20and%20AUR/" title="Compare Flatpak and AUR"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

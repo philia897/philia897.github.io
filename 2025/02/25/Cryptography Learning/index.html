@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Cryptography Learning | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="Record some meaningful chat history when chatgpt teaching me about cryptography.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cryptography Learning">
+<meta property="og:url" content="http://philia897.github.io/2025/02/25/Cryptography%20Learning/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Record some meaningful chat history when chatgpt teaching me about cryptography.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-25T02:11:07.000Z">
+<meta property="article:modified_time" content="2025-02-25T02:12:44.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="cryptography">
+<meta property="article:tag" content="multiparty computation">
+<meta property="article:tag" content="homomorphic encryption">
+<meta property="article:tag" content="secret sharing">
+<meta property="article:tag" content="threshold cryptography">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2025/02/25/Cryptography%20Learning/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux/">Arch Linux</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crhyptography/">Crhyptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cryptography/">Cryptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/developing/">developing</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hacking/">hacking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/applications/" rel="tag">applications</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archinstall/" rel="tag">archinstall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aur/" rel="tag">aur</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backup/" rel="tag">backup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bios/" rel="tag">bios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/" rel="tag">blockchain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-storage/" rel="tag">cloud storage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/comfyUI/" rel="tag">comfyUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptography/" rel="tag">cryptography</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debug/" rel="tag">debug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desktop-entry/" rel="tag">desktop entry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encryption/" rel="tag">encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flatpak/" rel="tag">flatpak</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grub/" rel="tag">grub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homomorphic-encryption/" rel="tag">homomorphic encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptables/" rel="tag">iptables</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kde/" rel="tag">kde</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kernel/" rel="tag">kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiparty-computation/" rel="tag">multiparty computation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/networking/" rel="tag">networking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ntfs/" rel="tag">ntfs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource-project/" rel="tag">opensource project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pacman/" rel="tag">pacman</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paru/" rel="tag">paru</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/" rel="tag">programming</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qemu/" rel="tag">qemu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rclone/" rel="tag">rclone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scheduled-task/" rel="tag">scheduled task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/secret-sharing/" rel="tag">secret sharing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software/" rel="tag">software</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system-monitor/" rel="tag">system monitor</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tauri/" rel="tag">tauri</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threshold-cryptography/" rel="tag">threshold cryptography</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/timeshift/" rel="tag">timeshift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ufw/" rel="tag">ufw</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vaultwarden/" rel="tag">vaultwarden</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/virtualization/" rel="tag">virtualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3m/" rel="tag">w3m</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wayland/" rel="tag">wayland</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wireguard/" rel="tag">wireguard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/x11/" rel="tag">x11</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ydotool/" rel="tag">ydotool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.14px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.43px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 13.86px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.14px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.14px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.29px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.14px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/android/" style="font-size: 13.14px;">android</a> <a href="/tags/applications/" style="font-size: 13px;">applications</a> <a href="/tags/arch/" style="font-size: 13px;">arch</a> <a href="/tags/archinstall/" style="font-size: 13px;">archinstall</a> <a href="/tags/aur/" style="font-size: 13.29px;">aur</a> <a href="/tags/backup/" style="font-size: 13.14px;">backup</a> <a href="/tags/bios/" style="font-size: 13px;">bios</a> <a href="/tags/blockchain/" style="font-size: 13px;">blockchain</a> <a href="/tags/browser/" style="font-size: 13px;">browser</a> <a href="/tags/chatgpt-history/" style="font-size: 14px;">chatgpt history</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/cloud-storage/" style="font-size: 13px;">cloud storage</a> <a href="/tags/comfyUI/" style="font-size: 13px;">comfyUI</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/crontab/" style="font-size: 13.14px;">crontab</a> <a href="/tags/cryptography/" style="font-size: 13.14px;">cryptography</a> <a href="/tags/debug/" style="font-size: 13px;">debug</a> <a href="/tags/debugging/" style="font-size: 13.14px;">debugging</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/desktop-entry/" style="font-size: 13px;">desktop entry</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/electron/" style="font-size: 13.29px;">electron</a> <a href="/tags/encryption/" style="font-size: 13px;">encryption</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/flatpak/" style="font-size: 13.14px;">flatpak</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/grub/" style="font-size: 13px;">grub</a> <a href="/tags/homomorphic-encryption/" style="font-size: 13px;">homomorphic encryption</a> <a href="/tags/iptables/" style="font-size: 13px;">iptables</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/javascript/" style="font-size: 13.14px;">javascript</a> <a href="/tags/kde/" style="font-size: 13.14px;">kde</a> <a href="/tags/keras/" style="font-size: 13.14px;">keras</a> <a href="/tags/kernel/" style="font-size: 13px;">kernel</a> <a href="/tags/kvm/" style="font-size: 13.14px;">kvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/multiparty-computation/" style="font-size: 13px;">multiparty computation</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/networking/" style="font-size: 13px;">networking</a> <a href="/tags/npm/" style="font-size: 13px;">npm</a> <a href="/tags/ntfs/" style="font-size: 13px;">ntfs</a> <a href="/tags/opensource-project/" style="font-size: 13px;">opensource project</a> <a href="/tags/pacman/" style="font-size: 13.43px;">pacman</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/paru/" style="font-size: 13px;">paru</a> <a href="/tags/programming/" style="font-size: 13.57px;">programming</a> <a href="/tags/python/" style="font-size: 13.71px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.29px;">pytorch</a> <a href="/tags/qemu/" style="font-size: 13.14px;">qemu</a> <a href="/tags/rclone/" style="font-size: 13.14px;">rclone</a> <a href="/tags/rust/" style="font-size: 13px;">rust</a> <a href="/tags/scheduled-task/" style="font-size: 13px;">scheduled task</a> <a href="/tags/secret-sharing/" style="font-size: 13px;">secret sharing</a> <a href="/tags/software/" style="font-size: 13px;">software</a> <a href="/tags/system/" style="font-size: 13.29px;">system</a> <a href="/tags/system-monitor/" style="font-size: 13.29px;">system monitor</a> <a href="/tags/tauri/" style="font-size: 13px;">tauri</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/threshold-cryptography/" style="font-size: 13px;">threshold cryptography</a> <a href="/tags/timeshift/" style="font-size: 13px;">timeshift</a> <a href="/tags/ufw/" style="font-size: 13px;">ufw</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/vaultwarden/" style="font-size: 13px;">vaultwarden</a> <a href="/tags/virtualization/" style="font-size: 13px;">virtualization</a> <a href="/tags/w3m/" style="font-size: 13px;">w3m</a> <a href="/tags/wayland/" style="font-size: 13.43px;">wayland</a> <a href="/tags/wireguard/" style="font-size: 13px;">wireguard</a> <a href="/tags/x11/" style="font-size: 13.14px;">x11</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/ydotool/" style="font-size: 13px;">ydotool</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.29px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.14px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/26/Frontend%20scrollbar%20errors/" class="title">Frontend scrollbar errors</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-26T06:41:14.000Z" itemprop="datePublished">2025-02-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cryptography/">Cryptography</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Cryptography%20Learning/" class="title">Cryptography Learning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T02:11:07.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" class="title">npm vs Yarn vs Deno vs Bun</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-15T19:12:54.000Z" itemprop="datePublished">2025-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" class="title">Binding ip address v.s. firewall rules</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-01-08T22:33:15.000Z" itemprop="datePublished">2025-01-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Cryptography Learning" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cryptography Learning
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2025/02/25/Cryptography%20Learning/" class="article-date">
+	  <time datetime="2025-02-25T02:11:07.000Z" itemprop="datePublished">2025-02-25</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Cryptography/">Cryptography</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/cryptography/" rel="tag">cryptography</a>, <a class="article-tag-link-link" href="/tags/homomorphic-encryption/" rel="tag">homomorphic encryption</a>, <a class="article-tag-link-link" href="/tags/multiparty-computation/" rel="tag">multiparty computation</a>, <a class="article-tag-link-link" href="/tags/secret-sharing/" rel="tag">secret sharing</a>, <a class="article-tag-link-link" href="/tags/threshold-cryptography/" rel="tag">threshold cryptography</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/02/25/Cryptography%20Learning/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 5.1k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 31(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>Record some meaningful chat history when chatgpt teaching me about cryptography.</p>
+<span id="more"></span> 
+
+<blockquote>
+<p>You:<br>I’m learning cryptography, and I’m very curious about some technologies. Could you tell me what is secure multiparty computation?</p>
+</blockquote>
+<p>ChatGPT:<br>Absolutely! Secure Multiparty Computation (SMPC or MPC) is a subfield of cryptography that focuses on enabling multiple parties to jointly compute a function over their inputs while keeping those inputs private.</p>
+<p>Here’s a breakdown of the key ideas:</p>
+<h3 id="Core-Concepts"><a href="#Core-Concepts" class="headerlink" title="Core Concepts"></a>Core Concepts</h3><ol>
+<li><p>Multiple Parties, Private Inputs:</p>
+<ul>
+<li>Each party has its own private data that it does not want to share with others.</li>
+<li>Despite this, they wish to collaborate to compute a function that depends on all their inputs.</li>
+</ul>
+</li>
+<li><p>Function Computation with Privacy:</p>
+<ul>
+<li>The parties compute the output of a function ( f(x_1, x_2, \ldots, x_n) ), where ( x_1, x_2, \ldots, x_n ) are their private inputs.</li>
+<li>The protocol ensures that no party learns anything about the other parties’ inputs except what can be inferred from the final output.</li>
+</ul>
+</li>
+<li><p>Security Goals:</p>
+<ul>
+<li>Privacy: Inputs remain confidential.</li>
+<li>Correctness: The output is guaranteed to be correct according to the function specification.</li>
+<li>Fairness (optional in some protocols): All parties get the result, or none do.</li>
+<li>Independence of Inputs: Parties cannot choose their inputs based on others’ inputs.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="How-Does-It-Work"><a href="#How-Does-It-Work" class="headerlink" title="How Does It Work?"></a>How Does It Work?</h3><p>SMPC relies on cryptographic techniques to achieve its goals. Some common methods include:</p>
+<ol>
+<li><p>Secret Sharing:</p>
+<ul>
+<li>Each party splits its input into random shares and distributes them among all parties.</li>
+<li>No single party holds enough information to reconstruct the original input.</li>
+<li>The computation is performed on these shares without revealing the actual values.</li>
+</ul>
+</li>
+<li><p>Homomorphic Encryption:</p>
+<ul>
+<li>A special type of encryption that allows certain computations to be performed directly on encrypted data.</li>
+<li>The result, when decrypted, matches the output of the same computation performed on the plaintext data.</li>
+</ul>
+</li>
+<li><p>Garbled Circuits:</p>
+<ul>
+<li>A method where a function is represented as a circuit, and parties securely evaluate it using encrypted or “garbled” representations of the data.</li>
+</ul>
+</li>
+<li><p>Oblivious Transfer:</p>
+<ul>
+<li>A protocol used to enable one party to send data to another such that the receiver learns only part of the data (and the sender doesn’t know what part).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Applications-of-SMPC"><a href="#Applications-of-SMPC" class="headerlink" title="Applications of SMPC"></a>Applications of SMPC</h3><p>SMPC has a wide range of practical applications where privacy is critical:</p>
+<ol>
+<li><p>Privacy-Preserving Data Analysis:</p>
+<ul>
+<li>Companies can jointly analyze datasets without exposing sensitive customer information.</li>
+</ul>
+</li>
+<li><p>Secure Voting:</p>
+<ul>
+<li>Ensures voter privacy while tallying votes accurately.</li>
+</ul>
+</li>
+<li><p>Fraud Detection:</p>
+<ul>
+<li>Banks can collaborate to detect fraud across financial institutions without exposing their transaction logs.</li>
+</ul>
+</li>
+<li><p>Genomic Research:</p>
+<ul>
+<li>Enables researchers to compute over genomic data while protecting individual privacy.</li>
+</ul>
+</li>
+<li><p>Auction Mechanisms:</p>
+<ul>
+<li>Conduct secure auctions without revealing bidders’ bids until the outcome.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Advantages-and-Challenges"><a href="#Advantages-and-Challenges" class="headerlink" title="Advantages and Challenges"></a>Advantages and Challenges</h3><p>Advantages:</p>
+<ul>
+<li>Protects sensitive data during computation.</li>
+<li>Reduces the need for trusted third parties.</li>
+</ul>
+<p>Challenges:</p>
+<ul>
+<li>High computational and communication costs compared to traditional computations.</li>
+<li>Scalability issues for large datasets or many parties.</li>
+<li>Complexity in designing secure protocols for arbitrary functions.</li>
+</ul>
+<hr>
+<p>In essence, SMPC is a powerful tool for enabling collaborative computations in a privacy-preserving way, and it’s becoming increasingly relevant in our data-driven world! Let me know if you want to dive deeper into any specific aspect!</p>
+<blockquote>
+<p>You:<br>Could you give me some examples about how to make it using secret sharing or homomorphic encryption?</p>
+</blockquote>
+<p>ChatGPT:<br>Sure! Let’s break down examples of Secure Multiparty Computation (SMPC) using secret sharing and homomorphic encryption.</p>
+<hr>
+<h3 id="1-Secret-Sharing-Example"><a href="#1-Secret-Sharing-Example" class="headerlink" title="1. Secret Sharing Example"></a>1. Secret Sharing Example</h3><p>Secret sharing involves splitting a value into multiple shares and distributing them among participants. No single share reveals any information about the secret, but the secret can be reconstructed when a sufficient number of shares are combined.</p>
+<h4 id="Example-Addition-Using-Secret-Sharing"><a href="#Example-Addition-Using-Secret-Sharing" class="headerlink" title="Example: Addition Using Secret Sharing"></a>Example: Addition Using Secret Sharing</h4><p>Imagine Alice and Bob want to compute the sum ( x + y ) without revealing their respective inputs ( x ) and ( y ).</p>
+<ol>
+<li><p>Setup: Create Shares</p>
+<ul>
+<li>Alice has ( x &#x3D; 5 ) and splits it into two random shares, e.g., ( x_1 &#x3D; 2 ) and ( x_2 &#x3D; 3 ) such that ( x_1 + x_2 &#x3D; x ).</li>
+<li>Bob has ( y &#x3D; 7 ) and splits it into two random shares, e.g., ( y_1 &#x3D; 4 ) and ( y_2 &#x3D; 3 ) such that ( y_1 + y_2 &#x3D; y ).</li>
+</ul>
+</li>
+<li><p>Distribute Shares</p>
+<ul>
+<li>Alice sends ( x_1 ) to Bob and keeps ( x_2 ).</li>
+<li>Bob sends ( y_1 ) to Alice and keeps ( y_2 ).</li>
+</ul>
+</li>
+<li><p>Local Computation</p>
+<ul>
+<li>Alice computes ( s_A &#x3D; x_2 + y_1 &#x3D; 3 + 4 &#x3D; 7 ).</li>
+<li>Bob computes ( s_B &#x3D; x_1 + y_2 &#x3D; 2 + 3 &#x3D; 5 ).</li>
+</ul>
+</li>
+<li><p>Reconstruct the Result</p>
+<ul>
+<li>Alice and Bob exchange their local results:<ul>
+<li>( s_A + s_B &#x3D; 7 + 5 &#x3D; 12 ), which is ( x + y ).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>This method ensures that neither party learns the other’s input!</p>
+<hr>
+<h3 id="2-Homomorphic-Encryption-Example"><a href="#2-Homomorphic-Encryption-Example" class="headerlink" title="2. Homomorphic Encryption Example"></a>2. Homomorphic Encryption Example</h3><p>Homomorphic encryption allows computations to be performed directly on encrypted data. The result of these computations, when decrypted, matches the output of the same computation on the plaintext data.</p>
+<h4 id="Example-Multiplication-Using-Homomorphic-Encryption"><a href="#Example-Multiplication-Using-Homomorphic-Encryption" class="headerlink" title="Example: Multiplication Using Homomorphic Encryption"></a>Example: Multiplication Using Homomorphic Encryption</h4><p>Imagine Alice has ( x &#x3D; 3 ) and Bob has ( y &#x3D; 4 ). They want to compute ( x \cdot y ) without sharing their inputs.</p>
+<ol>
+<li><p>Encryption</p>
+<ul>
+<li>Alice encrypts her input ( x &#x3D; 3 ) using a homomorphic encryption scheme and sends the encrypted value ( E(x) ) to Bob.</li>
+</ul>
+</li>
+<li><p>Homomorphic Computation</p>
+<ul>
+<li>Bob performs the multiplication directly on the encrypted value:<ul>
+<li>( E(x \cdot y) &#x3D; E(x)^y ) (multiplication in plaintext corresponds to repeated multiplication in encryption).</li>
+</ul>
+</li>
+<li>Bob sends the result ( E(x \cdot y) ) back to Alice.</li>
+</ul>
+</li>
+<li><p>Decryption</p>
+<ul>
+<li>Alice decrypts ( E(x \cdot y) ) using her private key to get ( x \cdot y &#x3D; 12 ).</li>
+</ul>
+</li>
+</ol>
+<p>Bob never learns ( x ), and Alice never learns ( y ), but they collaboratively compute the product.</p>
+<hr>
+<h3 id="Comparison-and-Use-Cases"><a href="#Comparison-and-Use-Cases" class="headerlink" title="Comparison and Use Cases"></a>Comparison and Use Cases</h3><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Advantages</th>
+<th>Challenges</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Secret Sharing</td>
+<td>- Lightweight computation<br>- No need for encryption</td>
+<td>- High communication overhead<br>- Limited to specific operations</td>
+<td>Privacy-preserving summation in distributed systems</td>
+</tr>
+<tr>
+<td>Homomorphic Encryption</td>
+<td>- Supports general computations<br>- Minimal communication</td>
+<td>- Computationally expensive<br>- Requires encryption keys</td>
+<td>Privacy-preserving data analysis in cloud environments</td>
+</tr>
+</tbody></table>
+<hr>
+<p>Both methods achieve the goal of SMPC but are suited for different scenarios. Secret sharing is more efficient for simple computations, while homomorphic encryption offers greater flexibility at the cost of higher computational complexity.</p>
+<p>Let me know if you’d like more code-like examples or further exploration!</p>
+<blockquote>
+<p>You:<br>So in my understanding. Secret sharing is like everyone split its secret into several pieces of shares, and sent these shares to other parties, while keep at least one share in it own side. So that every party does not know the whole value unless they collude. Then everyone did the part of computation on the data shares they have. Finally aggregate all the results to get the final result. It looks like parallel computing? Where different threads do not have data of other  threads.</p>
+</blockquote>
+<p>ChatGPT:<br>Yes, your understanding is correct, and you’re drawing an insightful analogy to parallel computing! Let’s break this down further to see the similarities and key differences:</p>
+<hr>
+<h3 id="How-Secret-Sharing-Relates-to-Parallel-Computing"><a href="#How-Secret-Sharing-Relates-to-Parallel-Computing" class="headerlink" title="How Secret Sharing Relates to Parallel Computing"></a>How Secret Sharing Relates to Parallel Computing</h3><ol>
+<li><p>Data Distribution:</p>
+<ul>
+<li>Secret Sharing: Each party splits its secret into shares and distributes them across multiple parties, including itself.</li>
+<li>Parallel Computing: In a distributed system, data is partitioned across different threads or nodes to process parts of a computation independently.</li>
+</ul>
+</li>
+<li><p>Independent Computation:</p>
+<ul>
+<li>Secret Sharing: Each party performs computations on the shares they receive without access to the full original data.</li>
+<li>Parallel Computing: Each thread or node performs its computation independently, often without knowledge of other threads’ operations.</li>
+</ul>
+</li>
+<li><p>Aggregation:</p>
+<ul>
+<li>Secret Sharing: At the end of the computation, the parties combine their intermediate results (computed on shares) to reconstruct the final result.</li>
+<li>Parallel Computing: The results from different threads or nodes are merged to produce the overall output.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Key-Differences"><a href="#Key-Differences" class="headerlink" title="Key Differences"></a>Key Differences</h3><ol>
+<li><p>Privacy vs. Performance:</p>
+<ul>
+<li>In secret sharing, the goal is privacy: ensuring no single party can reconstruct the original secret without collaboration.</li>
+<li>In parallel computing, the goal is performance: splitting the workload to achieve faster computation.</li>
+</ul>
+</li>
+<li><p>Communication Overhead:</p>
+<ul>
+<li>Secret Sharing: Requires extensive communication between parties to share data and exchange partial results. This is necessary to ensure no party can independently deduce private inputs.</li>
+<li>Parallel Computing: Communication overhead is generally minimized to optimize performance, as threads or nodes typically don’t exchange sensitive information.</li>
+</ul>
+</li>
+<li><p>Fault Tolerance:</p>
+<ul>
+<li>Secret Sharing: Many schemes are designed to tolerate a certain number of “faulty” or colluding parties without compromising the computation’s privacy.</li>
+<li>Parallel Computing: Fault tolerance is usually concerned with system crashes or failures, not malicious behavior.</li>
+</ul>
+</li>
+<li><p>Security Assumptions:</p>
+<ul>
+<li>Secret sharing assumes parties will follow protocol rules (honest-but-curious) or attempts to handle malicious behavior (with additional cryptographic safeguards).</li>
+<li>Parallel computing generally doesn’t deal with adversaries; its focus is on efficient execution.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Analogy-Visualized"><a href="#Analogy-Visualized" class="headerlink" title="Analogy Visualized"></a>Analogy Visualized</h3><p>Imagine you’re tasked with finding the total weight of a set of packages:</p>
+<ul>
+<li>Secret Sharing: Each package is split into random parts and distributed among workers. Each worker processes their part of the data and sends their partial results back. Finally, the total weight is reconstructed by aggregating the results.</li>
+<li>Parallel Computing: The packages are simply divided among workers. Each worker calculates the weight of their assigned packages and sends their results for aggregation.</li>
+</ul>
+<hr>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>You’re absolutely right that secret sharing can feel like parallel computing in its distributed nature. However, its design prioritizes privacy and security, whereas parallel computing focuses on speed and efficiency. Despite their different goals, the conceptual framework of breaking down tasks and aggregating results provides a strong parallel between the two!</p>
+<blockquote>
+<p>You:<br>Got it. Then next topic. What is private information retrieval, and give some examples</p>
+</blockquote>
+<p>ChatGPT:</p>
+<h3 id="What-is-Private-Information-Retrieval-PIR"><a href="#What-is-Private-Information-Retrieval-PIR" class="headerlink" title="What is Private Information Retrieval (PIR)?"></a>What is Private Information Retrieval (PIR)?</h3><p>Private Information Retrieval (PIR) is a cryptographic technique that allows a user to query a database and retrieve specific information without revealing to the database which item is being retrieved. The goal is to protect the privacy of the user’s query.</p>
+<hr>
+<h3 id="How-Does-PIR-Work"><a href="#How-Does-PIR-Work" class="headerlink" title="How Does PIR Work?"></a>How Does PIR Work?</h3><p>The main challenge in PIR is to minimize the communication overhead and computation cost while preserving privacy. There are two primary approaches:</p>
+<ol>
+<li><p>Single-Server PIR:</p>
+<ul>
+<li>The database resides on a single server.</li>
+<li>Techniques like homomorphic encryption or oblivious transfer are used to ensure the server cannot deduce which record the user is retrieving.</li>
+</ul>
+</li>
+<li><p>Multi-Server PIR:</p>
+<ul>
+<li>The database is replicated across multiple servers.</li>
+<li>The user queries each server in a way that no individual server can learn which item is being retrieved, and the responses are combined to reconstruct the desired data.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Examples-of-PIR"><a href="#Examples-of-PIR" class="headerlink" title="Examples of PIR"></a>Examples of PIR</h3><h4 id="1-Single-Server-PIR-Using-Homomorphic-Encryption"><a href="#1-Single-Server-PIR-Using-Homomorphic-Encryption" class="headerlink" title="1. Single-Server PIR Using Homomorphic Encryption"></a>1. Single-Server PIR Using Homomorphic Encryption</h4><ul>
+<li><p>Scenario: Alice wants to retrieve the ( i )-th record from a database ( DB &#x3D; [d_1, d_2, \ldots, d_n] ), hosted on a single server, without revealing ( i ) to the server.</p>
+</li>
+<li><p>Process:</p>
+<ol>
+<li>Alice creates an encrypted query vector ( Q ) using homomorphic encryption. This vector is ( Q &#x3D; [q_1, q_2, \ldots, q_n] ), where ( q_i &#x3D; 1 ) (encrypted) and ( q_j &#x3D; 0 ) (encrypted) for all ( j \neq i ).</li>
+<li>Alice sends ( Q ) to the server.</li>
+<li>The server computes the dot product of ( Q ) with the database ( DB ):<br>[<br>R &#x3D; Q \cdot DB &#x3D; q_1 d_1 + q_2 d_2 + \ldots + q_n d_n<br>]<br>Since only ( q_i ) is “1” and the rest are “0”, this gives ( R &#x3D; d_i ), but in an encrypted form.</li>
+<li>The server sends the encrypted ( R ) back to Alice.</li>
+<li>Alice decrypts ( R ) to obtain ( d_i ).</li>
+</ol>
+</li>
+<li><p>Privacy: The server cannot learn ( i ), because all it sees are encrypted values.</p>
+</li>
+</ul>
+<hr>
+<h4 id="2-Multi-Server-PIR"><a href="#2-Multi-Server-PIR" class="headerlink" title="2. Multi-Server PIR"></a>2. Multi-Server PIR</h4><ul>
+<li>Scenario: A database is replicated across two servers ( S_1 ) and ( S_2 ). Bob wants to retrieve ( d_k ) without revealing ( k ).</li>
+<li>Process:<ol>
+<li>Bob sends different queries to ( S_1 ) and ( S_2 ), designed so that neither ( S_1 ) nor ( S_2 ) can independently determine ( k ).</li>
+<li>Each server processes its query and sends a partial result back to Bob.</li>
+<li>Bob combines the results to retrieve ( d_k ).</li>
+</ol>
+</li>
+<li>Example Scheme: Bob sends random subsets of indices to each server, ensuring that ( k ) appears in a way that only the combination of responses reveals the desired record.</li>
+</ul>
+<hr>
+<h3 id="Applications-of-PIR"><a href="#Applications-of-PIR" class="headerlink" title="Applications of PIR"></a>Applications of PIR</h3><ol>
+<li><p>Digital Privacy:</p>
+<ul>
+<li>Browsing anonymous search engines without revealing search queries.</li>
+<li>Retrieving sensitive data from cloud storage without exposing access patterns.</li>
+</ul>
+</li>
+<li><p>Censorship-Resistant Information Access:</p>
+<ul>
+<li>Users can access information in restricted environments without revealing what they’re accessing.</li>
+</ul>
+</li>
+<li><p>Genomic Privacy:</p>
+<ul>
+<li>Researchers can query genomic databases to retrieve specific data points without revealing which genetic marker they’re interested in.</li>
+</ul>
+</li>
+<li><p>Cryptocurrency:</p>
+<ul>
+<li>Enhancing the privacy of blockchain operations by obscuring access to transaction records.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Challenges-and-Practical-Considerations"><a href="#Challenges-and-Practical-Considerations" class="headerlink" title="Challenges and Practical Considerations"></a>Challenges and Practical Considerations</h3><ol>
+<li><p>Communication Overhead:</p>
+<ul>
+<li>Simple PIR schemes often require the user to download a large portion of the database, making them inefficient for large datasets.</li>
+</ul>
+</li>
+<li><p>Computation Cost:</p>
+<ul>
+<li>Techniques like homomorphic encryption can be computationally expensive, especially for large-scale databases.</li>
+</ul>
+</li>
+<li><p>Server Assumptions:</p>
+<ul>
+<li>Single-server schemes require strong cryptographic guarantees.</li>
+<li>Multi-server schemes assume that servers do not collude, which may not always be realistic.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Variants-of-PIR"><a href="#Variants-of-PIR" class="headerlink" title="Variants of PIR"></a>Variants of PIR</h3><ol>
+<li>Computational PIR: Relies on computational hardness assumptions (e.g., homomorphic encryption).</li>
+<li>Information-Theoretic PIR: Guarantees perfect privacy without cryptographic assumptions but usually requires multiple servers.</li>
+</ol>
+<hr>
+<p>Let me know if you’d like further examples, implementation details, or deeper insights into a specific aspect of PIR!</p>
+<blockquote>
+<p>You:<br>What about threshold cryptography?</p>
+</blockquote>
+<p>ChatGPT:</p>
+<h3 id="What-is-Threshold-Cryptography"><a href="#What-is-Threshold-Cryptography" class="headerlink" title="What is Threshold Cryptography?"></a>What is Threshold Cryptography?</h3><p>Threshold cryptography is a branch of cryptography that enables a group of parties to collaboratively perform cryptographic operations (e.g., signing, decryption, key generation) without any single party having access to the entire secret key. Instead, the key is divided into shares using techniques like secret sharing.</p>
+<hr>
+<h3 id="Key-Features-of-Threshold-Cryptography"><a href="#Key-Features-of-Threshold-Cryptography" class="headerlink" title="Key Features of Threshold Cryptography"></a>Key Features of Threshold Cryptography</h3><ol>
+<li><p>Threshold Property:</p>
+<ul>
+<li>A cryptographic operation (e.g., signing or decryption) requires a minimum number (( t )) of parties to collaborate.</li>
+<li>If fewer than ( t ) parties are present, the operation cannot be performed, preserving security.</li>
+</ul>
+</li>
+<li><p>Distributed Trust:</p>
+<ul>
+<li>The secret key is never stored in a single location or by a single entity. Instead, it’s split into shares and distributed among multiple parties.</li>
+<li>No single party or small group of malicious parties (fewer than ( t )) can compromise the system.</li>
+</ul>
+</li>
+<li><p>Fault Tolerance:</p>
+<ul>
+<li>Threshold cryptosystems can tolerate some parties being unavailable or compromised, as long as the required ( t )-party threshold is met.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="How-Does-Threshold-Cryptography-Work"><a href="#How-Does-Threshold-Cryptography-Work" class="headerlink" title="How Does Threshold Cryptography Work?"></a>How Does Threshold Cryptography Work?</h3><p>Threshold cryptography typically uses secret sharing schemes, like Shamir’s Secret Sharing:</p>
+<h4 id="Shamir’s-Secret-Sharing-Scheme"><a href="#Shamir’s-Secret-Sharing-Scheme" class="headerlink" title="Shamir’s Secret Sharing Scheme"></a>Shamir’s Secret Sharing Scheme</h4><ol>
+<li><p>Splitting the Secret:</p>
+<ul>
+<li>A secret ( S ) is encoded as the constant term of a polynomial ( P(x) ) of degree ( t-1 ), where ( t ) is the threshold.</li>
+<li>Random coefficients are chosen for the polynomial: ( P(x) &#x3D; S + a_1x + a_2x^2 + \ldots + a_{t-1}x^{t-1} ).</li>
+<li>Each party ( i ) is given a share ( (i, P(i)) ), i.e., an evaluation of ( P(x) ) at point ( i ).</li>
+</ul>
+</li>
+<li><p>Reconstruction:</p>
+<ul>
+<li>To reconstruct ( S ), any ( t ) or more parties use their shares to interpolate ( P(x) ) using Lagrange interpolation.</li>
+<li>If fewer than ( t ) shares are available, ( S ) cannot be reconstructed.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Applications-of-Threshold-Cryptography"><a href="#Applications-of-Threshold-Cryptography" class="headerlink" title="Applications of Threshold Cryptography"></a>Applications of Threshold Cryptography</h3><ol>
+<li><p>Threshold Signature Schemes:</p>
+<ul>
+<li>A digital signature is generated collaboratively by ( t ) or more parties without any of them knowing the entire private key.</li>
+<li>Example: Signing in blockchain consensus mechanisms (e.g., BFT protocols) where multiple validators collaborate to sign blocks.</li>
+</ul>
+</li>
+<li><p>Threshold Decryption:</p>
+<ul>
+<li>Decryption is performed only when ( t ) or more parties provide their decryption shares.</li>
+<li>Example: Protecting encrypted votes in electronic voting systems, where decryption requires collaboration from a group of election officials.</li>
+</ul>
+</li>
+<li><p>Key Management:</p>
+<ul>
+<li>Private keys for systems like SSL&#x2F;TLS certificates are split among multiple servers.</li>
+<li>Example: Cloud providers offering secure key management services can distribute trust across multiple servers to prevent compromise.</li>
+</ul>
+</li>
+<li><p>Secure Multiparty Computation (SMPC):</p>
+<ul>
+<li>Threshold cryptography can be used to securely distribute keys for SMPC protocols.</li>
+</ul>
+</li>
+<li><p>Cryptocurrency Wallets:</p>
+<ul>
+<li>Threshold cryptography enables secure multi-signature wallets where a group must collaborate to sign transactions.</li>
+<li>Example: A wallet requiring 2 out of 3 key holders to authorize transactions.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Examples-of-Threshold-Cryptography-Protocols"><a href="#Examples-of-Threshold-Cryptography-Protocols" class="headerlink" title="Examples of Threshold Cryptography Protocols"></a>Examples of Threshold Cryptography Protocols</h3><ol>
+<li><p>Threshold RSA:</p>
+<ul>
+<li>The RSA private key is split into shares.</li>
+<li>Decryption or signing requires collaboration among ( t ) or more parties who provide partial results that are combined to produce the final output.</li>
+</ul>
+</li>
+<li><p>Threshold Elliptic Curve Digital Signature Algorithm (ECDSA):</p>
+<ul>
+<li>Used in cryptocurrency wallets and blockchain protocols.</li>
+<li>The private key for ECDSA is split, and signing operations are performed collaboratively.</li>
+</ul>
+</li>
+<li><p>Verifiable Secret Sharing (VSS):</p>
+<ul>
+<li>A variant of secret sharing where the correctness of the shares can be verified without revealing the secret.</li>
+<li>Useful in preventing malicious parties from distributing invalid shares.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Advantages-of-Threshold-Cryptography"><a href="#Advantages-of-Threshold-Cryptography" class="headerlink" title="Advantages of Threshold Cryptography"></a>Advantages of Threshold Cryptography</h3><ol>
+<li><p>Enhanced Security:</p>
+<ul>
+<li>The private key is never exposed in its entirety, reducing the risk of compromise.</li>
+</ul>
+</li>
+<li><p>Fault Tolerance:</p>
+<ul>
+<li>The system can continue functioning even if some parties are unavailable.</li>
+</ul>
+</li>
+<li><p>Distributed Trust:</p>
+<ul>
+<li>No single entity has full control over the secret, ensuring decentralization.</li>
+</ul>
+</li>
+<li><p>Resilience Against Insider Threats:</p>
+<ul>
+<li>Even if some parties are malicious, they cannot compromise the system as long as the threshold ( t ) is not met.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Challenges-in-Threshold-Cryptography"><a href="#Challenges-in-Threshold-Cryptography" class="headerlink" title="Challenges in Threshold Cryptography"></a>Challenges in Threshold Cryptography</h3><ol>
+<li><p>Efficiency:</p>
+<ul>
+<li>Cryptographic operations involving multiple parties can be computationally and communication-intensive.</li>
+</ul>
+</li>
+<li><p>Setup Complexity:</p>
+<ul>
+<li>Initial setup (e.g., generating and distributing shares) can be complicated.</li>
+</ul>
+</li>
+<li><p>Robustness:</p>
+<ul>
+<li>Handling malicious parties often requires additional protocols, like Verifiable Secret Sharing (VSS) or Byzantine fault tolerance.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>Threshold cryptography is a critical tool in decentralized and secure systems. If you’d like, I can provide more technical details or examples, like how threshold signatures work in blockchain!</p>
+<blockquote>
+<p>You:<br>But when using Shamir’s secret sharing, how to achieve threshold cryptography? Giving one example</p>
+</blockquote>
+<p>ChatGPT:<br>Let’s walk through an example of how Shamir’s Secret Sharing can be used to achieve threshold cryptography, such as threshold decryption.</p>
+<hr>
+<h3 id="Scenario-Threshold-Decryption"><a href="#Scenario-Threshold-Decryption" class="headerlink" title="Scenario: Threshold Decryption"></a>Scenario: Threshold Decryption</h3><p>A secret key ( S ) is split among multiple parties using Shamir’s secret sharing. At least ( t ) out of ( n ) parties must collaborate to decrypt a message, but fewer than ( t ) parties cannot decrypt it.</p>
+<h4 id="Setup-Sharing-the-Secret"><a href="#Setup-Sharing-the-Secret" class="headerlink" title="Setup: Sharing the Secret"></a>Setup: Sharing the Secret</h4><ol>
+<li><p>The secret ( S ) (e.g., a private key) is split using a polynomial of degree ( t-1 ):<br>[<br>P(x) &#x3D; S + a_1x + a_2x^2 + \ldots + a_{t-1}x^{t-1}<br>]</p>
+<ul>
+<li>The coefficients ( a_1, a_2, \ldots, a_{t-1} ) are chosen randomly.</li>
+<li>Each party ( i ) is assigned a share ( (i, P(i)) ), where ( i ) is a unique identifier.</li>
+</ul>
+</li>
+<li><p>The shares ( (i, P(i)) ) are securely distributed to ( n ) parties.</p>
+</li>
+</ol>
+<hr>
+<h4 id="Encryption-and-Decryption"><a href="#Encryption-and-Decryption" class="headerlink" title="Encryption and Decryption"></a>Encryption and Decryption</h4><ul>
+<li>The public key (corresponding to the private key ( S )) is used for encryption, so anyone can encrypt messages.</li>
+<li>Decryption requires ( t ) or more parties to collaborate.</li>
+</ul>
+<hr>
+<h4 id="Decryption-Example"><a href="#Decryption-Example" class="headerlink" title="Decryption Example"></a>Decryption Example</h4><p>Suppose the encrypted message is ( E(m) ), and we need ( t &#x3D; 3 ) out of ( n &#x3D; 5 ) parties to decrypt.</p>
+<ol>
+<li><p>Collect Shares:</p>
+<ul>
+<li>Parties ( P_1, P_2, ) and ( P_3 ) collaborate by providing their shares ( (1, P(1)) ), ( (2, P(2)) ), and ( (3, P(3)) ).</li>
+</ul>
+</li>
+<li><p>Reconstruct the Secret:</p>
+<ul>
+<li><p>Using Lagrange interpolation, the parties reconstruct the secret ( S ). The formula for ( P(0) ), which corresponds to the secret, is:<br>[<br>S &#x3D; P(0) &#x3D; \sum_{i&#x3D;1}^{t} P(i) \cdot \lambda_i<br>]<br>where ( \lambda_i ) are the Lagrange coefficients:<br>[<br>\lambda_i &#x3D; \prod_{j&#x3D;1, j \neq i}^{t} \frac{-j}{i - j}<br>]</p>
+<p>For example, if shares are:</p>
+<ul>
+<li>( (1, P(1)) &#x3D; (1, 5) )</li>
+<li>( (2, P(2)) &#x3D; (2, 15) )</li>
+<li>( (3, P(3)) &#x3D; (3, 40) )</li>
+</ul>
+<p>The Lagrange interpolation reconstructs ( S ).</p>
+</li>
+</ul>
+</li>
+<li><p>Decrypt:</p>
+<ul>
+<li>Once ( S ) (the private key) is reconstructed, it is used to decrypt the message ( E(m) ) into ( m ).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Why-is-this-Threshold-Cryptography"><a href="#Why-is-this-Threshold-Cryptography" class="headerlink" title="Why is this Threshold Cryptography?"></a>Why is this Threshold Cryptography?</h3><ul>
+<li>The key ( S ) is never revealed in its entirety to any single party.</li>
+<li>Collaboration among at least ( t ) parties is required to reconstruct ( S ).</li>
+<li>Even if fewer than ( t ) parties collude, they cannot learn ( S ).</li>
+</ul>
+<hr>
+<h3 id="Practical-Applications"><a href="#Practical-Applications" class="headerlink" title="Practical Applications"></a>Practical Applications</h3><ol>
+<li><p>Secure Voting Systems:</p>
+<ul>
+<li>Threshold decryption ensures that election results can only be decrypted if a quorum of election officials collaborates.</li>
+</ul>
+</li>
+<li><p>Cryptocurrency Wallets:</p>
+<ul>
+<li>Threshold wallets require multiple key holders (e.g., 2 out of 3) to sign transactions without exposing the private key.</li>
+</ul>
+</li>
+<li><p>Distributed Key Management:</p>
+<ul>
+<li>Organizations can distribute decryption rights across multiple servers, reducing the risk of a single point of failure.</li>
+</ul>
+</li>
+</ol>
+<p>Let me know if you’d like to see the mathematical steps in more detail or code examples for this process!</p>
+<blockquote>
+<p>You:<br>But when decryption, the S is revealed right? The one who did the Lagrange interpolation can  know the secret S. So who will be the one to do this?</p>
+</blockquote>
+<p>ChatGPT:<br>You’re absolutely correct that when Lagrange interpolation is used to reconstruct the secret ( S ), the entity performing the reconstruction learns the secret. This is a critical consideration in threshold cryptography designs. Different approaches address this concern depending on the application. Let’s explore the options.</p>
+<hr>
+<h3 id="Who-Reconstructs-the-Secret"><a href="#Who-Reconstructs-the-Secret" class="headerlink" title="Who Reconstructs the Secret?"></a>Who Reconstructs the Secret?</h3><ol>
+<li>Trusted Party:<ul>
+<li>In some systems, a trusted entity (e.g., an election authority, a key management server) performs the interpolation.</li>
+<li>Limitation: Requires a trusted party, which contradicts the decentralized ethos of many threshold cryptography applications.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="2">
+<li>Shared Decryption Without Revealing ( S ):<ul>
+<li>Instead of reconstructing ( S ), parties use their shares to <strong>directly compute the decryption result</strong> without any single party learning ( S ).</li>
+<li>This approach is common in threshold decryption systems like Threshold RSA or Threshold ECDSA.</li>
+<li>Example:<ul>
+<li>If the ciphertext ( C ) corresponds to ( E(m) &#x3D; m^e \mod N ) (RSA encryption), each party can compute a partial decryption result ( C^{s_i} ), where ( s_i ) is their share of the private key ( S ).</li>
+<li>The partial results are combined (e.g., via modular multiplication) to recover ( m ), without ever reconstructing ( S ).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="3">
+<li>Distributed Reconstruction Using Secure Multiparty Computation (SMPC):<ul>
+<li>Instead of one party reconstructing ( S ), the parties engage in a secure multiparty computation (SMPC) protocol.</li>
+<li>The result of this protocol is the final output (e.g., the decrypted message) without any party learning ( S ).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="4">
+<li>Public Verification (Non-Interactive Threshold Cryptography):<ul>
+<li>In systems like threshold signature schemes, parties do not reconstruct the private key ( S ).</li>
+<li>Instead, each party provides a partial signature using their share, and these partial signatures are combined into a valid full signature. This can be publicly verified without revealing ( S ).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Example-Threshold-RSA-Decryption"><a href="#Example-Threshold-RSA-Decryption" class="headerlink" title="Example: Threshold RSA Decryption"></a>Example: Threshold RSA Decryption</h3><p>Suppose a message ( m ) is encrypted as ( C &#x3D; m^e \mod N ), where ( N ) is the RSA modulus, and ( S ) is the private key.</p>
+<ol>
+<li><p>Setup:</p>
+<ul>
+<li>( S ) is split into shares ( s_1, s_2, \ldots, s_n ) using Shamir’s secret sharing.</li>
+<li>Each party holds one share.</li>
+</ul>
+</li>
+<li><p>Decryption:</p>
+<ul>
+<li>Each party computes a partial decryption ( D_i &#x3D; C^{s_i} \mod N ).</li>
+<li>The partial decryptions ( D_1, D_2, \ldots, D_t ) are combined using a reconstruction formula (specific to RSA) to recover ( m ), without revealing ( S ) to any party.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In practical threshold cryptographic systems, the secret ( S ) itself is often not reconstructed explicitly. Instead:</p>
+<ul>
+<li>Computation is performed collaboratively on shares to produce the desired output (e.g., decryption or signature).</li>
+<li>This prevents any single party from learning ( S ), aligning with the goals of privacy and security.</li>
+</ul>
+<p>If you’d like, I can dive deeper into any of these approaches or show an example of distributed decryption!</p>
+<blockquote>
+<p>You:<br>So it looks like threshold cryptography means that multiple parties shares one secret, aiming to do the cryptographic operation without revealing the secret. While secure multiparty computation means multiple parties have their own secrets, and they want to collaboratively execute one function on these secrets to get the result without revealing any party’s secret.<br>But in the threshold cryptography, each party’s share of the private key is also a secret that shall not be shared with other parties. So can I consider threshold cryptography a particular kind of MPC? </p>
+</blockquote>
+<p>ChatGPT:<br>Yes, you can absolutely consider threshold cryptography as a specific kind of secure multiparty computation (SMPC)! The distinction lies in their objectives and the type of secrets involved, but the mechanisms share many conceptual similarities. Let’s clarify this connection.</p>
+<hr>
+<h3 id="Threshold-Cryptography-as-a-Subclass-of-SMPC"><a href="#Threshold-Cryptography-as-a-Subclass-of-SMPC" class="headerlink" title="Threshold Cryptography as a Subclass of SMPC"></a>Threshold Cryptography as a Subclass of SMPC</h3><ol>
+<li><p>Shared Secret in Threshold Cryptography:</p>
+<ul>
+<li>Goal: Multiple parties collectively perform cryptographic operations (e.g., signing, decryption) using a shared secret (e.g., a private key) without revealing the secret to any single party.</li>
+<li>Nature of the Secret: The secret (e.g., private key ( S )) is split and distributed using a secret-sharing scheme, so no individual party knows the full secret.</li>
+<li>Operation: Parties collaborate to reconstruct the result of the cryptographic operation (e.g., signature, plaintext) without reconstructing the full secret ( S ).</li>
+</ul>
+<p>Essentially, threshold cryptography focuses on cryptographic operations with a shared secret.</p>
+</li>
+<li><p>Secrets in SMPC:</p>
+<ul>
+<li>Goal: Multiple parties collaboratively compute a function ( f(x_1, x_2, \ldots, x_n) ) on their <strong>individually owned secrets</strong> ( x_1, x_2, \ldots, x_n ), ensuring that no party learns any other party’s secret.</li>
+<li>Nature of the Secrets: Each party has its own secret input that is never revealed.</li>
+<li>Operation: The protocol ensures privacy while allowing the correct result ( f(x_1, x_2, \ldots, x_n) ) to be computed.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Similarities"><a href="#Similarities" class="headerlink" title="Similarities"></a>Similarities</h3><ol>
+<li><p>No Single Point of Knowledge:</p>
+<ul>
+<li>In threshold cryptography, no single party knows the full secret ( S ).</li>
+<li>In SMPC, no party learns another party’s secret ( x_i ).</li>
+</ul>
+</li>
+<li><p>Collaboration:</p>
+<ul>
+<li>Both require multiple parties to participate in the protocol to compute a meaningful result.</li>
+</ul>
+</li>
+<li><p>Mathematical Techniques:</p>
+<ul>
+<li>Both use tools like secret sharing, homomorphic encryption, and zero-knowledge proofs to preserve privacy during computation.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Differences"><a href="#Differences" class="headerlink" title="Differences"></a>Differences</h3><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Threshold Cryptography</th>
+<th>SMPC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Nature of Secrets</td>
+<td>A single shared secret (e.g., private key) split among parties.</td>
+<td>Each party has its own individual secret (e.g., private data).</td>
+</tr>
+<tr>
+<td>Objective</td>
+<td>Perform a cryptographic operation without reconstructing the secret.</td>
+<td>Compute a general function on private inputs without revealing them.</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Focused on specific cryptographic tasks (e.g., signing, decryption).</td>
+<td>Broad, can compute any function (e.g., statistics, machine learning).</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Viewing-Threshold-Cryptography-as-a-Special-Case-of-SMPC"><a href="#Viewing-Threshold-Cryptography-as-a-Special-Case-of-SMPC" class="headerlink" title="Viewing Threshold Cryptography as a Special Case of SMPC"></a>Viewing Threshold Cryptography as a Special Case of SMPC</h3><p>In threshold cryptography:</p>
+<ul>
+<li>The function being computed is tied to a cryptographic operation. For example:<ul>
+<li>( f(C, S) &#x3D; m ) (threshold decryption of ciphertext ( C ) with private key ( S )).</li>
+<li>( f(M, S) &#x3D; \text{signature} ) (threshold signing of message ( M ) with private key ( S )).</li>
+</ul>
+</li>
+<li>The inputs to the computation are the shares of the private key, which are derived from a single shared secret.</li>
+</ul>
+<p>In this sense, threshold cryptography is a constrained form of SMPC, where the inputs are derived from a shared secret and the output is a cryptographic result.</p>
+<hr>
+<h3 id="Key-Takeaway"><a href="#Key-Takeaway" class="headerlink" title="Key Takeaway"></a>Key Takeaway</h3><p>You are absolutely right to observe that threshold cryptography can be considered a specialized form of SMPC:</p>
+<ul>
+<li>Threshold cryptography focuses on cryptographic operations with a shared secret.</li>
+<li>SMPC is broader and focuses on computing any function over distributed private inputs.</li>
+</ul>
+<p>If you’d like, I can provide more examples or dive into how specific SMPC tools (like secret sharing or homomorphic encryption) directly enable threshold cryptographic protocols!</p>
+<blockquote>
+<p>You:<br>Yes, give me some famous threshold cryptographic protocols</p>
+</blockquote>
+<p>ChatGPT:<br>Here are some famous threshold cryptographic protocols, categorized based on the cryptographic operations they enable, such as decryption, signing, and key generation. These protocols are foundational to many secure distributed systems, including blockchains, secure voting, and cloud services.</p>
+<hr>
+<h3 id="1-Threshold-RSA"><a href="#1-Threshold-RSA" class="headerlink" title="1. Threshold RSA"></a>1. Threshold RSA</h3><ul>
+<li>Objective: Perform RSA decryption or signing using a distributed private key without reconstructing the private key.</li>
+<li>Core Idea:<ul>
+<li>The RSA private key ( S ) is split into shares using Shamir’s Secret Sharing or similar schemes.</li>
+<li>Each party computes a partial result (e.g., ( C^{s_i} \mod N ), where ( s_i ) is their share of the private key).</li>
+<li>The partial results are combined to reconstruct the decryption or signature without revealing the private key.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Distributed key management.</li>
+<li>Threshold signing in blockchain systems (e.g., signing blocks or transactions).</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>Shoup’s Threshold RSA Protocol: Ensures robustness and security even with malicious participants.</li>
+<li>Gennaro, Jarecki, Krawczyk, Rabin (GJKR) Protocol: A more efficient and secure threshold RSA implementation.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-Threshold-ECDSA-Elliptic-Curve-Digital-Signature-Algorithm"><a href="#2-Threshold-ECDSA-Elliptic-Curve-Digital-Signature-Algorithm" class="headerlink" title="2. Threshold ECDSA (Elliptic Curve Digital Signature Algorithm)"></a>2. Threshold ECDSA (Elliptic Curve Digital Signature Algorithm)</h3><ul>
+<li>Objective: Generate ECDSA signatures in a threshold setting without revealing the private key.</li>
+<li>Core Idea:<ul>
+<li>The private key used in ECDSA is distributed among ( n ) parties.</li>
+<li>The parties collaboratively compute the signature (involving elliptic curve point multiplication) without any party learning the full private key.</li>
+</ul>
+</li>
+<li>Challenges:<ul>
+<li>Ensuring the security of elliptic curve point multiplication in a distributed manner.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Threshold wallets for cryptocurrencies like Bitcoin and Ethereum.</li>
+<li>Secure signing in blockchain consensus mechanisms.</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>GG18 Protocol (Goldfeder et al., 2018): A practical and secure threshold ECDSA implementation.</li>
+<li>GG20 Protocol: An improvement on GG18, designed for higher security and efficiency.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-Verifiable-Secret-Sharing-VSS"><a href="#3-Verifiable-Secret-Sharing-VSS" class="headerlink" title="3. Verifiable Secret Sharing (VSS)"></a>3. Verifiable Secret Sharing (VSS)</h3><ul>
+<li>Objective: Share a secret among parties with guarantees that malicious parties cannot distribute invalid or inconsistent shares.</li>
+<li>Core Idea:<ul>
+<li>Extends Shamir’s Secret Sharing with a verification mechanism to ensure that:<ul>
+<li>Distributed shares are valid and consistent.</li>
+<li>Malicious parties cannot introduce invalid shares during the reconstruction phase.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Building robust threshold cryptographic protocols.</li>
+<li>Foundations for secure multiparty computation (SMPC).</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>Pedersen’s VSS Protocol: Uses cryptographic commitments for verification.</li>
+<li>Feldman’s VSS Protocol: A non-interactive VSS scheme based on public key cryptography.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-Threshold-Schnorr-Signatures"><a href="#4-Threshold-Schnorr-Signatures" class="headerlink" title="4. Threshold Schnorr Signatures"></a>4. Threshold Schnorr Signatures</h3><ul>
+<li>Objective: Generate Schnorr signatures collaboratively without revealing the private key.</li>
+<li>Core Idea:<ul>
+<li>Schnorr signatures involve proving knowledge of a discrete logarithm.</li>
+<li>The private key is split among parties, and they collectively compute a valid signature.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Privacy-preserving authentication.</li>
+<li>Signing in blockchain consensus protocols.</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>MULTISIG Schnorr: A threshold signature scheme widely used in blockchain systems like Bitcoin.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-Threshold-ElGamal-Encryption"><a href="#5-Threshold-ElGamal-Encryption" class="headerlink" title="5. Threshold ElGamal Encryption"></a>5. Threshold ElGamal Encryption</h3><ul>
+<li>Objective: Decrypt messages encrypted using ElGamal encryption in a distributed manner.</li>
+<li>Core Idea:<ul>
+<li>The ElGamal private key is split into shares, and decryption is performed by combining partial decryptions from ( t ) or more parties.</li>
+<li>The private key itself is never reconstructed.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Secure e-voting systems where votes are encrypted, and decryption requires collaboration from election authorities.</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>Used in Helios, a secure e-voting system.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="6-Distributed-Key-Generation-DKG-Protocols"><a href="#6-Distributed-Key-Generation-DKG-Protocols" class="headerlink" title="6. Distributed Key Generation (DKG) Protocols"></a>6. Distributed Key Generation (DKG) Protocols</h3><ul>
+<li>Objective: Generate a cryptographic key collaboratively among multiple parties without any single party controlling the full key.</li>
+<li>Core Idea:<ul>
+<li>Each party contributes randomness during the key generation process.</li>
+<li>The resulting key is shared among the parties using secret sharing.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Threshold key management.</li>
+<li>Secure setups for SMPC and other cryptographic protocols.</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>Gennaro, Jarecki, Krawczyk, Rabin (GJKR) DKG Protocol: A robust protocol for RSA key generation.</li>
+<li>Pedersen’s DKG Protocol: A popular DKG for discrete logarithm-based systems.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="7-Threshold-Homomorphic-Encryption"><a href="#7-Threshold-Homomorphic-Encryption" class="headerlink" title="7. Threshold Homomorphic Encryption"></a>7. Threshold Homomorphic Encryption</h3><ul>
+<li>Objective: Enable distributed decryption of homomorphically encrypted data.</li>
+<li>Core Idea:<ul>
+<li>The secret key for a homomorphic encryption scheme is split among parties.</li>
+<li>Partial decryptions are combined to recover the plaintext without revealing the private key.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Privacy-preserving machine learning.</li>
+<li>Secure e-voting systems.</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>Paillier Threshold Encryption: Threshold decryption for Paillier’s additive homomorphic encryption scheme.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="8-BLS-Boneh–Lynn–Shacham-Threshold-Signatures"><a href="#8-BLS-Boneh–Lynn–Shacham-Threshold-Signatures" class="headerlink" title="8. BLS (Boneh–Lynn–Shacham) Threshold Signatures"></a>8. BLS (Boneh–Lynn–Shacham) Threshold Signatures</h3><ul>
+<li>Objective: Generate compact signatures in a threshold setting, useful for blockchains and consensus protocols.</li>
+<li>Core Idea:<ul>
+<li>BLS signatures are short, based on pairings over elliptic curves.</li>
+<li>Parties collaborate to generate a BLS signature without exposing the private key.</li>
+</ul>
+</li>
+<li>Applications:<ul>
+<li>Blockchain protocols like Ethereum 2.0.</li>
+<li>Aggregated signatures for efficient verification.</li>
+</ul>
+</li>
+<li>Famous Protocols:<ul>
+<li>BLS threshold signatures in decentralized finance (DeFi) and consensus systems.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Key-Takeaways"><a href="#Key-Takeaways" class="headerlink" title="Key Takeaways"></a>Key Takeaways</h3><ul>
+<li>Threshold RSA and ECDSA are widely used in distributed systems like blockchains.</li>
+<li>Verifiable Secret Sharing (VSS) and Distributed Key Generation (DKG) are foundational for building robust cryptographic systems.</li>
+<li>Threshold Schnorr and BLS Signatures are gaining popularity in blockchain ecosystems for their efficiency and compactness.</li>
+</ul>
+<p>If you’re interested in a particular protocol, I can dive deeper into its technical details or real-world applications!</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2025/02/25/Cryptography%20Learning/" title="Cryptography Learning" target="_blank" rel="external">http://philia897.github.io/2025/02/25/Cryptography Learning/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2025/02/25/Test-Pro/" title="Test Pro"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" title="npm vs Yarn vs Deno vs Bun"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

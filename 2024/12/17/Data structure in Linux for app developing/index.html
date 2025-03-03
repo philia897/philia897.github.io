@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Data structure in Linux for app developing | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="About standards when developing Linux applications.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data structure in Linux for app developing">
+<meta property="og:url" content="http://philia897.github.io/2024/12/17/Data%20structure%20in%20Linux%20for%20app%20developing/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="About standards when developing Linux applications.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-16T22:42:23.000Z">
+<meta property="article:modified_time" content="2024-12-16T22:42:55.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="chatgpt history">
+<meta property="article:tag" content="programming">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2024/12/17/Data%20structure%20in%20Linux%20for%20app%20developing/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux/">Arch Linux</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crhyptography/">Crhyptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cryptography/">Cryptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/developing/">developing</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hacking/">hacking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/applications/" rel="tag">applications</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archinstall/" rel="tag">archinstall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aur/" rel="tag">aur</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backup/" rel="tag">backup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bios/" rel="tag">bios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/" rel="tag">blockchain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-storage/" rel="tag">cloud storage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/comfyUI/" rel="tag">comfyUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptography/" rel="tag">cryptography</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debug/" rel="tag">debug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desktop-entry/" rel="tag">desktop entry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encryption/" rel="tag">encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flatpak/" rel="tag">flatpak</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grub/" rel="tag">grub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homomorphic-encryption/" rel="tag">homomorphic encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptables/" rel="tag">iptables</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kde/" rel="tag">kde</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kernel/" rel="tag">kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiparty-computation/" rel="tag">multiparty computation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/networking/" rel="tag">networking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ntfs/" rel="tag">ntfs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource-project/" rel="tag">opensource project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pacman/" rel="tag">pacman</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paru/" rel="tag">paru</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/" rel="tag">programming</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qemu/" rel="tag">qemu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rclone/" rel="tag">rclone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scheduled-task/" rel="tag">scheduled task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/secret-sharing/" rel="tag">secret sharing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software/" rel="tag">software</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system-monitor/" rel="tag">system monitor</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tauri/" rel="tag">tauri</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threshold-cryptography/" rel="tag">threshold cryptography</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/timeshift/" rel="tag">timeshift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ufw/" rel="tag">ufw</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vaultwarden/" rel="tag">vaultwarden</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/virtualization/" rel="tag">virtualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3m/" rel="tag">w3m</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wayland/" rel="tag">wayland</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wireguard/" rel="tag">wireguard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/x11/" rel="tag">x11</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ydotool/" rel="tag">ydotool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.14px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.43px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 13.86px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.14px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.14px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.29px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.14px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/android/" style="font-size: 13.14px;">android</a> <a href="/tags/applications/" style="font-size: 13px;">applications</a> <a href="/tags/arch/" style="font-size: 13px;">arch</a> <a href="/tags/archinstall/" style="font-size: 13px;">archinstall</a> <a href="/tags/aur/" style="font-size: 13.29px;">aur</a> <a href="/tags/backup/" style="font-size: 13.14px;">backup</a> <a href="/tags/bios/" style="font-size: 13px;">bios</a> <a href="/tags/blockchain/" style="font-size: 13px;">blockchain</a> <a href="/tags/browser/" style="font-size: 13px;">browser</a> <a href="/tags/chatgpt-history/" style="font-size: 14px;">chatgpt history</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/cloud-storage/" style="font-size: 13px;">cloud storage</a> <a href="/tags/comfyUI/" style="font-size: 13px;">comfyUI</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/crontab/" style="font-size: 13.14px;">crontab</a> <a href="/tags/cryptography/" style="font-size: 13.14px;">cryptography</a> <a href="/tags/debug/" style="font-size: 13px;">debug</a> <a href="/tags/debugging/" style="font-size: 13.14px;">debugging</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/desktop-entry/" style="font-size: 13px;">desktop entry</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/electron/" style="font-size: 13.29px;">electron</a> <a href="/tags/encryption/" style="font-size: 13px;">encryption</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/flatpak/" style="font-size: 13.14px;">flatpak</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/grub/" style="font-size: 13px;">grub</a> <a href="/tags/homomorphic-encryption/" style="font-size: 13px;">homomorphic encryption</a> <a href="/tags/iptables/" style="font-size: 13px;">iptables</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/javascript/" style="font-size: 13.14px;">javascript</a> <a href="/tags/kde/" style="font-size: 13.14px;">kde</a> <a href="/tags/keras/" style="font-size: 13.14px;">keras</a> <a href="/tags/kernel/" style="font-size: 13px;">kernel</a> <a href="/tags/kvm/" style="font-size: 13.14px;">kvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/multiparty-computation/" style="font-size: 13px;">multiparty computation</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/networking/" style="font-size: 13px;">networking</a> <a href="/tags/npm/" style="font-size: 13px;">npm</a> <a href="/tags/ntfs/" style="font-size: 13px;">ntfs</a> <a href="/tags/opensource-project/" style="font-size: 13px;">opensource project</a> <a href="/tags/pacman/" style="font-size: 13.43px;">pacman</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/paru/" style="font-size: 13px;">paru</a> <a href="/tags/programming/" style="font-size: 13.57px;">programming</a> <a href="/tags/python/" style="font-size: 13.71px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.29px;">pytorch</a> <a href="/tags/qemu/" style="font-size: 13.14px;">qemu</a> <a href="/tags/rclone/" style="font-size: 13.14px;">rclone</a> <a href="/tags/rust/" style="font-size: 13px;">rust</a> <a href="/tags/scheduled-task/" style="font-size: 13px;">scheduled task</a> <a href="/tags/secret-sharing/" style="font-size: 13px;">secret sharing</a> <a href="/tags/software/" style="font-size: 13px;">software</a> <a href="/tags/system/" style="font-size: 13.29px;">system</a> <a href="/tags/system-monitor/" style="font-size: 13.29px;">system monitor</a> <a href="/tags/tauri/" style="font-size: 13px;">tauri</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/threshold-cryptography/" style="font-size: 13px;">threshold cryptography</a> <a href="/tags/timeshift/" style="font-size: 13px;">timeshift</a> <a href="/tags/ufw/" style="font-size: 13px;">ufw</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/vaultwarden/" style="font-size: 13px;">vaultwarden</a> <a href="/tags/virtualization/" style="font-size: 13px;">virtualization</a> <a href="/tags/w3m/" style="font-size: 13px;">w3m</a> <a href="/tags/wayland/" style="font-size: 13.43px;">wayland</a> <a href="/tags/wireguard/" style="font-size: 13px;">wireguard</a> <a href="/tags/x11/" style="font-size: 13.14px;">x11</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/ydotool/" style="font-size: 13px;">ydotool</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.29px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.14px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/26/Frontend%20scrollbar%20errors/" class="title">Frontend scrollbar errors</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-26T06:41:14.000Z" itemprop="datePublished">2025-02-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cryptography/">Cryptography</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Cryptography%20Learning/" class="title">Cryptography Learning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T02:11:07.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" class="title">npm vs Yarn vs Deno vs Bun</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-15T19:12:54.000Z" itemprop="datePublished">2025-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" class="title">Binding ip address v.s. firewall rules</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-01-08T22:33:15.000Z" itemprop="datePublished">2025-01-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Data structure in Linux for app developing" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Data structure in Linux for app developing
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/12/17/Data%20structure%20in%20Linux%20for%20app%20developing/" class="article-date">
+	  <time datetime="2024-12-16T22:42:23.000Z" itemprop="datePublished">2024-12-17</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/developing/">developing</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a>, <a class="article-tag-link-link" href="/tags/programming/" rel="tag">programming</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/12/17/Data%20structure%20in%20Linux%20for%20app%20developing/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 953(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 5(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>About standards when developing Linux applications.</p>
+<span id="more"></span>
+
+<blockquote>
+<p>If I’m developing an application, how to manage my data?<br>I saw there are many dirs in Linux user home, like .config, .cache, .local, seems some dirs like &#x2F;var, &#x2F;tmp can also be used, give me some guidelines</p>
+</blockquote>
+<p>When developing an application on Linux, managing application data properly is crucial for maintaining system cleanliness, following best practices, and providing a smooth user experience. Linux has a set of standard directories where applications are expected to store different types of data. Below is a breakdown of the most commonly used directories for storing user and system data, along with guidelines for managing your application’s data:</p>
+<hr>
+<h3 id="1-User-specific-Data-Locations"><a href="#1-User-specific-Data-Locations" class="headerlink" title="1. User-specific Data Locations"></a><strong>1. User-specific Data Locations</strong></h3><h4 id="a-config"><a href="#a-config" class="headerlink" title="a. ~/.config/"></a><strong>a. <code>~/.config/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: This directory is typically used to store <strong>configuration files</strong> for applications. It’s meant for settings, preferences, and other configuration files that need to persist across sessions.</li>
+<li><strong>Guideline</strong>: Store configuration files and user-specific settings for your application here. For example, if your app allows users to customize the interface or preferences, save those settings in a subdirectory under <code>~/.config/yourapp/</code>.</li>
+<li><strong>Example</strong>: <code>~/.config/yourapp/config.json</code>, <code>~/.config/yourapp/settings.ini</code>.</li>
+</ul>
+<h4 id="b-local-share"><a href="#b-local-share" class="headerlink" title="b. ~/.local/share/"></a><strong>b. <code>~/.local/share/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: This directory is for <strong>application data</strong> that is specific to the user. It’s often used for things like databases, log files, or other persistent data that needs to be stored between application runs.</li>
+<li><strong>Guideline</strong>: Store your application’s primary data here, such as user-generated files, temporary working files, or data that should persist between runs. Create a subdirectory with your application’s name.</li>
+<li><strong>Example</strong>: <code>~/.local/share/yourapp/</code> for persistent data files, such as <code>~/.local/share/yourapp/user_data.db</code>.</li>
+</ul>
+<h4 id="c-local-cache"><a href="#c-local-cache" class="headerlink" title="c. ~/.local/cache/"></a><strong>c. <code>~/.local/cache/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: This directory is for <strong>cached data</strong> that can be rebuilt if necessary, like temporary files, downloaded resources, or files that don’t need to persist across sessions.</li>
+<li><strong>Guideline</strong>: Store temporary files here that your application can safely recreate or download again when needed. For example, downloaded images, files, or data fetched from the internet.</li>
+<li><strong>Example</strong>: <code>~/.local/cache/yourapp/</code> for cached files like <code>~/.local/cache/yourapp/images/</code> or <code>~/.local/cache/yourapp/temp_data.json</code>.</li>
+</ul>
+<h4 id="d-local-bin"><a href="#d-local-bin" class="headerlink" title="d. ~/.local/bin/"></a><strong>d. <code>~/.local/bin/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: This directory is for <strong>user-specific executables</strong> that are not installed system-wide.</li>
+<li><strong>Guideline</strong>: If your application has a command-line interface (CLI) or needs to install executables for the user, store those files here.</li>
+<li><strong>Example</strong>: <code>~/.local/bin/yourapp</code> for user-installed executables.</li>
+</ul>
+<hr>
+<h3 id="2-System-wide-Data-Locations-Requires-root-access"><a href="#2-System-wide-Data-Locations-Requires-root-access" class="headerlink" title="2. System-wide Data Locations (Requires root access)"></a><strong>2. System-wide Data Locations (Requires root access)</strong></h3><h4 id="a-etc"><a href="#a-etc" class="headerlink" title="a. /etc/"></a><strong>a. <code>/etc/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: The <code>/etc/</code> directory contains system-wide configuration files. These files control system behavior and the configuration of installed applications.</li>
+<li><strong>Guideline</strong>: If your application requires system-wide configuration and must be shared by all users on the system, you can store configuration files in <code>/etc/yourapp/</code>. However, this is typically for system administrators and requires elevated privileges.</li>
+<li><strong>Example</strong>: <code>/etc/yourapp/config.conf</code>.</li>
+</ul>
+<h4 id="b-var"><a href="#b-var" class="headerlink" title="b. /var/"></a><strong>b. <code>/var/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: The <code>/var/</code> directory is for <strong>variable data</strong> that changes over time, such as logs, databases, caches, and application-specific files that need to persist but are constantly being modified.</li>
+<li><strong>Guideline</strong>: If your application generates logs, databases, or other stateful data that needs to be preserved, use <code>/var/lib/yourapp/</code> for persistent data or <code>/var/log/yourapp/</code> for logs. This is mostly for system-wide data that is managed by a service or application running with root privileges.</li>
+<li><strong>Example</strong>: <code>/var/lib/yourapp/data.db</code>, <code>/var/log/yourapp.log</code>.</li>
+</ul>
+<h4 id="c-tmp"><a href="#c-tmp" class="headerlink" title="c. /tmp/"></a><strong>c. <code>/tmp/</code></strong></h4><ul>
+<li><strong>Purpose</strong>: The <code>/tmp/</code> directory is for <strong>temporary files</strong> that can be safely deleted. Files in <code>/tmp/</code> are typically short-lived and used by applications to store temporary data during runtime.</li>
+<li><strong>Guideline</strong>: Use <code>/tmp/</code> for data that doesn’t need to persist between reboots and can be discarded safely when the application closes or after a certain amount of time.</li>
+<li><strong>Example</strong>: <code>/tmp/yourapp_tempfile</code>.</li>
+</ul>
+<hr>
+<h3 id="3-Other-Considerations"><a href="#3-Other-Considerations" class="headerlink" title="3. Other Considerations"></a><strong>3. Other Considerations</strong></h3><ul>
+<li><strong>Permissions</strong>: Make sure to set proper permissions for files and directories. For example, avoid writing files that are sensitive in publicly accessible directories.</li>
+<li><strong>Portable Applications</strong>: If you’re building a portable application (such as one distributed via <strong>Flatpak</strong> or <strong>Snap</strong>), you may need to store data in the <strong>sandboxed directories</strong> provided by those systems (e.g., <code>~/.var/app/</code> for Flatpak).</li>
+<li><strong>Backups and Synchronization</strong>: For user data that needs to be backed up or synchronized across devices, consider storing it in <code>~/.local/share/</code> or integrating with a cloud synchronization service.</li>
+</ul>
+<hr>
+<h3 id="Best-Practices-for-Data-Management"><a href="#Best-Practices-for-Data-Management" class="headerlink" title="Best Practices for Data Management"></a><strong>Best Practices for Data Management</strong></h3><ol>
+<li><p><strong>Follow the XDG Base Directory Specification</strong>: The XDG specification standardizes where user-specific application data should be stored, ensuring consistency across Linux distributions. It specifies:</p>
+<ul>
+<li><strong>Config files</strong>: <code>~/.config/</code></li>
+<li><strong>Data files</strong>: <code>~/.local/share/</code></li>
+<li><strong>Cache files</strong>: <code>~/.cache/</code></li>
+<li>If possible, follow these conventions to ensure your application behaves in a consistent manner with other applications on the system.</li>
+</ul>
+</li>
+<li><p><strong>Separation of Data Types</strong>: Keep different types of data in different directories:</p>
+<ul>
+<li><strong>Configuration files</strong> in <code>~/.config/yourapp/</code>.</li>
+<li><strong>Persistent data</strong> in <code>~/.local/share/yourapp/</code>.</li>
+<li><strong>Cache and temporary files</strong> in <code>~/.cache/yourapp/</code>.</li>
+</ul>
+</li>
+<li><p><strong>Clean Up Temporary Data</strong>: Ensure that temporary files in <code>/tmp/</code> or <code>~/.cache/</code> are removed when they are no longer needed to avoid unnecessary disk usage.</p>
+</li>
+<li><p><strong>Cross-user Support</strong>: If your application is multi-user, ensure that data that needs to be shared between users is placed in appropriate system directories (e.g., <code>/var/lib/yourapp/</code>), while user-specific data should remain in the user’s home directory.</p>
+</li>
+</ol>
+<hr>
+<h3 id="Summary-of-Where-to-Store-Data"><a href="#Summary-of-Where-to-Store-Data" class="headerlink" title="Summary of Where to Store Data:"></a><strong>Summary of Where to Store Data:</strong></h3><ul>
+<li><strong>User-specific data</strong>: <code>~/.config/yourapp/</code> (config), <code>~/.local/share/yourapp/</code> (persistent data), <code>~/.cache/yourapp/</code> (cache)</li>
+<li><strong>System-wide data</strong>: <code>/etc/yourapp/</code> (config), <code>/var/lib/yourapp/</code> (persistent state), <code>/var/log/yourapp/</code> (logs), <code>/tmp/yourapp/</code> (temporary files)</li>
+</ul>
+<p>By following these guidelines, your application will adhere to standard practices for Linux file system organization and ensure good separation between user, system, and temporary data.</p>
+<p>Let me know if you have more specific questions about data management for your app!</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2024/12/17/Data%20structure%20in%20Linux%20for%20app%20developing/" title="Data structure in Linux for app developing" target="_blank" rel="external">http://philia897.github.io/2024/12/17/Data structure in Linux for app developing/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/12/21/Python%20decorator/" title="Python decorator"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/12/17/Flatpak/" title="Flatpak"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Zero-Knowledge Proof and Blockchain | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="Record the learning history with chatgpt regarding ZKP and Blockchain.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zero-Knowledge Proof and Blockchain">
+<meta property="og:url" content="http://philia897.github.io/2024/11/15/Zero-Knowledge%20Proof%20and%20Blockchain/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Record the learning history with chatgpt regarding ZKP and Blockchain.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-15T00:52:56.000Z">
+<meta property="article:modified_time" content="2024-11-15T00:55:07.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="chatgpt history">
+<meta property="article:tag" content="cryptography">
+<meta property="article:tag" content="blockchain">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2024/11/15/Zero-Knowledge%20Proof%20and%20Blockchain/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux/">Arch Linux</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crhyptography/">Crhyptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cryptography/">Cryptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/developing/">developing</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hacking/">hacking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/applications/" rel="tag">applications</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archinstall/" rel="tag">archinstall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aur/" rel="tag">aur</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backup/" rel="tag">backup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bios/" rel="tag">bios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/" rel="tag">blockchain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-storage/" rel="tag">cloud storage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/comfyUI/" rel="tag">comfyUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptography/" rel="tag">cryptography</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debug/" rel="tag">debug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desktop-entry/" rel="tag">desktop entry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encryption/" rel="tag">encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flatpak/" rel="tag">flatpak</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grub/" rel="tag">grub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homomorphic-encryption/" rel="tag">homomorphic encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptables/" rel="tag">iptables</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kde/" rel="tag">kde</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kernel/" rel="tag">kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiparty-computation/" rel="tag">multiparty computation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/networking/" rel="tag">networking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ntfs/" rel="tag">ntfs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource-project/" rel="tag">opensource project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pacman/" rel="tag">pacman</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paru/" rel="tag">paru</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/" rel="tag">programming</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qemu/" rel="tag">qemu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rclone/" rel="tag">rclone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scheduled-task/" rel="tag">scheduled task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/secret-sharing/" rel="tag">secret sharing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software/" rel="tag">software</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system-monitor/" rel="tag">system monitor</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tauri/" rel="tag">tauri</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threshold-cryptography/" rel="tag">threshold cryptography</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/timeshift/" rel="tag">timeshift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ufw/" rel="tag">ufw</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vaultwarden/" rel="tag">vaultwarden</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/virtualization/" rel="tag">virtualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3m/" rel="tag">w3m</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wayland/" rel="tag">wayland</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wireguard/" rel="tag">wireguard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/x11/" rel="tag">x11</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ydotool/" rel="tag">ydotool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.14px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.43px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 13.86px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.14px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.14px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.29px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.14px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/android/" style="font-size: 13.14px;">android</a> <a href="/tags/applications/" style="font-size: 13px;">applications</a> <a href="/tags/arch/" style="font-size: 13px;">arch</a> <a href="/tags/archinstall/" style="font-size: 13px;">archinstall</a> <a href="/tags/aur/" style="font-size: 13.29px;">aur</a> <a href="/tags/backup/" style="font-size: 13.14px;">backup</a> <a href="/tags/bios/" style="font-size: 13px;">bios</a> <a href="/tags/blockchain/" style="font-size: 13px;">blockchain</a> <a href="/tags/browser/" style="font-size: 13px;">browser</a> <a href="/tags/chatgpt-history/" style="font-size: 14px;">chatgpt history</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/cloud-storage/" style="font-size: 13px;">cloud storage</a> <a href="/tags/comfyUI/" style="font-size: 13px;">comfyUI</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/crontab/" style="font-size: 13.14px;">crontab</a> <a href="/tags/cryptography/" style="font-size: 13.14px;">cryptography</a> <a href="/tags/debug/" style="font-size: 13px;">debug</a> <a href="/tags/debugging/" style="font-size: 13.14px;">debugging</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/desktop-entry/" style="font-size: 13px;">desktop entry</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/electron/" style="font-size: 13.29px;">electron</a> <a href="/tags/encryption/" style="font-size: 13px;">encryption</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/flatpak/" style="font-size: 13.14px;">flatpak</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/grub/" style="font-size: 13px;">grub</a> <a href="/tags/homomorphic-encryption/" style="font-size: 13px;">homomorphic encryption</a> <a href="/tags/iptables/" style="font-size: 13px;">iptables</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/javascript/" style="font-size: 13.14px;">javascript</a> <a href="/tags/kde/" style="font-size: 13.14px;">kde</a> <a href="/tags/keras/" style="font-size: 13.14px;">keras</a> <a href="/tags/kernel/" style="font-size: 13px;">kernel</a> <a href="/tags/kvm/" style="font-size: 13.14px;">kvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/multiparty-computation/" style="font-size: 13px;">multiparty computation</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/networking/" style="font-size: 13px;">networking</a> <a href="/tags/npm/" style="font-size: 13px;">npm</a> <a href="/tags/ntfs/" style="font-size: 13px;">ntfs</a> <a href="/tags/opensource-project/" style="font-size: 13px;">opensource project</a> <a href="/tags/pacman/" style="font-size: 13.43px;">pacman</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/paru/" style="font-size: 13px;">paru</a> <a href="/tags/programming/" style="font-size: 13.57px;">programming</a> <a href="/tags/python/" style="font-size: 13.71px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.29px;">pytorch</a> <a href="/tags/qemu/" style="font-size: 13.14px;">qemu</a> <a href="/tags/rclone/" style="font-size: 13.14px;">rclone</a> <a href="/tags/rust/" style="font-size: 13px;">rust</a> <a href="/tags/scheduled-task/" style="font-size: 13px;">scheduled task</a> <a href="/tags/secret-sharing/" style="font-size: 13px;">secret sharing</a> <a href="/tags/software/" style="font-size: 13px;">software</a> <a href="/tags/system/" style="font-size: 13.29px;">system</a> <a href="/tags/system-monitor/" style="font-size: 13.29px;">system monitor</a> <a href="/tags/tauri/" style="font-size: 13px;">tauri</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/threshold-cryptography/" style="font-size: 13px;">threshold cryptography</a> <a href="/tags/timeshift/" style="font-size: 13px;">timeshift</a> <a href="/tags/ufw/" style="font-size: 13px;">ufw</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/vaultwarden/" style="font-size: 13px;">vaultwarden</a> <a href="/tags/virtualization/" style="font-size: 13px;">virtualization</a> <a href="/tags/w3m/" style="font-size: 13px;">w3m</a> <a href="/tags/wayland/" style="font-size: 13.43px;">wayland</a> <a href="/tags/wireguard/" style="font-size: 13px;">wireguard</a> <a href="/tags/x11/" style="font-size: 13.14px;">x11</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/ydotool/" style="font-size: 13px;">ydotool</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.29px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.14px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/26/Frontend%20scrollbar%20errors/" class="title">Frontend scrollbar errors</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-26T06:41:14.000Z" itemprop="datePublished">2025-02-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cryptography/">Cryptography</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Cryptography%20Learning/" class="title">Cryptography Learning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T02:11:07.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" class="title">npm vs Yarn vs Deno vs Bun</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-15T19:12:54.000Z" itemprop="datePublished">2025-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" class="title">Binding ip address v.s. firewall rules</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-01-08T22:33:15.000Z" itemprop="datePublished">2025-01-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Zero-Knowledge Proof and Blockchain" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Zero-Knowledge Proof and Blockchain
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/11/15/Zero-Knowledge%20Proof%20and%20Blockchain/" class="article-date">
+	  <time datetime="2024-11-15T00:52:56.000Z" itemprop="datePublished">2024-11-15</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Crhyptography/">Crhyptography</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/blockchain/" rel="tag">blockchain</a>, <a class="article-tag-link-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a>, <a class="article-tag-link-link" href="/tags/cryptography/" rel="tag">cryptography</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/11/15/Zero-Knowledge%20Proof%20and%20Blockchain/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 3.4k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 21(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>Record the learning history with chatgpt regarding ZKP and Blockchain.</p>
+<span id="more"></span> 
+
+<blockquote>
+<p>You:<br>Please explain what is zero-knowledge proof and give one example</p>
+</blockquote>
+<p>ChatGPT:<br>A zero-knowledge proof (ZKP) is a cryptographic method that allows one party (the prover) to prove to another party (the verifier) that a statement is true, without revealing any information beyond the truth of the statement itself. In other words, the prover convinces the verifier that they know something (a piece of information or a solution) without sharing what that information is.</p>
+<h3 id="Key-Properties-of-Zero-Knowledge-Proofs"><a href="#Key-Properties-of-Zero-Knowledge-Proofs" class="headerlink" title="Key Properties of Zero-Knowledge Proofs"></a>Key Properties of Zero-Knowledge Proofs</h3><ol>
+<li>Completeness: If the statement is true, an honest prover can convince an honest verifier of this fact.</li>
+<li>Soundness: If the statement is false, no dishonest prover can convince the verifier that it’s true, except with some tiny probability.</li>
+<li>Zero-Knowledge: If the statement is true, the verifier learns nothing about the actual information beyond the fact that it’s true.</li>
+</ol>
+<h3 id="Example-The-Ali-Baba-Cave-Conceptual-Example"><a href="#Example-The-Ali-Baba-Cave-Conceptual-Example" class="headerlink" title="Example: The Ali Baba Cave (Conceptual Example)"></a>Example: The Ali Baba Cave (Conceptual Example)</h3><p>Imagine a circular cave with two paths leading to the entrance, path A and path B. Peggy (the prover) wants to prove to Victor (the verifier) that she knows the secret password to open a hidden door connecting the two paths, but she doesn’t want to reveal the password itself.</p>
+<p>The process works like this:</p>
+<ol>
+<li>Victor waits outside and can’t see which path Peggy takes, either A or B.</li>
+<li>Peggy enters the cave and randomly chooses path A or B.</li>
+<li>Victor then enters and randomly calls for Peggy to exit through path A or B.</li>
+<li>If Peggy knows the password, she can always open the door and exit through whichever path Victor specifies. If she doesn’t know the password, she will only be able to satisfy Victor’s request half the time by luck.</li>
+</ol>
+<p>By repeating this multiple times, Victor can become increasingly convinced that Peggy knows the password without ever learning what the password actually is.</p>
+<p>In real-world cryptography, zero-knowledge proofs are used in various privacy-sensitive applications, such as secure identity verification, blockchain transactions, and authentication systems.</p>
+<blockquote>
+<p>You:<br>Now give a real-world usage example of ZKP</p>
+</blockquote>
+<p>ChatGPT:<br>A real-world example of zero-knowledge proofs is their use in cryptocurrencies, specifically in privacy-focused blockchains like Zcash.</p>
+<p>In typical cryptocurrencies like Bitcoin, transactions are visible on a public ledger, including details like the sender’s and receiver’s addresses and the amount of money transferred. This transparency can compromise user privacy, as anyone can see transaction details. Zcash, however, uses a form of ZKP called zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) to enable completely private transactions.</p>
+<h3 id="How-ZKP-Works-in-Zcash"><a href="#How-ZKP-Works-in-Zcash" class="headerlink" title="How ZKP Works in Zcash"></a>How ZKP Works in Zcash</h3><p>When someone makes a transaction in Zcash using zk-SNARKs:</p>
+<ol>
+<li>Confidential Proof: The sender generates a zero-knowledge proof that they have the right to spend the specified amount without revealing the exact details (amount, sender, and receiver) of the transaction.</li>
+<li>Verification: This zero-knowledge proof is then sent to the network, where miners (validators) can verify the proof’s validity without needing any further information.</li>
+<li>Public Ledger, Private Transaction: The transaction is added to the blockchain, and the network confirms that the transaction is legitimate, but no private information (amount, sender, receiver) is exposed on the public ledger.</li>
+</ol>
+<h3 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h3><p>This application of ZKPs enables Zcash users to make fully private transactions, as the only thing revealed to the network is the fact that a valid transaction has taken place. This ensures both security and privacy in a way that is not possible with traditional digital transactions.</p>
+<blockquote>
+<p>You:<br>But it sounds very difficult and costly right? How it works?</p>
+</blockquote>
+<p>ChatGPT:<br>You’re absolutely right! Implementing zero-knowledge proofs, especially in the form of zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge), is technically challenging and can be computationally expensive. However, advances in cryptographic research have made zk-SNARKs more practical, even though they remain more resource-intensive than simpler cryptographic methods. Here’s an overview of how zk-SNARKs work and how Zcash manages these challenges:</p>
+<h3 id="How-zk-SNARKs-Work"><a href="#How-zk-SNARKs-Work" class="headerlink" title="How zk-SNARKs Work"></a>How zk-SNARKs Work</h3><ol>
+<li><p>Preprocessing and Setup (Trusted Setup): zk-SNARKs require an initial “trusted setup” phase, which involves creating cryptographic parameters that will be used to generate proofs and verify them. This step must be done carefully because, if compromised, it could allow for false proofs.</p>
+</li>
+<li><p>Prover Constructs the Proof: The prover (person initiating the transaction) constructs a zk-SNARK proof that they have the knowledge to make a valid transaction (like having sufficient balance and the right to transfer funds). This involves complex math and cryptographic operations on the transaction data without revealing the data itself.</p>
+</li>
+<li><p>Verifier Checks the Proof: The verifier (such as a miner in the blockchain) uses the zk-SNARK verification algorithm to quickly check the proof’s validity without knowing the transaction details. This verification step is fast, even though proof generation is computationally heavy.</p>
+</li>
+</ol>
+<h3 id="Overcoming-the-Costs-and-Challenges"><a href="#Overcoming-the-Costs-and-Challenges" class="headerlink" title="Overcoming the Costs and Challenges"></a>Overcoming the Costs and Challenges</h3><p>The costs primarily stem from the following:</p>
+<ul>
+<li>Computation: Generating zk-SNARK proofs is computationally intensive, requiring complex math operations. Improvements in cryptographic libraries and dedicated hardware help make this faster.</li>
+<li>Trusted Setup: The setup phase is critical and requires trusted participants; Zcash periodically performs public ceremonies with multiple independent participants to ensure this setup’s integrity.</li>
+<li>On-Chain Efficiency: zk-SNARK proofs are small in size compared to the actual data they represent, which is beneficial for blockchain storage and verification. Miners can verify proofs without needing to process or store the details, which reduces blockchain bloat.</li>
+</ul>
+<h3 id="Why-zk-SNARKs-are-Worth-It"><a href="#Why-zk-SNARKs-are-Worth-It" class="headerlink" title="Why zk-SNARKs are Worth It"></a>Why zk-SNARKs are Worth It</h3><p>Despite the costs, zk-SNARKs offer benefits that are crucial for privacy-focused applications:</p>
+<ul>
+<li>Enhanced Privacy: Users can make transactions without revealing sensitive information, addressing privacy concerns.</li>
+<li>Security: zk-SNARKs are cryptographically secure, meaning they provide strong guarantees about transaction validity while preserving privacy.</li>
+<li>Efficiency for Verifiers: Verification of zk-SNARK proofs is efficient (typically in milliseconds), allowing miners to handle these proofs without significant delays.</li>
+</ul>
+<h3 id="Recent-Advances-and-Alternatives"><a href="#Recent-Advances-and-Alternatives" class="headerlink" title="Recent Advances and Alternatives"></a>Recent Advances and Alternatives</h3><p>Research in cryptography has led to the development of alternative zero-knowledge proof systems, like zk-STARKs (Scalable Transparent Arguments of Knowledge) and Bulletproofs, which aim to address some limitations of zk-SNARKs, such as the need for trusted setups. While still computationally complex, these alternatives offer paths to reducing the overall cost and improving scalability.</p>
+<p>Overall, while zero-knowledge proofs like zk-SNARKs are complex and costly, they provide unparalleled privacy features that make them valuable in applications like Zcash and other privacy-centric systems. As cryptographic techniques evolve, these proofs are expected to become even more efficient and accessible for broader use cases.</p>
+<blockquote>
+<p>You:<br>OK, seems I need some basic knowledge of blockchain as well, please explain how blockchain works and its components</p>
+</blockquote>
+<p>ChatGPT:<br>Certainly! Blockchain is a decentralized, distributed digital ledger that securely records transactions across multiple computers. The key idea is that it enables trustless, tamper-resistant record-keeping without a central authority. Let’s break down how it works and look at its main components.</p>
+<h3 id="How-Blockchain-Works"><a href="#How-Blockchain-Works" class="headerlink" title="How Blockchain Works"></a>How Blockchain Works</h3><ol>
+<li><p>Transaction Creation: A blockchain starts when a participant initiates a transaction. For example, in a cryptocurrency network, this could be a transfer of funds from one user to another.</p>
+</li>
+<li><p>Transaction Validation: Once created, the transaction needs to be validated by the network. This is often done by a process called consensus (more on this below), where multiple participants (often called “nodes”) agree on the validity of the transaction.</p>
+</li>
+<li><p>Adding to a Block: Validated transactions are grouped into a “block.” A block is a collection of data (mainly transactions) with a unique identifier, or “hash,” which makes it distinct from other blocks.</p>
+</li>
+<li><p>Linking Blocks Together: Each block includes a reference to the previous block’s hash, linking them together chronologically to form a chain of blocks—hence, the term “blockchain.” This linking ensures that any attempt to modify a block would also require changing all subsequent blocks, which is extremely difficult to achieve.</p>
+</li>
+<li><p>Consensus Mechanism: New blocks are added to the blockchain only after reaching consensus, which is a protocol that nodes follow to agree on the block’s validity. Common consensus mechanisms include:</p>
+<ul>
+<li>Proof of Work (PoW): Used in Bitcoin, PoW requires nodes (miners) to solve complex math problems to validate transactions, which uses significant computational power.</li>
+<li>Proof of Stake (PoS): Used in networks like Ethereum 2.0, PoS selects validators based on the amount of cryptocurrency they hold, which is more energy-efficient than PoW.</li>
+</ul>
+</li>
+<li><p>Distributed Ledger: Once a block is added, it is shared across the entire network, meaning all participants hold a copy of the updated ledger. Any tampering would be noticed because it would result in a mismatch across copies.</p>
+</li>
+</ol>
+<h3 id="Key-Components-of-Blockchain"><a href="#Key-Components-of-Blockchain" class="headerlink" title="Key Components of Blockchain"></a>Key Components of Blockchain</h3><ol>
+<li><p>Blocks: Each block contains data, a timestamp, a nonce (used in PoW), a hash, and the hash of the previous block.</p>
+<ul>
+<li>Data: This usually contains the list of transactions.</li>
+<li>Hash: A cryptographic fingerprint of the block’s data. Even a small change in data drastically changes the hash.</li>
+<li>Previous Block Hash: This creates the “chain” by linking each block to the one before it.</li>
+</ul>
+</li>
+<li><p>Nodes: These are the computers in the network that store and maintain the blockchain. Nodes can be full nodes, which store a complete copy of the blockchain, or light nodes, which store only partial data.</p>
+</li>
+<li><p>Consensus Mechanism: This is the method by which the network agrees on the state of the blockchain. Consensus mechanisms prevent double-spending, resolve conflicts, and ensure that only valid transactions are recorded.</p>
+</li>
+<li><p>Cryptographic Hash Functions: These are mathematical algorithms that turn data into a fixed-size hash. Hashes are unique to their input data and make it impossible to retrieve the original data from the hash, ensuring security and data integrity.</p>
+</li>
+<li><p>Digital Signatures: Transactions are digitally signed with private keys, ensuring that only the rightful owner can authorize a transaction. This allows participants to verify that a transaction truly came from the account holder.</p>
+</li>
+<li><p>Smart Contracts (optional): Some blockchains, like Ethereum, support smart contracts. These are self-executing contracts with the terms directly written into code. They allow for automated and trustless transactions, expanding the utility of blockchain beyond simple financial transactions.</p>
+</li>
+</ol>
+<h3 id="Advantages-of-Blockchain"><a href="#Advantages-of-Blockchain" class="headerlink" title="Advantages of Blockchain"></a>Advantages of Blockchain</h3><ul>
+<li>Decentralization: There’s no central authority; data is maintained by a network of nodes, making it resistant to censorship and fraud.</li>
+<li>Transparency: Since all nodes have access to the same data, transactions are transparent and verifiable.</li>
+<li>Security: Cryptographic hashing, digital signatures, and consensus mechanisms make it very difficult to alter data or add fraudulent transactions.</li>
+<li>Immutability: Once data is recorded, it’s extremely difficult to change, providing a reliable history.</li>
+</ul>
+<h3 id="Example-Bitcoin-Blockchain"><a href="#Example-Bitcoin-Blockchain" class="headerlink" title="Example: Bitcoin Blockchain"></a>Example: Bitcoin Blockchain</h3><p>In the Bitcoin blockchain:</p>
+<ul>
+<li>When Alice wants to send 1 Bitcoin to Bob, her transaction is broadcast to the network.</li>
+<li>Miners compete in a PoW process to validate the transaction by solving a mathematical puzzle.</li>
+<li>Once a miner solves the puzzle, Alice’s transaction is bundled with others into a new block.</li>
+<li>The block is added to the blockchain, and Alice’s 1 Bitcoin is transferred to Bob.</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In essence, a blockchain is a secure, decentralized system for recording data, especially useful for transactions where trust is limited. Each component—blocks, nodes, consensus mechanisms, and cryptographic tools—works together to create a tamper-resistant and transparent ledger, enabling trustless transactions across various industries, from finance to supply chain to identity management.</p>
+<blockquote>
+<p>You:<br>OK, but how the wallet or account is initialized?</p>
+</blockquote>
+<p>ChatGPT:<br>To interact with a blockchain network, a user first needs to create a wallet or account. Wallets store the information needed to send and receive cryptocurrencies or interact with blockchain applications. Here’s how the initialization process works, along with the key steps and components involved.</p>
+<h3 id="1-Generating-a-Private-Key"><a href="#1-Generating-a-Private-Key" class="headerlink" title="1. Generating a Private Key"></a>1. Generating a Private Key</h3><p>The process begins by generating a private key—a long, randomly generated string of numbers and letters. This private key is crucial because:</p>
+<ul>
+<li>It gives the owner full control over their blockchain account or wallet.</li>
+<li>It should be kept secret; anyone with access to it can access the funds or assets associated with the wallet.</li>
+</ul>
+<p>In most blockchain systems, a private key is generated using cryptographic algorithms, such as Elliptic Curve Digital Signature Algorithm (ECDSA). This algorithm is widely used because it generates secure and relatively compact keys.</p>
+<h3 id="2-Deriving-a-Public-Key"><a href="#2-Deriving-a-Public-Key" class="headerlink" title="2. Deriving a Public Key"></a>2. Deriving a Public Key</h3><p>Once the private key is generated, a public key is derived from it using a one-way cryptographic function. The public key serves as an identifier, which others can see and use to verify the authenticity of the user’s transactions.</p>
+<ul>
+<li>The relationship between the private and public keys is asymmetric; while the public key can be derived from the private key, it’s nearly impossible to reverse the process and derive the private key from the public key.</li>
+<li>The private key is used to sign transactions, while the public key verifies the signature, ensuring that the transaction was indeed authorized by the wallet owner.</li>
+</ul>
+<h3 id="3-Generating-the-Wallet-Address"><a href="#3-Generating-the-Wallet-Address" class="headerlink" title="3. Generating the Wallet Address"></a>3. Generating the Wallet Address</h3><p>A wallet address is a shortened version of the public key, often with additional processing to improve security and readability. The exact steps for creating a wallet address vary depending on the blockchain, but a common process involves:</p>
+<ol>
+<li>Hashing the Public Key: The public key is usually hashed using algorithms like SHA-256 and RIPEMD-160. This produces a fixed-length output that serves as the basis for the wallet address.</li>
+<li>Adding Checksums: Checksums are added to detect errors and prevent address typos from leading to irreversible transactions.</li>
+<li>Encoding in a Readable Format: The address is often encoded in a format like Base58 (Bitcoin) or hexadecimal, making it shorter and easier to read and share.</li>
+</ol>
+<p>This wallet address is what users share to receive funds or interact with smart contracts.</p>
+<h3 id="4-Wallet-Initialization-in-Practice"><a href="#4-Wallet-Initialization-in-Practice" class="headerlink" title="4. Wallet Initialization in Practice"></a>4. Wallet Initialization in Practice</h3><p>When a user creates a new wallet, they typically do so through a wallet provider—software or hardware that generates and manages private keys and other wallet components. There are different types of wallets:</p>
+<ul>
+<li>Software Wallets: These are applications (like MetaMask, Trust Wallet, or the Bitcoin Core client) that generate and store private keys locally on a device. They are convenient for frequent transactions.</li>
+<li>Hardware Wallets: Physical devices like Ledger and Trezor, which store private keys offline, providing enhanced security by keeping keys out of reach from online threats.</li>
+<li>Paper Wallets: These are physical copies of the private and public keys, usually printed on paper. They’re secure from online attacks but can be lost or damaged.</li>
+</ul>
+<p>When a user initializes a wallet through one of these methods, the private key, public key, and wallet address are generated, and the user gains full control of their account on the blockchain.</p>
+<h3 id="5-Seed-Phrases-and-Recovery"><a href="#5-Seed-Phrases-and-Recovery" class="headerlink" title="5. Seed Phrases and Recovery"></a>5. Seed Phrases and Recovery</h3><p>For security and backup, most wallets also generate a seed phrase (or recovery phrase), typically a set of 12 to 24 human-readable words. This phrase is another representation of the private key, and it allows the user to recover their wallet if they lose access to the device or application storing it.</p>
+<h3 id="Example-Bitcoin-Wallet-Initialization"><a href="#Example-Bitcoin-Wallet-Initialization" class="headerlink" title="Example: Bitcoin Wallet Initialization"></a>Example: Bitcoin Wallet Initialization</h3><ol>
+<li>The Bitcoin wallet software generates a private key using a secure random number generator.</li>
+<li>A public key is derived from this private key using elliptic curve cryptography.</li>
+<li>The public key is hashed and encoded to form the Bitcoin address.</li>
+<li>The user can now receive Bitcoin at their address and sign transactions with their private key to spend it.</li>
+</ol>
+<h3 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h3><p>To initialize a wallet or account:</p>
+<ul>
+<li>Private Key: Generated first and kept secret.</li>
+<li>Public Key: Derived from the private key and used to verify ownership.</li>
+<li>Wallet Address: A shorter, shareable version derived from the public key.</li>
+</ul>
+<p>This setup allows the user to manage assets on the blockchain securely, as only the private key holder can authorize transactions, while the public key and address serve as identifiers for interactions.</p>
+<blockquote>
+<p>You:<br>OK, then how a transaction is created and the network verify one transaction?</p>
+</blockquote>
+<p>ChatGPT:<br>Creating and verifying a blockchain transaction involves several key steps, all designed to ensure that the transaction is authentic, authorized, and valid according to network rules. Here’s how it works, broken down into the main parts:</p>
+<h3 id="1-Transaction-Creation"><a href="#1-Transaction-Creation" class="headerlink" title="1. Transaction Creation"></a>1. Transaction Creation</h3><p>When a user (let’s call them Alice) wants to send funds or interact with a blockchain network (such as transferring cryptocurrency to Bob):</p>
+<ol>
+<li><p>Transaction Details: Alice’s wallet software constructs a transaction that includes:</p>
+<ul>
+<li>The sender’s address (Alice’s wallet address).</li>
+<li>The receiver’s address (Bob’s wallet address).</li>
+<li>The amount to be sent.</li>
+<li>Other data if needed, such as gas fees on Ethereum or smart contract data.</li>
+</ul>
+</li>
+<li><p>Signing the Transaction: The wallet software uses Alice’s private key to generate a digital signature for the transaction. This digital signature proves that Alice (the rightful owner of the wallet) authorized the transaction without revealing her private key. The transaction, along with the signature, is then broadcast to the blockchain network.</p>
+</li>
+</ol>
+<h3 id="2-Broadcasting-the-Transaction"><a href="#2-Broadcasting-the-Transaction" class="headerlink" title="2. Broadcasting the Transaction"></a>2. Broadcasting the Transaction</h3><p>Once signed, the transaction is broadcast to the blockchain network’s nodes, which are other computers or entities maintaining the network. These nodes receive and share the transaction with each other to ensure it reaches all parts of the network.</p>
+<h3 id="3-Validation-by-Nodes-Transaction-Verification"><a href="#3-Validation-by-Nodes-Transaction-Verification" class="headerlink" title="3. Validation by Nodes (Transaction Verification)"></a>3. Validation by Nodes (Transaction Verification)</h3><p>Each node performs several checks to verify the transaction:</p>
+<ol>
+<li><p>Digital Signature Verification: The nodes use Alice’s public key to verify the digital signature. This step confirms that the transaction was signed by someone with the corresponding private key (i.e., Alice) and was not tampered with.</p>
+</li>
+<li><p>Sufficient Balance Check: Nodes check Alice’s wallet balance to ensure she has enough funds to complete the transaction. If Alice tries to send more funds than she owns, the transaction is considered invalid and discarded.</p>
+</li>
+<li><p>Double-Spending Prevention: The nodes check to make sure that Alice isn’t trying to spend the same funds twice. Since the blockchain is a distributed ledger, previous transactions are already recorded on the chain, and nodes can verify that Alice hasn’t spent the same funds in a prior transaction.</p>
+</li>
+</ol>
+<h3 id="4-Adding-the-Transaction-to-a-Block"><a href="#4-Adding-the-Transaction-to-a-Block" class="headerlink" title="4. Adding the Transaction to a Block"></a>4. Adding the Transaction to a Block</h3><p>Once validated, the transaction goes into a pool of pending transactions (often called the mempool). From here, a miner or validator will select transactions to include in a new block.</p>
+<ol>
+<li><p>Transaction Selection: In blockchains like Bitcoin, miners prioritize transactions with higher fees, as they earn these fees as rewards for their work.</p>
+</li>
+<li><p>Proof of Work (PoW) or Proof of Stake (PoS):</p>
+<ul>
+<li>In PoW systems (like Bitcoin), miners compete to solve a complex math problem, which requires substantial computational resources.</li>
+<li>In PoS systems (like Ethereum 2.0), validators are selected based on the amount of cryptocurrency they hold and are willing to “stake” as collateral.</li>
+</ul>
+</li>
+<li><p>Block Creation: Once the miner or validator successfully validates and adds the transaction to a block, they broadcast this block to the network.</p>
+</li>
+</ol>
+<h3 id="5-Consensus-and-Block-Finalization"><a href="#5-Consensus-and-Block-Finalization" class="headerlink" title="5. Consensus and Block Finalization"></a>5. Consensus and Block Finalization</h3><p>For the new block (and the transactions within it) to be accepted by the blockchain, it must gain consensus among nodes in the network.</p>
+<ul>
+<li>Consensus Mechanism: Depending on the blockchain, nodes reach consensus using protocols like PoW, PoS, or others. Consensus ensures that all nodes agree on the state of the blockchain, preventing fraudulent or conflicting information.</li>
+<li>Appending the Block: Once consensus is reached, the new block is added to the blockchain, making the transactions within it immutable.</li>
+</ul>
+<h3 id="6-Confirming-the-Transaction"><a href="#6-Confirming-the-Transaction" class="headerlink" title="6. Confirming the Transaction"></a>6. Confirming the Transaction</h3><p>After the block containing Alice’s transaction is added to the blockchain, her transaction is considered complete. However, it usually needs a few confirmations (additional blocks added on top of it) to be fully accepted by the network, adding extra security and making it much harder for any attacker to alter the transaction.</p>
+<h3 id="Summary-of-Transaction-Verification-Steps"><a href="#Summary-of-Transaction-Verification-Steps" class="headerlink" title="Summary of Transaction Verification Steps:"></a>Summary of Transaction Verification Steps:</h3><ol>
+<li>Transaction creation: Alice’s wallet creates and signs the transaction with her private key.</li>
+<li>Broadcast: The transaction is broadcast to network nodes.</li>
+<li>Verification by nodes:<ul>
+<li>Digital signature verification.</li>
+<li>Sufficient balance check.</li>
+<li>Double-spending prevention.</li>
+</ul>
+</li>
+<li>Block inclusion: Miners or validators add the transaction to a new block.</li>
+<li>Consensus: The block is added to the blockchain after reaching consensus.</li>
+<li>Confirmation: The transaction is confirmed and considered irreversible.</li>
+</ol>
+<h3 id="Example-Bitcoin-Transaction"><a href="#Example-Bitcoin-Transaction" class="headerlink" title="Example: Bitcoin Transaction"></a>Example: Bitcoin Transaction</h3><ol>
+<li>Alice wants to send 0.1 BTC to Bob.</li>
+<li>Alice’s wallet constructs the transaction, signs it with her private key, and broadcasts it to the Bitcoin network.</li>
+<li>Nodes verify the signature, check her balance, and prevent double-spending.</li>
+<li>Miners include the transaction in a new block after solving a PoW puzzle.</li>
+<li>Other nodes verify the new block, and it’s added to the blockchain once consensus is reached.</li>
+<li>The transaction is confirmed as additional blocks are added, securing its place in the chain.</li>
+</ol>
+<p>This process allows decentralized networks like Bitcoin and Ethereum to maintain a secure, trustworthy ledger without relying on a central authority, ensuring that transactions are valid, authorized, and resistant to tampering.</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2024/11/15/Zero-Knowledge%20Proof%20and%20Blockchain/" title="Zero-Knowledge Proof and Blockchain" target="_blank" rel="external">http://philia897.github.io/2024/11/15/Zero-Knowledge Proof and Blockchain/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/11/16/Use%20MITMProxy%20for%20capturing%20Android%20traffics%20and%20a/" title="Use MITMProxy for capturing Android traffics and analyze"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/10/31/Write%20an%20application%20to%20record%20system%20resource%20usa/" title="Write an application to record system resource usage statistics"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Comparison between Tauri, Electron and GTK | 堃堃的博客 (Felix&#39;s Blog)</title>
+  <meta name="description" content="Electron and GTK4 are indeed used for building GUI applications, but they differ significantly in terms of the technology they use, their intended use cases, and their strengths. Let’s go over each">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Comparison between Tauri, Electron and GTK">
+<meta property="og:url" content="http://philia897.github.io/2024/11/22/Comparison%20between%20Tauri,%20Electron%20and%20GTK/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Electron and GTK4 are indeed used for building GUI applications, but they differ significantly in terms of the technology they use, their intended use cases, and their strengths. Let’s go over each">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-21T18:07:44.000Z">
+<meta property="article:modified_time" content="2024-11-21T18:09:07.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="chatgpt history">
+<meta property="article:tag" content="electron">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="tauri">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://philia897.github.io/2024/11/22/Comparison%20between%20Tauri,%20Electron%20and%20GTK/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://philia897.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/nanoha.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">堃堃 (Felix WANG)</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Xiangyang, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Arch-Linux/">Arch Linux</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Crhyptography/">Crhyptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cryptography/">Cryptography</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Logs/">Logs</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Operation-System/">Operation System</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/default/">default</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/developing/">developing</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hacking/">hacking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/paper-notes/">paper notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoHotKey/" rel="tag">AutoHotKey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Federated-Learning/" rel="tag">Federated Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MCTS/" rel="tag">MCTS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NAS/" rel="tag">NAS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenVPN/" rel="tag">OpenVPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PVE/" rel="tag">PVE</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ternux/" rel="tag">Ternux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VAE/" rel="tag">VAE</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VScode/" rel="tag">VScode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WSL/" rel="tag">WSL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/applications/" rel="tag">applications</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/" rel="tag">arch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/archinstall/" rel="tag">archinstall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aur/" rel="tag">aur</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backup/" rel="tag">backup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bios/" rel="tag">bios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/" rel="tag">blockchain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/" rel="tag">browser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud/" rel="tag">cloud</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cloud-storage/" rel="tag">cloud storage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/comfyUI/" rel="tag">comfyUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/competition/" rel="tag">competition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conda/" rel="tag">conda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cryptography/" rel="tag">cryptography</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debug/" rel="tag">debug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/default/" rel="tag">default</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/desktop-entry/" rel="tag">desktop entry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/encryption/" rel="tag">encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experience/" rel="tag">experience</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flatpak/" rel="tag">flatpak</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grub/" rel="tag">grub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homomorphic-encryption/" rel="tag">homomorphic encryption</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptables/" rel="tag">iptables</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kde/" rel="tag">kde</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keras/" rel="tag">keras</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kernel/" rel="tag">kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kvm/" rel="tag">kvm</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multiparty-computation/" rel="tag">multiparty computation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/networking/" rel="tag">networking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ntfs/" rel="tag">ntfs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource-project/" rel="tag">opensource project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pacman/" rel="tag">pacman</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/" rel="tag">paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paru/" rel="tag">paru</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programming/" rel="tag">programming</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qemu/" rel="tag">qemu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rclone/" rel="tag">rclone</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scheduled-task/" rel="tag">scheduled task</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/secret-sharing/" rel="tag">secret sharing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software/" rel="tag">software</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system-monitor/" rel="tag">system monitor</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tauri/" rel="tag">tauri</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/technology/" rel="tag">technology</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/threshold-cryptography/" rel="tag">threshold cryptography</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/timeshift/" rel="tag">timeshift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ufw/" rel="tag">ufw</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unlearning/" rel="tag">unlearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vaultwarden/" rel="tag">vaultwarden</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/virtualization/" rel="tag">virtualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3m/" rel="tag">w3m</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wayland/" rel="tag">wayland</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wireguard/" rel="tag">wireguard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/x11/" rel="tag">x11</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xgboost/" rel="tag">xgboost</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ydotool/" rel="tag">ydotool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag">联邦学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/AI/" style="font-size: 13px;">AI</a> <a href="/tags/Android/" style="font-size: 13px;">Android</a> <a href="/tags/AutoHotKey/" style="font-size: 13px;">AutoHotKey</a> <a href="/tags/C/" style="font-size: 13px;">C</a> <a href="/tags/Federated-Learning/" style="font-size: 13px;">Federated Learning</a> <a href="/tags/Hexo/" style="font-size: 13.14px;">Hexo</a> <a href="/tags/Jupyter/" style="font-size: 13px;">Jupyter</a> <a href="/tags/Linux/" style="font-size: 13.43px;">Linux</a> <a href="/tags/MCTS/" style="font-size: 13px;">MCTS</a> <a href="/tags/ML/" style="font-size: 13.86px;">ML</a> <a href="/tags/MySQL/" style="font-size: 13.14px;">MySQL</a> <a href="/tags/NAS/" style="font-size: 13px;">NAS</a> <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/OpenVPN/" style="font-size: 13px;">OpenVPN</a> <a href="/tags/OpenWRT/" style="font-size: 13px;">OpenWRT</a> <a href="/tags/PVE/" style="font-size: 13.14px;">PVE</a> <a href="/tags/Ternux/" style="font-size: 13px;">Ternux</a> <a href="/tags/Tmux/" style="font-size: 13px;">Tmux</a> <a href="/tags/VAE/" style="font-size: 13.29px;">VAE</a> <a href="/tags/VScode/" style="font-size: 13px;">VScode</a> <a href="/tags/WSL/" style="font-size: 13px;">WSL</a> <a href="/tags/Windows/" style="font-size: 13.14px;">Windows</a> <a href="/tags/anaconda/" style="font-size: 13px;">anaconda</a> <a href="/tags/android/" style="font-size: 13.14px;">android</a> <a href="/tags/applications/" style="font-size: 13px;">applications</a> <a href="/tags/arch/" style="font-size: 13px;">arch</a> <a href="/tags/archinstall/" style="font-size: 13px;">archinstall</a> <a href="/tags/aur/" style="font-size: 13.29px;">aur</a> <a href="/tags/backup/" style="font-size: 13.14px;">backup</a> <a href="/tags/bios/" style="font-size: 13px;">bios</a> <a href="/tags/blockchain/" style="font-size: 13px;">blockchain</a> <a href="/tags/browser/" style="font-size: 13px;">browser</a> <a href="/tags/chatgpt-history/" style="font-size: 14px;">chatgpt history</a> <a href="/tags/cloud/" style="font-size: 13px;">cloud</a> <a href="/tags/cloud-storage/" style="font-size: 13px;">cloud storage</a> <a href="/tags/comfyUI/" style="font-size: 13px;">comfyUI</a> <a href="/tags/competition/" style="font-size: 13px;">competition</a> <a href="/tags/conda/" style="font-size: 13px;">conda</a> <a href="/tags/crontab/" style="font-size: 13.14px;">crontab</a> <a href="/tags/cryptography/" style="font-size: 13.14px;">cryptography</a> <a href="/tags/debug/" style="font-size: 13px;">debug</a> <a href="/tags/debugging/" style="font-size: 13.14px;">debugging</a> <a href="/tags/default/" style="font-size: 13px;">default</a> <a href="/tags/desktop-entry/" style="font-size: 13px;">desktop entry</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/electron/" style="font-size: 13.29px;">electron</a> <a href="/tags/encryption/" style="font-size: 13px;">encryption</a> <a href="/tags/experience/" style="font-size: 13px;">experience</a> <a href="/tags/flatpak/" style="font-size: 13.14px;">flatpak</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/grub/" style="font-size: 13px;">grub</a> <a href="/tags/homomorphic-encryption/" style="font-size: 13px;">homomorphic encryption</a> <a href="/tags/iptables/" style="font-size: 13px;">iptables</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/javascript/" style="font-size: 13.14px;">javascript</a> <a href="/tags/kde/" style="font-size: 13.14px;">kde</a> <a href="/tags/keras/" style="font-size: 13.14px;">keras</a> <a href="/tags/kernel/" style="font-size: 13px;">kernel</a> <a href="/tags/kvm/" style="font-size: 13.14px;">kvm</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/multiparty-computation/" style="font-size: 13px;">multiparty computation</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/networking/" style="font-size: 13px;">networking</a> <a href="/tags/npm/" style="font-size: 13px;">npm</a> <a href="/tags/ntfs/" style="font-size: 13px;">ntfs</a> <a href="/tags/opensource-project/" style="font-size: 13px;">opensource project</a> <a href="/tags/pacman/" style="font-size: 13.43px;">pacman</a> <a href="/tags/paper/" style="font-size: 13px;">paper</a> <a href="/tags/paru/" style="font-size: 13px;">paru</a> <a href="/tags/programming/" style="font-size: 13.57px;">programming</a> <a href="/tags/python/" style="font-size: 13.71px;">python</a> <a href="/tags/pytorch/" style="font-size: 13.29px;">pytorch</a> <a href="/tags/qemu/" style="font-size: 13.14px;">qemu</a> <a href="/tags/rclone/" style="font-size: 13.14px;">rclone</a> <a href="/tags/rust/" style="font-size: 13px;">rust</a> <a href="/tags/scheduled-task/" style="font-size: 13px;">scheduled task</a> <a href="/tags/secret-sharing/" style="font-size: 13px;">secret sharing</a> <a href="/tags/software/" style="font-size: 13px;">software</a> <a href="/tags/system/" style="font-size: 13.29px;">system</a> <a href="/tags/system-monitor/" style="font-size: 13.29px;">system monitor</a> <a href="/tags/tauri/" style="font-size: 13px;">tauri</a> <a href="/tags/technology/" style="font-size: 13px;">technology</a> <a href="/tags/tensorflow/" style="font-size: 13px;">tensorflow</a> <a href="/tags/threshold-cryptography/" style="font-size: 13px;">threshold cryptography</a> <a href="/tags/timeshift/" style="font-size: 13px;">timeshift</a> <a href="/tags/ufw/" style="font-size: 13px;">ufw</a> <a href="/tags/unlearning/" style="font-size: 13px;">unlearning</a> <a href="/tags/vaultwarden/" style="font-size: 13px;">vaultwarden</a> <a href="/tags/virtualization/" style="font-size: 13px;">virtualization</a> <a href="/tags/w3m/" style="font-size: 13px;">w3m</a> <a href="/tags/wayland/" style="font-size: 13.43px;">wayland</a> <a href="/tags/wireguard/" style="font-size: 13px;">wireguard</a> <a href="/tags/x11/" style="font-size: 13.14px;">x11</a> <a href="/tags/xgboost/" style="font-size: 13px;">xgboost</a> <a href="/tags/ydotool/" style="font-size: 13px;">ydotool</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 13.29px;">大创</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13px;">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 13px;">联邦学习</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">读书笔记</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" style="font-size: 13.14px;">阿里云</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/26/Frontend%20scrollbar%20errors/" class="title">Frontend scrollbar errors</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-26T06:41:14.000Z" itemprop="datePublished">2025-02-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Test-Pro/" class="title">Test Pro</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T07:16:20.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cryptography/">Cryptography</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/25/Cryptography%20Learning/" class="title">Cryptography Learning</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-25T02:11:07.000Z" itemprop="datePublished">2025-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/developing/">developing</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/16/npm%20vs%20Yarn%20vs%20Deno%20vs%20Bun/" class="title">npm vs Yarn vs Deno vs Bun</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-15T19:12:54.000Z" itemprop="datePublished">2025-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/01/09/Binding%20ip%20address%20v.s.%20firewall%20rules/" class="title">Binding ip address v.s. firewall rules</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-01-08T22:33:15.000Z" itemprop="datePublished">2025-01-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Comparison between Tauri, Electron and GTK" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Comparison between Tauri, Electron and GTK
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/11/22/Comparison%20between%20Tauri,%20Electron%20and%20GTK/" class="article-date">
+	  <time datetime="2024-11-21T18:07:44.000Z" itemprop="datePublished">2024-11-22</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/developing/">developing</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/chatgpt-history/" rel="tag">chatgpt history</a>, <a class="article-tag-link-link" href="/tags/electron/" rel="tag">electron</a>, <a class="article-tag-link-link" href="/tags/programming/" rel="tag">programming</a>, <a class="article-tag-link-link" href="/tags/tauri/" rel="tag">tauri</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/11/22/Comparison%20between%20Tauri,%20Electron%20and%20GTK/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 1.6k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 9(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <span id="more"></span>
+
+<p><strong>Electron</strong> and <strong>GTK4</strong> are indeed used for building GUI applications, but they differ significantly in terms of the technology they use, their intended use cases, and their strengths. Let’s go over each of them and then compare their use cases.</p>
+<hr>
+<h3 id="Electron"><a href="#Electron" class="headerlink" title="Electron"></a><strong>Electron</strong></h3><p><strong>What it is</strong>: Electron is a framework for building <strong>cross-platform desktop applications</strong> with web technologies—primarily <strong>JavaScript, HTML, and CSS</strong>. It was developed by GitHub and combines the <strong>Chromium browser</strong> (to render web content) with <strong>Node.js</strong> (for backend functionality), which allows developers to create applications that feel and behave like native apps.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li><strong>Cross-platform</strong>: Works on Windows, macOS, and Linux without needing to rewrite code for each OS.</li>
+<li><strong>Single Technology Stack</strong>: Allows web developers to use familiar tools and languages (JavaScript, HTML, CSS) to create desktop applications.</li>
+<li><strong>Wide ecosystem</strong>: Has a huge ecosystem of libraries and modules due to its Node.js and web roots.</li>
+<li><strong>Auto-Updating</strong>: Electron supports auto-updates, which makes it easy to push updates to users.</li>
+<li><strong>Access to System APIs</strong>: Provides access to native features (file system, notifications, clipboard) through Node.js and Electron APIs.</li>
+</ul>
+<p><strong>Popular Apps Built with Electron</strong>: Examples include <strong>Slack, Visual Studio Code, Discord,</strong> and <strong>Spotify Desktop</strong>.</p>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li><strong>Cross-Platform Support</strong>: Write once, run anywhere—ideal for applications targeting multiple operating systems.</li>
+<li><strong>Rapid Development</strong>: Electron leverages web development, which means faster prototyping and a wider talent pool (JavaScript developers).</li>
+<li><strong>Consistent UI</strong>: The Chromium renderer ensures that the UI looks the same across all supported platforms.</li>
+</ul>
+<p><strong>Considerations</strong>:</p>
+<ul>
+<li><strong>High Resource Usage</strong>: Because each Electron app runs a full instance of Chromium, Electron apps often consume more RAM and disk space than native applications.</li>
+<li><strong>Larger Bundle Sizes</strong>: The Chromium and Node.js dependencies add to the application size.</li>
+</ul>
+<hr>
+<h3 id="GTK4"><a href="#GTK4" class="headerlink" title="GTK4"></a><strong>GTK4</strong></h3><p><strong>What it is</strong>: GTK4 (GIMP Toolkit version 4) is a <strong>cross-platform GUI toolkit</strong> primarily used for <strong>native applications</strong> in Linux but also supports Windows and macOS. It is written in <strong>C</strong> but has bindings for many languages (e.g., Python, Rust, and C++). GTK4 powers <strong>GNOME</strong> applications and is often chosen for creating applications that integrate well with the GNOME desktop environment.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li><strong>Native Look and Feel</strong>: GTK4 applications have a native UI on Linux (particularly GNOME), and with additional effort, can integrate well with Windows and macOS.</li>
+<li><strong>Advanced Graphics</strong>: GTK4 introduces better rendering and animation support compared to GTK3, with Vulkan and OpenGL support for hardware-accelerated graphics.</li>
+<li><strong>Customizable Widgets</strong>: Provides a wide range of widgets with theme and style customization through CSS-like styling.</li>
+<li><strong>Internationalization Support</strong>: GTK has built-in support for right-to-left text, accessibility, and other internationalization features.</li>
+</ul>
+<p><strong>Popular Apps Built with GTK4</strong>: Examples include GNOME’s <strong>Files</strong> (file manager), <strong>Gedit</strong> (text editor), and <strong>Inkscape</strong> (vector graphics editor).</p>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li><strong>Performance</strong>: As a native toolkit, GTK4 applications are often more efficient and use fewer resources than Electron apps.</li>
+<li><strong>Integration</strong>: GTK4 integrates seamlessly with GNOME and other Linux desktop environments and can match the native OS appearance better than Electron.</li>
+<li><strong>Low-Level Control</strong>: Since it is closer to the OS and written in C, developers have more control over performance and system resources.</li>
+</ul>
+<p><strong>Considerations</strong>:</p>
+<ul>
+<li><strong>Platform-Specific</strong>: While GTK4 supports cross-platform development, the setup and code changes can be more complex on Windows and macOS.</li>
+<li><strong>Smaller Developer Community</strong>: Compared to Electron, GTK’s developer ecosystem is smaller, which can impact support and community resources for certain languages.</li>
+<li><strong>Not Web-Based</strong>: Developers must work with more complex languages and frameworks, which requires different skills than web development.</li>
+</ul>
+<hr>
+<h3 id="Comparison-Electron-vs-GTK4"><a href="#Comparison-Electron-vs-GTK4" class="headerlink" title="Comparison: Electron vs. GTK4"></a><strong>Comparison: Electron vs. GTK4</strong></h3><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><strong>Electron</strong></th>
+<th><strong>GTK4</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Programming Language</strong></td>
+<td>JavaScript, HTML, CSS (or TypeScript)</td>
+<td>C, with bindings for Python, Rust, C++, etc.</td>
+</tr>
+<tr>
+<td><strong>Cross-Platform</strong></td>
+<td>Yes, with a single codebase</td>
+<td>Yes, but more Linux-centric, with additional work on Windows&#x2F;macOS</td>
+</tr>
+<tr>
+<td><strong>Look and Feel</strong></td>
+<td>Consistent across platforms (web-based UI)</td>
+<td>Native look and feel on Linux; can be adapted for Windows&#x2F;macOS</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Higher resource consumption (Chromium overhead)</td>
+<td>More lightweight, lower resource usage</td>
+</tr>
+<tr>
+<td><strong>Ease of Development</strong></td>
+<td>Easier for web developers</td>
+<td>More complex, but gives fine-grained control</td>
+</tr>
+<tr>
+<td><strong>Ecosystem</strong></td>
+<td>Large ecosystem and community</td>
+<td>Smaller, but with deep Linux integration</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>Cross-platform applications (e.g., Slack, VS Code)</td>
+<td>Linux&#x2F;GNOME applications, performance-sensitive desktop apps</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="When-to-Use-Each"><a href="#When-to-Use-Each" class="headerlink" title="When to Use Each"></a><strong>When to Use Each</strong></h3><ul>
+<li><p><strong>Use Electron</strong> if you:</p>
+<ul>
+<li>Need a single codebase that runs across all platforms.</li>
+<li>Have a team skilled in web development and want to leverage JavaScript or TypeScript.</li>
+<li>Are developing an app where consistent UI across platforms is more important than native integration.</li>
+</ul>
+</li>
+<li><p><strong>Use GTK4</strong> if you:</p>
+<ul>
+<li>Are targeting Linux and want native integration, especially on GNOME.</li>
+<li>Need a lightweight application with better performance.</li>
+<li>Have a use case that benefits from lower-level access and control over system resources (e.g., a performance-sensitive app).</li>
+</ul>
+</li>
+</ul>
+<p>Both Electron and GTK4 are powerful for building GUIs, but they cater to different types of projects and development environments. <strong>Electron</strong> is often chosen for <strong>cross-platform</strong> compatibility and faster prototyping, while <strong>GTK4</strong> is preferred for applications that need <strong>native integration</strong> and <strong>efficiency</strong>.</p>
+<blockquote>
+<p>What about Tauri, is it a even better choice for developing GUI application?</p>
+</blockquote>
+<p>Yes, <strong>Tauri</strong> is becoming an increasingly popular choice for developing <strong>lightweight, cross-platform desktop applications</strong>. It combines some of the best features of Electron and native development while reducing resource usage. Here’s how it compares and why it might be a good choice for certain projects.</p>
+<hr>
+<h3 id="What-is-Tauri"><a href="#What-is-Tauri" class="headerlink" title="What is Tauri?"></a><strong>What is Tauri?</strong></h3><p>Tauri is a framework for building <strong>cross-platform desktop applications</strong> using <strong>web technologies</strong> (HTML, CSS, JavaScript&#x2F;TypeScript) combined with a <strong>Rust backend</strong>. Like Electron, Tauri uses a web renderer to display the user interface. However, instead of bundling Chromium, it leverages the platform’s <strong>native webview</strong> (like WebView2 on Windows, WKWebView on macOS, and WebKitGTK on Linux). This approach allows Tauri to offer a much <strong>lighter, more resource-efficient</strong> alternative to Electron.</p>
+<h3 id="Key-Features-of-Tauri"><a href="#Key-Features-of-Tauri" class="headerlink" title="Key Features of Tauri"></a><strong>Key Features of Tauri</strong></h3><ul>
+<li><strong>Lightweight and Low Resource Usage</strong>: Tauri apps have a small binary size (often under 10 MB) and consume fewer system resources since they don’t bundle a Chromium instance.</li>
+<li><strong>Native Webview</strong>: By using the system’s native webview, Tauri achieves a more native look and feel and reduces memory and CPU usage.</li>
+<li><strong>Rust Backend</strong>: Tauri applications use Rust to handle backend logic, which is performant and allows for safe, fast, low-level operations.</li>
+<li><strong>Security Focus</strong>: Tauri prioritizes security with isolation between the webview and the backend, and it allows fine-grained control over the permissions an application needs.</li>
+<li><strong>Cross-Platform</strong>: Supports Windows, macOS, and Linux, like Electron and GTK4.</li>
+</ul>
+<h3 id="Advantages-of-Tauri"><a href="#Advantages-of-Tauri" class="headerlink" title="Advantages of Tauri"></a><strong>Advantages of Tauri</strong></h3><ol>
+<li><strong>Reduced Resource Usage</strong>: Since Tauri doesn’t bundle Chromium, it’s much lighter on memory and CPU.</li>
+<li><strong>Smaller Bundle Sizes</strong>: The resulting application bundles are smaller, often under 10 MB, making them more lightweight than Electron apps.</li>
+<li><strong>Modern Rust Backend</strong>: Rust offers better memory safety and performance than JavaScript, and Tauri makes use of Rust for backend operations.</li>
+<li><strong>Security</strong>: Tauri’s security model isolates the frontend and backend, reducing risks associated with cross-site scripting (XSS) attacks and other vulnerabilities.</li>
+<li><strong>Native-Like Performance</strong>: Using the native webview provides a better native experience and faster UI load times.</li>
+<li><strong>Access to System APIs</strong>: Rust allows deeper integration with the OS compared to Electron, which relies on Node.js.</li>
+</ol>
+<h3 id="Limitations-of-Tauri"><a href="#Limitations-of-Tauri" class="headerlink" title="Limitations of Tauri"></a><strong>Limitations of Tauri</strong></h3><ul>
+<li><strong>Webview Compatibility</strong>: While using the native webview reduces overhead, it also means that features and compatibility depend on the version of the webview provided by the OS, which may vary.</li>
+<li><strong>Rust Requirement</strong>: Tauri requires Rust for backend development, which has a learning curve if you or your team are unfamiliar with it.</li>
+<li><strong>Limited Ecosystem Compared to Electron</strong>: Electron’s larger ecosystem and community mean more plugins, integrations, and established resources for development.</li>
+</ul>
+<h3 id="Comparison-Tauri-vs-Electron-vs-GTK4"><a href="#Comparison-Tauri-vs-Electron-vs-GTK4" class="headerlink" title="Comparison: Tauri vs. Electron vs. GTK4"></a><strong>Comparison: Tauri vs. Electron vs. GTK4</strong></h3><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><strong>Tauri</strong></th>
+<th><strong>Electron</strong></th>
+<th><strong>GTK4</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Programming Language</strong></td>
+<td>JavaScript&#x2F;TypeScript (UI) + Rust (backend)</td>
+<td>JavaScript&#x2F;TypeScript</td>
+<td>C, with bindings for Python, Rust, C++, etc.</td>
+</tr>
+<tr>
+<td><strong>Cross-Platform</strong></td>
+<td>Yes, using native webview</td>
+<td>Yes, using bundled Chromium</td>
+<td>Yes, but mainly Linux-focused</td>
+</tr>
+<tr>
+<td><strong>Binary Size</strong></td>
+<td>Small (~10 MB)</td>
+<td>Large (~50–100 MB, depending on Chromium)</td>
+<td>Small to moderate</td>
+</tr>
+<tr>
+<td><strong>Resource Usage</strong></td>
+<td>Lower memory and CPU usage</td>
+<td>Higher resource consumption (due to Chromium)</td>
+<td>Lower resource usage than both Tauri and Electron</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Strong, Rust isolation and security features</td>
+<td>Moderate, sandboxed but still large attack surface</td>
+<td>Strong, relies on system-level security</td>
+</tr>
+<tr>
+<td><strong>Ecosystem</strong></td>
+<td>Growing, Rust libraries but smaller than Electron</td>
+<td>Large ecosystem with many plugins and tools</td>
+<td>Smaller, focused on GNOME&#x2F;Linux</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>Lightweight apps, cross-platform, secure apps</td>
+<td>Apps with consistent UI across all platforms</td>
+<td>Native Linux applications, performance-sensitive apps</td>
+</tr>
+</tbody></table>
+<h3 id="When-to-Use-Tauri"><a href="#When-to-Use-Tauri" class="headerlink" title="When to Use Tauri"></a><strong>When to Use Tauri</strong></h3><ul>
+<li><strong>Lightweight Apps</strong>: If you need a small and efficient application without the resource overhead of Electron, Tauri is ideal.</li>
+<li><strong>Performance-Sensitive Applications</strong>: Tauri’s reliance on Rust allows for performance and safety improvements that can be crucial for certain applications.</li>
+<li><strong>Security-Conscious Applications</strong>: With its strong security model and the Rust backend, Tauri is an excellent choice for applications requiring higher security.</li>
+<li><strong>Cross-Platform Support with Native Feel</strong>: Tauri leverages the native webview, providing a UI that adapts well to each OS.</li>
+</ul>
+<h3 id="Conclusion-Is-Tauri-a-Better-Choice"><a href="#Conclusion-Is-Tauri-a-Better-Choice" class="headerlink" title="Conclusion: Is Tauri a Better Choice?"></a><strong>Conclusion: Is Tauri a Better Choice?</strong></h3><p><strong>Tauri</strong> is a compelling choice for developers who want a <strong>cross-platform</strong> desktop application with <strong>low resource usage</strong> and <strong>small bundle size</strong>. It’s particularly attractive if you’re comfortable working with Rust or have security and performance requirements that make Electron less appealing. </p>
+<p>That said, if your team has deep JavaScript experience, you need a larger ecosystem, or don’t mind the higher resource usage, <strong>Electron</strong> might still be a more convenient choice. For <strong>Linux&#x2F;GNOME-focused</strong> native applications, <strong>GTK4</strong> remains the top option.</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://philia897.github.io/2024/11/22/Comparison%20between%20Tauri,%20Electron%20and%20GTK/" title="Comparison between Tauri, Electron and GTK" target="_blank" rel="external">http://philia897.github.io/2024/11/22/Comparison between Tauri, Electron and GTK/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://philia897.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/nanoha.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://philia897.github.io" target="_blank"><span class="text-dark">堃堃 (Felix WANG)</span><small class="ml-1x"></small></a></h3>
+        <div>一个热爱生活和技术的人(A guy who loves life and technology)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/12/03/Reconcile%20or%20reconciliation/" title="Reconcile or reconciliation"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/11/16/Use%20MITMProxy%20for%20capturing%20Android%20traffics%20and%20a/" title="Use MITMProxy for capturing Android traffics and analyze"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/philia897" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
